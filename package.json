@@ -1,0 +1,22 @@
+{
+  "name": "softwaredesignpruefung",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaninacpB/SoftwaredesignPruefung.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaninacpB/SoftwaredesignPruefung/issues"
+  },
+  "homepage": "https://github.com/JaninacpB/SoftwaredesignPruefung#readme",
+  "dependencies": {
+    "typescript": "^4.3.4"
+  }
+}
