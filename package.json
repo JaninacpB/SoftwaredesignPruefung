@@ -2,8 +2,9 @@
   "name": "softwaredesignpruefung",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/Main.js",
   "scripts": {
+    "start": "tsc && node build/Main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,13 @@
   },
   "homepage": "https://github.com/JaninacpB/SoftwaredesignPruefung#readme",
   "dependencies": {
-    "typescript": "^4.3.4"
+    "node-fetch": "^2.6.1",
+    "prompts": "^2.4.1",
+    "typescript": "^4.3.4",
+    "wait": "^0.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.4",
+    "@types/node-fetch": "^2.5.10"
   }
 }
