@@ -39,115 +39,149 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var node_fetch_1 = __importDefault(require("node-fetch"));
 var wait_1 = __importDefault(require("wait"));
-//import fetch from 'node-fetch';
-var Adventuria;
-(function (Adventuria) {
-    var Main = /** @class */ (function () {
-        function Main() {
-            this.startMenu();
-            this.getJsonFile();
-        }
-        Main.prototype.getJsonFile = function () {
-            var ja = node_fetch_1.default('Adventure.json')
-                .then(function (response) {
-                console.log(response);
-                return response.json;
+var UnregisteredUser_1 = require("./UnregisteredUser");
+var Main = /** @class */ (function () {
+    function Main() {
+        this.startMenu();
+        this.getJsonFile();
+    }
+    Main.prototype.getJsonFile = function () {
+        var fs = require('fs');
+        var rawdata = fs.readFileSync('users.json');
+        var users = JSON.parse(rawdata);
+        console.log(users);
+    };
+    Main.prototype.startMenu = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var adventuriaArt, maximusArt, timeToWait, prompts;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        adventuriaArt = [
+                            "_____   _             _           _               ____      _        _____        _      _____   _             _               ",
+                            "|  _  |_| |_ _ ___ ___| |_ _ _ ___|_|___    ___   |    \\ ___|_|___   |_   ____ _ _| |_   |  _  |_| |_ _ ___ ___| |_ _ _ ___ ___ ",
+                            "|     | . | | | -_|   |  _| | |  _| | .'|  |___|  |  |  | -_| |   |    | || -_|_'_|  _|  |     | . | | | -_|   |  _| | |  _| -_|",
+                            "|__|__|___|\\_/|___|_|_|_| |___|_| |_|__,|         |____/|___|_|_|_|    |_||___|_,_|_|    |__|__|___|\\_/|___|_|_|_| |___|_| |___|"
+                        ];
+                        maximusArt = [
+                            "                    ____ ",
+                            "                  .'* *.'",
+                            "               __/_*_*(_",
+                            "              / _______ \\",
+                            "             _\\_)/___\\(_/_ ",
+                            "            / _((\\- -/))_ \\",
+                            "            \\ \\())(-)(()/ /",
+                            "             ' \\(((()))/ '",
+                            "            / ' \\)).))/ ' \\",
+                            "           / _ \\ - | - /_  \\",
+                            "          (   ( .;''';. .'  )",
+                            "          _\\ __ /    )\\ __ /_",
+                            "            \\/  \   ' /  \\/",
+                            "             .'  '...' ' )",
+                            "              / /  |  \\ \\",
+                            "             / .   .   . \\",
+                            "            /   .     .   \\"
+                        ];
+                        timeToWait = 200;
+                        this.loadAsciiArtRed(timeToWait, adventuriaArt);
+                        return [4 /*yield*/, wait_1.default(timeToWait * (adventuriaArt.length + 1))];
+                    case 1:
+                        _a.sent();
+                        this.loadAsciiArt(timeToWait, maximusArt);
+                        prompts = require('prompts');
+                        return [4 /*yield*/, wait_1.default(timeToWait * (maximusArt.length + 1))];
+                    case 2:
+                        _a.sent();
+                        (function () { return __awaiter(_this, void 0, void 0, function () {
+                            var startScreen, unregisteredUser;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, prompts([
+                                            {
+                                                type: 'select',
+                                                name: 'value',
+                                                message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
+                                                choices: [
+                                                    { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: '0' },
+                                                    { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: '1' },
+                                                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht aller Abendteuer anzeigen)"', value: '2' },
+                                                    { title: '"Gut ein anderes Gesicht zu sehen. Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: '3' }
+                                                ],
+                                                initial: 0
+                                            }
+                                        ])];
+                                    case 1:
+                                        startScreen = _a.sent();
+                                        console.log(startScreen);
+                                        switch (startScreen.value) {
+                                            case '0':
+                                                break;
+                                            case '1':
+                                                console.log('Case1');
+                                                unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
+                                                unregisteredUser.getUserData();
+                                                break;
+                                            case '2':
+                                                break;
+                                        }
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); })();
+                        return [2 /*return*/];
+                }
             });
-            console.log(ja);
-        };
-        Main.prototype.startMenu = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var adventuriaArt, maximusArt, timeToWait, prompts;
-                var _this = this;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            adventuriaArt = ["_____   _             _           _               ____      _        _____        _      _____   _             _               ",
-                                "|  _  |_| |_ _ ___ ___| |_ _ _ ___|_|___    ___   |    \\ ___|_|___   |_   ____ _ _| |_   |  _  |_| |_ _ ___ ___| |_ _ _ ___ ___ ",
-                                "|     | . | | | -_|   |  _| | |  _| | .'|  |___|  |  |  | -_| |   |    | || -_|_'_|  _|  |     | . | | | -_|   |  _| | |  _| -_|",
-                                "|__|__|___|\\_/|___|_|_|_| |___|_| |_|__,|         |____/|___|_|_|_|    |_||___|_,_|_|    |__|__|___|\\_/|___|_|_|_| |___|_| |___|"];
-                            maximusArt = ["                    ____ ",
-                                "                  .'* *.'",
-                                "               __/_*_*(_",
-                                "              / _______ \\",
-                                "             _\\_)/___\\(_/_ ",
-                                "            / _((\\- -/))_ \\",
-                                "            \\ \\())(-)(()/ /",
-                                "             ' \\(((()))/ '",
-                                "            / ' \\)).))/ ' \\",
-                                "           / _ \\ - | - /_  \\",
-                                "          (   ( .;''';. .'  )",
-                                "          _\\ __ /    )\\ __ /_",
-                                "            \\/  \   ' /  \\/",
-                                "             .'  '...' ' )",
-                                "              / /  |  \\ \\",
-                                "             / .   .   . \\",
-                                "            /   .     .   \\"];
-                            timeToWait = 200;
-                            this.loadAsciiArt(timeToWait, adventuriaArt);
-                            return [4 /*yield*/, wait_1.default(timeToWait * (adventuriaArt.length + 1))];
-                        case 1:
-                            _a.sent();
-                            this.loadAsciiArt(timeToWait, maximusArt);
-                            prompts = require('prompts');
-                            return [4 /*yield*/, wait_1.default(timeToWait * (maximusArt.length + 1))];
-                        case 2:
-                            _a.sent();
-                            (function () { return __awaiter(_this, void 0, void 0, function () {
-                                var startScreen;
-                                return __generator(this, function (_a) {
-                                    switch (_a.label) {
-                                        case 0: return [4 /*yield*/, prompts([
-                                                {
-                                                    type: 'select',
-                                                    name: 'value',
-                                                    message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
-                                                    choices: [
-                                                        { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: '0' },
-                                                        { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: '1' },
-                                                        { title: '"Nein."(Ohne Anmeldung weitergehen)', value: '2' }
-                                                    ],
-                                                    initial: 0
-                                                }
-                                            ])];
-                                        case 1:
-                                            startScreen = _a.sent();
-                                            console.log(startScreen);
-                                            return [2 /*return*/];
-                                    }
-                                });
-                            }); })();
-                            return [2 /*return*/];
-                    }
-                });
+        });
+    };
+    Main.prototype.loadAsciiArt = function (timeToWaitInMs, asciiArt) {
+        return __awaiter(this, void 0, void 0, function () {
+            var i;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        i = 0;
+                        _a.label = 1;
+                    case 1:
+                        if (!(i < asciiArt.length)) return [3 /*break*/, 4];
+                        console.log(asciiArt[i]);
+                        return [4 /*yield*/, wait_1.default(timeToWaitInMs)];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        i++;
+                        return [3 /*break*/, 1];
+                    case 4: return [2 /*return*/];
+                }
             });
-        };
-        Main.prototype.loadAsciiArt = function (timeToWaitInMs, asciiArt) {
-            return __awaiter(this, void 0, void 0, function () {
-                var i;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            i = 0;
-                            _a.label = 1;
-                        case 1:
-                            if (!(i < asciiArt.length)) return [3 /*break*/, 4];
-                            console.log(asciiArt[i]);
-                            return [4 /*yield*/, wait_1.default(timeToWaitInMs)];
-                        case 2:
-                            _a.sent();
-                            _a.label = 3;
-                        case 3:
-                            i++;
-                            return [3 /*break*/, 1];
-                        case 4: return [2 /*return*/];
-                    }
-                });
+        });
+    };
+    Main.prototype.loadAsciiArtRed = function (timeToWaitInMs, asciiArt) {
+        return __awaiter(this, void 0, void 0, function () {
+            var chalk, i;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        chalk = require('chalk');
+                        i = 0;
+                        _a.label = 1;
+                    case 1:
+                        if (!(i < asciiArt.length)) return [3 /*break*/, 4];
+                        console.log(chalk.bgRed(asciiArt[i]));
+                        return [4 /*yield*/, wait_1.default(timeToWaitInMs)];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        i++;
+                        return [3 /*break*/, 1];
+                    case 4: return [2 /*return*/];
+                }
             });
-        };
-        return Main;
-    }());
-    new Main();
-})(Adventuria || (Adventuria = {}));
+        });
+    };
+    return Main;
+}());
+new Main();
