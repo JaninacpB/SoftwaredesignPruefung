@@ -3,8 +3,8 @@ import { UnregisteredUser } from './UnregisteredUser';
 
 class Main {
   constructor() {
-    this.startMenu();
     this.getJsonFile();
+    this.startMenu();
   }
 
   getJsonFile() {
@@ -18,7 +18,7 @@ class Main {
   private async startMenu() {
 
     let adventuriaArt = [
-      "_____   _             _           _               ____      _        _____        _      _____   _             _               ",
+      " _____   _             _           _               ____      _        _____        _      _____   _             _               ",
       "|  _  |_| |_ _ ___ ___| |_ _ _ ___|_|___    ___   |    \\ ___|_|___   |_   ____ _ _| |_   |  _  |_| |_ _ ___ ___| |_ _ _ ___ ___ ",
       "|     | . | | | -_|   |  _| | |  _| | .'|  |___|  |  |  | -_| |   |    | || -_|_'_|  _|  |     | . | | | -_|   |  _| | |  _| -_|",
       "|__|__|___|\\_/|___|_|_|_| |___|_| |_|__,|         |____/|___|_|_|_|    |_||___|_,_|_|    |__|__|___|\\_/|___|_|_|_| |___|_| |___|"
@@ -55,7 +55,7 @@ class Main {
         {
           type: 'select',
           name: 'value',
-          message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
+          message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
           choices: [
             { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: '0' },
             { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: '1' },
@@ -70,7 +70,6 @@ class Main {
         case '0':
           break;
         case '1':
-          console.log('Case1');
           let unregisteredUser: UnregisteredUser = new UnregisteredUser();
           unregisteredUser.getUserData();
           break;

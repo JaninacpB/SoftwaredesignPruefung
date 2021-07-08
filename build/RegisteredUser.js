@@ -36,67 +36,41 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UnregisteredUser = void 0;
-var RegisteredUser_1 = require("./RegisteredUser");
-var UnregisteredUser = /** @class */ (function () {
-    function UnregisteredUser() {
+exports.RegisteredUser = void 0;
+var RegisteredUser = /** @class */ (function () {
+    //todo: wenn hier mehr dazu kommt auf Reihenfolge achten, sonst regestieren falsch
+    function RegisteredUser(username, password, id) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
     }
-    UnregisteredUser.prototype.getUserData = function () {
-        var _this = this;
-        var chalk = require('chalk');
-        console.log(chalk.bgBlue('\n Türschwelle (Sign Up) \n'));
-        var prompts = require('prompts');
-        (function () { return __awaiter(_this, void 0, void 0, function () {
-            var logIn, registeredUser;
-            var _this = this;
+    RegisteredUser.prototype.navigateMenu = function () {
+    };
+    RegisteredUser.prototype.saveToJSON = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var fs, rawdata, users, fsBack, jsonData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, prompts([
-                            {
-                                type: 'text',
-                                name: 'username',
-                                message: '"Unter welchen Namen kennt man deine Gestalt?"',
-                                // todo: Username exist and is not valid different message
-                                // note: no \n in error message or bug
-                                validate: function (value) { return _this.checkUsername(value) ? true :
-                                    "Oh verzeih mir, aber ich kann leider nur Alphanumerische Werte mit dieser Feder schreiben, bitte versuch es noch einmal (Korrigiere Eingabe so, dass nur a-z und Zahlen im Nutzernmane stehen, keine doppelten Usernames erlaubt)"; }
-                            },
-                            {
-                                type: 'password',
-                                name: 'password',
-                                message: '"Schön dich kennenzulernen. Doch sei vorsichtig, Gestaltwandler treiben ihr unwesen. \n Lass uns ein Codewort vereinbaren, nur um sicher zu sein (Password eingeben)"'
-                            }
-                        ])];
+                    case 0:
+                        fs = require('fs');
+                        rawdata = fs.readFileSync('users.json');
+                        users = JSON.parse(rawdata);
+                        this.id = this.generateId(users[users.length - 1].id);
+                        users.push(this);
+                        fsBack = require('fs').promises;
+                        jsonData = JSON.stringify(users);
+                        return [4 /*yield*/, fsBack.writeFile('users.json', jsonData)];
                     case 1:
-                        logIn = _a.sent();
-                        registeredUser = new RegisteredUser_1.RegisteredUser(logIn.username, logIn.password, 0);
-                        registeredUser.saveToJSON();
-                        registeredUser.navigateMenu();
+                        _a.sent();
                         return [2 /*return*/];
                 }
             });
-        }); })();
+        });
     };
-    UnregisteredUser.prototype.checkUsername = function (_username) {
-        var valid = false;
-        // Alphanumeric check
-        if (_username.match('^[a-zA-Z0-9]*$') != null) {
-            valid = true;
-        }
-        else {
-            return valid;
-        }
-        // check if Username already exists 
-        var fs = require('fs');
-        var rawdata = fs.readFileSync('users.json');
-        var users = JSON.parse(rawdata);
-        for (var i = 0; i < users.length; i++) {
-            if (users[i].username === _username) {
-                return false;
-            }
-        }
-        return valid;
+    // todo: useless?
+    RegisteredUser.prototype.generateId = function (_lastID) {
+        return _lastID + 1;
     };
-    return UnregisteredUser;
+    return RegisteredUser;
 }());
-exports.UnregisteredUser = UnregisteredUser;
+exports.RegisteredUser = RegisteredUser;

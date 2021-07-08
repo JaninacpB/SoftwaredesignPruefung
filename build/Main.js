@@ -43,8 +43,8 @@ var wait_1 = __importDefault(require("wait"));
 var UnregisteredUser_1 = require("./UnregisteredUser");
 var Main = /** @class */ (function () {
     function Main() {
-        this.startMenu();
         this.getJsonFile();
+        this.startMenu();
     }
     Main.prototype.getJsonFile = function () {
         var fs = require('fs');
@@ -60,7 +60,7 @@ var Main = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         adventuriaArt = [
-                            "_____   _             _           _               ____      _        _____        _      _____   _             _               ",
+                            " _____   _             _           _               ____      _        _____        _      _____   _             _               ",
                             "|  _  |_| |_ _ ___ ___| |_ _ _ ___|_|___    ___   |    \\ ___|_|___   |_   ____ _ _| |_   |  _  |_| |_ _ ___ ___| |_ _ _ ___ ___ ",
                             "|     | . | | | -_|   |  _| | |  _| | .'|  |___|  |  |  | -_| |   |    | || -_|_'_|  _|  |     | . | | | -_|   |  _| | |  _| -_|",
                             "|__|__|___|\\_/|___|_|_|_| |___|_| |_|__,|         |____/|___|_|_|_|    |_||___|_,_|_|    |__|__|___|\\_/|___|_|_|_| |___|_| |___|"
@@ -102,7 +102,7 @@ var Main = /** @class */ (function () {
                                             {
                                                 type: 'select',
                                                 name: 'value',
-                                                message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
+                                                message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
                                                 choices: [
                                                     { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: '0' },
                                                     { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: '1' },
@@ -119,7 +119,6 @@ var Main = /** @class */ (function () {
                                             case '0':
                                                 break;
                                             case '1':
-                                                console.log('Case1');
                                                 unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
                                                 unregisteredUser.getUserData();
                                                 break;
