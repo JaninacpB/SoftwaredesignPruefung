@@ -14,6 +14,7 @@ export class RegisteredUser {
     }
 
     public navigateMenu() {
+
     }
 
     public async saveToJSON() {
@@ -30,8 +31,7 @@ export class RegisteredUser {
         // save to JSON file
         let jsonData = JSON.stringify(users);
         await fsBack.writeFile('users.json', jsonData);
-        // send back
-    }
+    } 
 
     // todo: useless?
     private generateId(_lastID: number): number {

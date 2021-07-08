@@ -43,6 +43,7 @@ var wait_1 = __importDefault(require("wait"));
 var UnregisteredUser_1 = require("./UnregisteredUser");
 var Main = /** @class */ (function () {
     function Main() {
+        this.unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
         this.getJsonFile();
         this.startMenu();
     }
@@ -95,7 +96,7 @@ var Main = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         (function () { return __awaiter(_this, void 0, void 0, function () {
-                            var startScreen, unregisteredUser;
+                            var startScreen;
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0: return [4 /*yield*/, prompts([
@@ -117,10 +118,10 @@ var Main = /** @class */ (function () {
                                         console.log(startScreen);
                                         switch (startScreen.value) {
                                             case '0':
+                                                this.unregisteredUser.login();
                                                 break;
                                             case '1':
-                                                unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
-                                                unregisteredUser.getUserData();
+                                                this.unregisteredUser.getUserData();
                                                 break;
                                             case '2':
                                                 break;

@@ -2,6 +2,8 @@ import wait from 'wait';
 import { UnregisteredUser } from './UnregisteredUser';
 
 class Main {
+  public unregisteredUser: UnregisteredUser = new UnregisteredUser();
+
   constructor() {
     this.getJsonFile();
     this.startMenu();
@@ -68,10 +70,10 @@ class Main {
       console.log(startScreen);
       switch (startScreen.value) {
         case '0':
+          this.unregisteredUser.login();
           break;
         case '1':
-          let unregisteredUser: UnregisteredUser = new UnregisteredUser();
-          unregisteredUser.getUserData();
+          this.unregisteredUser.getUserData();
           break;
         case '2':
           break

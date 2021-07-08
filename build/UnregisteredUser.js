@@ -40,18 +40,19 @@ exports.UnregisteredUser = void 0;
 var RegisteredUser_1 = require("./RegisteredUser");
 var UnregisteredUser = /** @class */ (function () {
     function UnregisteredUser() {
+        this.prompts = require('prompts');
+        this.chalk = require('chalk');
+        this.fs = require('fs');
     }
     UnregisteredUser.prototype.getUserData = function () {
         var _this = this;
-        var chalk = require('chalk');
-        console.log(chalk.bgBlue('\n Türschwelle (Sign Up) \n'));
-        var prompts = require('prompts');
+        console.log(this.chalk.bgBlue('\n Türschwelle (Sign Up) \n'));
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var logIn, registeredUser;
+            var signUp, registeredUser;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, prompts([
+                    case 0: return [4 /*yield*/, this.prompts([
                             {
                                 type: 'text',
                                 name: 'username',
@@ -68,10 +69,48 @@ var UnregisteredUser = /** @class */ (function () {
                             }
                         ])];
                     case 1:
-                        logIn = _a.sent();
-                        registeredUser = new RegisteredUser_1.RegisteredUser(logIn.username, logIn.password, 0);
+                        signUp = _a.sent();
+                        registeredUser = new RegisteredUser_1.RegisteredUser(signUp.username, signUp.password, 0);
                         registeredUser.saveToJSON();
                         registeredUser.navigateMenu();
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
+    };
+    UnregisteredUser.prototype.login = function () {
+        var _this = this;
+        console.log(this.chalk.bgBlue('\n Türschwelle (Login) \n'));
+        // todo: Implementieren
+        console.log(this.chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var userNameExist, login, registeredUser;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        userNameExist = false;
+                        return [4 /*yield*/, this.prompts([
+                                {
+                                    type: 'text',
+                                    name: 'username',
+                                    message: '"Und wie lautet dein Name noch einmal... (Username eingeben)"',
+                                },
+                                {
+                                    type: 'password',
+                                    name: 'password',
+                                    message: '"Um sicher zu sein, kennst du noch unser geheimes Codewort... \n  (Password eingeben)"'
+                                }
+                            ])];
+                    case 1:
+                        login = _a.sent();
+                        if (this.usernameAndPasswordCheck(login)) {
+                            registeredUser = new RegisteredUser_1.RegisteredUser(login.username, login.password, 0);
+                            registeredUser.navigateMenu();
+                        }
+                        else {
+                            console.log(this.chalk.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
+                            this.login();
+                        }
                         return [2 /*return*/];
                 }
             });
@@ -87,15 +126,27 @@ var UnregisteredUser = /** @class */ (function () {
             return valid;
         }
         // check if Username already exists 
-        var fs = require('fs');
-        var rawdata = fs.readFileSync('users.json');
-        var users = JSON.parse(rawdata);
+        var users = this.getJSONData();
         for (var i = 0; i < users.length; i++) {
             if (users[i].username === _username) {
                 return false;
             }
         }
         return valid;
+    };
+    UnregisteredUser.prototype.usernameAndPasswordCheck = function (_userInput) {
+        var users = this.getJSONData();
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].username === _userInput.username && users[i].password == _userInput.password) {
+                return true;
+            }
+        }
+        return false;
+    };
+    UnregisteredUser.prototype.getJSONData = function () {
+        var rawdata = this.fs.readFileSync('users.json');
+        var users = JSON.parse(rawdata);
+        return users;
     };
     return UnregisteredUser;
 }());
