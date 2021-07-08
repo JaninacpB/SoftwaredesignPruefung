@@ -5,16 +5,7 @@ class Main {
   public unregisteredUser: UnregisteredUser = new UnregisteredUser();
 
   constructor() {
-    this.getJsonFile();
     this.startMenu();
-  }
-
-  getJsonFile() {
-    const fs = require('fs');
-
-    let rawdata = fs.readFileSync('users.json');
-    let users = JSON.parse(rawdata);
-    console.log(users);
   }
 
   private async startMenu() {
@@ -67,7 +58,6 @@ class Main {
           initial: 0
         }
       ]);
-      console.log(startScreen);
       switch (startScreen.value) {
         case '0':
           this.unregisteredUser.login();

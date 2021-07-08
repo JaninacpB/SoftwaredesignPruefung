@@ -46,7 +46,7 @@ var UnregisteredUser = /** @class */ (function () {
     }
     UnregisteredUser.prototype.getUserData = function () {
         var _this = this;
-        console.log(this.chalk.bgBlue('\n Türschwelle (Sign Up) \n'));
+        console.log(this.chalk.bgBlue('\nTürschwelle (Sign Up)\n'));
         (function () { return __awaiter(_this, void 0, void 0, function () {
             var signUp, registeredUser;
             var _this = this;
@@ -80,31 +80,29 @@ var UnregisteredUser = /** @class */ (function () {
     };
     UnregisteredUser.prototype.login = function () {
         var _this = this;
-        console.log(this.chalk.bgBlue('\n Türschwelle (Login) \n'));
+        console.log(this.chalk.bgBlue('\nTürschwelle (Login)\n'));
         // todo: Implementieren
         console.log(this.chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var userNameExist, login, registeredUser;
+            var loginData, registeredUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        userNameExist = false;
-                        return [4 /*yield*/, this.prompts([
-                                {
-                                    type: 'text',
-                                    name: 'username',
-                                    message: '"Und wie lautet dein Name noch einmal... (Username eingeben)"',
-                                },
-                                {
-                                    type: 'password',
-                                    name: 'password',
-                                    message: '"Um sicher zu sein, kennst du noch unser geheimes Codewort... \n  (Password eingeben)"'
-                                }
-                            ])];
+                    case 0: return [4 /*yield*/, this.prompts([
+                            {
+                                type: 'text',
+                                name: 'username',
+                                message: '"Und wie lautet dein Name noch einmal... (Username eingeben)"'
+                            },
+                            {
+                                type: 'password',
+                                name: 'password',
+                                message: '"Um sicher zu sein, kennst du noch unser geheimes Codewort... \n  (Password eingeben)"'
+                            }
+                        ])];
                     case 1:
-                        login = _a.sent();
-                        if (this.usernameAndPasswordCheck(login)) {
-                            registeredUser = new RegisteredUser_1.RegisteredUser(login.username, login.password, 0);
+                        loginData = _a.sent();
+                        if (this.usernameAndPasswordCheck(loginData)) {
+                            registeredUser = new RegisteredUser_1.RegisteredUser(loginData.username, loginData.password, 0);
                             registeredUser.navigateMenu();
                         }
                         else {
@@ -116,6 +114,10 @@ var UnregisteredUser = /** @class */ (function () {
             });
         }); })();
     };
+    // const onCancel = prompt => {
+    //     console.log('Test');
+    //     return true; };
+    // const response = await prompt(this.prompts, {onCancel});
     UnregisteredUser.prototype.checkUsername = function (_username) {
         var valid = false;
         // Alphanumeric check

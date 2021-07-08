@@ -40,11 +40,90 @@ exports.RegisteredUser = void 0;
 var RegisteredUser = /** @class */ (function () {
     //todo: wenn hier mehr dazu kommt auf Reihenfolge achten, sonst regestieren falsch
     function RegisteredUser(username, password, id) {
+        this.prompts = require('prompts');
+        this.chalk = require('chalk');
         this.id = id;
         this.username = username;
         this.password = password;
     }
     RegisteredUser.prototype.navigateMenu = function () {
+        var _this = this;
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var startScreen;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.prompts([
+                            {
+                                type: 'select',
+                                name: 'value',
+                                message: '"Wie kann ich dir helfen "' + this.username + '"?"',
+                                choices: [
+                                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht aller Abendteuer anzeigen)"', value: '0' },
+                                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: '1' },
+                                    { title: '"Ich möchte eine eigene Geschichte erschaffen... (Erstelle ein Textadventure)"', value: '2' },
+                                    { title: '"Hast du anderen bereits meine Geschichten gegeben? Was sagten sie... (Statistik ansehen)"', value: '3' },
+                                ],
+                                initial: 0
+                            }
+                        ])];
+                    case 1:
+                        startScreen = _a.sent();
+                        console.log(startScreen);
+                        switch (startScreen.value) {
+                            case '0':
+                                break;
+                            case '1':
+                                break;
+                            case '2':
+                                this.createMap();
+                                break;
+                            case '3':
+                                break;
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
+    };
+    RegisteredUser.prototype.createMap = function () {
+        var _this = this;
+        console.log(this.chalk.bgBlue('\nArbeitszimmer (Erstelle ein Textadventure)\n'));
+        console.log('"So, nichts ist wichter als ein guter Titel. Etwas fabulöses, etwas magisches mit einem Hauch von Abendteuer. Etwas wie: \n Maximus Reise ins Zauberland.\n Maximus 2: Tag der Abrechnung \n Maximus: Der Tollkühneheld \n Maximus: Casino Royal \n Also ich denke du hast ja jetzt schon ein paar gute Ideen"');
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var mapData, mapSize;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.prompts([
+                            {
+                                type: 'text',
+                                name: 'title',
+                                message: 'Nun was ist dein Titel..." (Adventuretitle angeben)"',
+                            },
+                            {
+                                type: 'number',
+                                name: 'mapSizeX',
+                                min: 1,
+                                max: 10,
+                                message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in horizotaler Richtung)"',
+                                initial: 1
+                            },
+                            {
+                                type: 'number',
+                                name: 'mapSizeY',
+                                min: 1,
+                                max: 10,
+                                message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in vertikaler Richtung)"',
+                                initial: 1
+                            }
+                        ])];
+                    case 1:
+                        mapData = _a.sent();
+                        mapSize = mapData.mapSizeX * mapData.mapSizeY;
+                        console.log('"Perfekt. Deine Karte ist also: ' + mapSize + ' Felder groß. Fantastisch!');
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
     };
     RegisteredUser.prototype.saveToJSON = function () {
         return __awaiter(this, void 0, void 0, function () {

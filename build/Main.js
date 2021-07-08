@@ -44,15 +44,8 @@ var UnregisteredUser_1 = require("./UnregisteredUser");
 var Main = /** @class */ (function () {
     function Main() {
         this.unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
-        this.getJsonFile();
         this.startMenu();
     }
-    Main.prototype.getJsonFile = function () {
-        var fs = require('fs');
-        var rawdata = fs.readFileSync('users.json');
-        var users = JSON.parse(rawdata);
-        console.log(users);
-    };
     Main.prototype.startMenu = function () {
         return __awaiter(this, void 0, void 0, function () {
             var adventuriaArt, maximusArt, timeToWait, prompts;
@@ -115,7 +108,6 @@ var Main = /** @class */ (function () {
                                         ])];
                                     case 1:
                                         startScreen = _a.sent();
-                                        console.log(startScreen);
                                         switch (startScreen.value) {
                                             case '0':
                                                 this.unregisteredUser.login();

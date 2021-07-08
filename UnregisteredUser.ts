@@ -9,7 +9,7 @@ export class UnregisteredUser {
     }
 
     public getUserData(): void {
-        console.log(this.chalk.bgBlue('\n Türschwelle (Sign Up) \n'));
+        console.log(this.chalk.bgBlue('\nTürschwelle (Sign Up)\n'));
         (async () => {
             const signUp = await this.prompts([
                 {
@@ -36,20 +36,15 @@ export class UnregisteredUser {
     }
 
     public login(): void {
-        console.log(this.chalk.bgBlue('\n Türschwelle (Login) \n'));
+        console.log(this.chalk.bgBlue('\nTürschwelle (Login)\n'));
         // todo: Implementieren
         console.log(this.chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
         (async () => {
-            // todo: Add cancel option to go back
-            // const onCancel = prompt => {
-            //     console.log('Test');
-            //     return true; }
-            let userNameExist = false;
-            const login = await this.prompts([
+            const loginData = await this.prompts([
                 {
                     type: 'text',
                     name: 'username',
-                    message: '"Und wie lautet dein Name noch einmal... (Username eingeben)"',
+                    message: '"Und wie lautet dein Name noch einmal... (Username eingeben)"'
                 },
                 {
                     type: 'password',
@@ -57,16 +52,22 @@ export class UnregisteredUser {
                     message: '"Um sicher zu sein, kennst du noch unser geheimes Codewort... \n  (Password eingeben)"'
                 }
             ]);
-            if (this.usernameAndPasswordCheck(login)) {
+            if (this.usernameAndPasswordCheck(loginData)) {
                 // id will be changed in saveToJSON
-                let registeredUser: RegisteredUser = new RegisteredUser(login.username, login.password, 0);
+                let registeredUser: RegisteredUser = new RegisteredUser(loginData.username, loginData.password, 0);
                 registeredUser.navigateMenu();
             } else {
                 console.log(this.chalk.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
                 this.login();
             }
-        })();
+        }
+        )();
     }
+
+    // const onCancel = prompt => {
+    //     console.log('Test');
+    //     return true; };
+    // const response = await prompt(this.prompts, {onCancel});
 
     private checkUsername(_username: string): boolean {
         let valid = false;
