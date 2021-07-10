@@ -37,11 +37,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisteredUser = void 0;
+var Field_1 = require("./Field");
 var RegisteredUser = /** @class */ (function () {
     //todo: wenn hier mehr dazu kommt auf Reihenfolge achten, sonst regestieren falsch
     function RegisteredUser(username, password, id) {
         this.prompts = require('prompts');
         this.chalk = require('chalk');
+        this.fs = require('fs');
+        this.fsBack = require('fs').promises;
         this.id = id;
         this.username = username;
         this.password = password;
@@ -90,7 +93,7 @@ var RegisteredUser = /** @class */ (function () {
         console.log(this.chalk.bgBlue('\nArbeitszimmer (Erstelle ein Textadventure)\n'));
         console.log('"So, nichts ist wichter als ein guter Titel. Etwas fabulöses, etwas magisches mit einem Hauch von Abendteuer. Etwas wie: \n Maximus Reise ins Zauberland.\n Maximus 2: Tag der Abrechnung \n Maximus: Der Tollkühneheld \n Maximus: Casino Royal \n Also ich denke du hast ja jetzt schon ein paar gute Ideen"');
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var mapData, mapSize;
+            var mapData, maximusRegrex, mapSize;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.prompts([
@@ -104,7 +107,7 @@ var RegisteredUser = /** @class */ (function () {
                                 name: 'mapSizeX',
                                 min: 1,
                                 max: 10,
-                                message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in horizotaler Richtung)"',
+                                message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in X Richtung →)"',
                                 initial: 1
                             },
                             {
@@ -112,33 +115,123 @@ var RegisteredUser = /** @class */ (function () {
                                 name: 'mapSizeY',
                                 min: 1,
                                 max: 10,
-                                message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in vertikaler Richtung)"',
+                                message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in Y Richtung ↓)"',
                                 initial: 1
                             }
                         ])];
                     case 1:
                         mapData = _a.sent();
+                        maximusRegrex = /Maximus/gi;
+                        if (maximusRegrex.test(mapData.title)) {
+                            console.log('"Welch wunderbarer Title!');
+                        }
+                        else {
+                            console.log('"Am Titel könnte man Arbeiten, aber sonst in Ordnung...');
+                        }
                         mapSize = mapData.mapSizeX * mapData.mapSizeY;
-                        console.log('"Perfekt. Deine Karte ist also: ' + mapSize + ' Felder groß. Fantastisch!');
+                        console.log('Deine Karte ist übrigens: ' + mapSize + ' Felder groß. Fantastisch!"');
+                        this.giveStartpoint(mapData);
                         return [2 /*return*/];
                 }
             });
         }); })();
     };
-    RegisteredUser.prototype.saveToJSON = function () {
+    RegisteredUser.prototype.giveStartpoint = function (_mapData) {
         return __awaiter(this, void 0, void 0, function () {
-            var fs, rawdata, users, fsBack, jsonData;
+            var StartConfig, field, allFields;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        fs = require('fs');
-                        rawdata = fs.readFileSync('users.json');
+                        console.log(_mapData.xPosistion);
+                        return [4 /*yield*/, this.prompts([
+                                {
+                                    type: 'number',
+                                    name: 'startpointX',
+                                    min: '1',
+                                    max: _mapData.mapSizeX,
+                                    initial: 1,
+                                    message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... (X Startpunkt auf der Karteangeben)"',
+                                },
+                                {
+                                    type: 'number',
+                                    name: 'startpointY',
+                                    min: '1',
+                                    max: _mapData.mapSizeY,
+                                    initial: 1,
+                                    message: 'Und wo ist der Y Startpunkt... (Y Startpunkt auf der Karteangeben)"',
+                                },
+                            ])];
+                    case 1:
+                        StartConfig = _a.sent();
+                        field = [];
+                        allFields = this.giveFieldDescription(_mapData, 1, 1, field);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    RegisteredUser.prototype.giveFieldDescription = function (_mapData, _currentX, _currentY, _fieldValues) {
+        return __awaiter(this, void 0, void 0, function () {
+            var fieldDescription, currentField;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.prompts([
+                            {
+                                type: 'text',
+                                name: 'discription',
+                                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... (Beschreibung eingeben)"'
+                            }
+                        ])];
+                    case 1:
+                        fieldDescription = _a.sent();
+                        currentField = new Field_1.Field(_currentX, _currentY, fieldDescription.discription);
+                        _fieldValues.push(currentField);
+                        // Loop untill all fields have a description. Go Vertical over x Fields untill end of row, than add +1 to y and start over.
+                        if (_currentX === _mapData.mapSizeX && _currentY !== _mapData.mapSizeY) {
+                            this.giveFieldDescription(_mapData, 1, _currentY + 1, _fieldValues);
+                            return [2 /*return*/, _fieldValues];
+                        }
+                        else if (_currentX < _mapData.mapSizeX) {
+                            this.giveFieldDescription(_mapData, _currentX + 1, _currentY, _fieldValues);
+                            return [2 /*return*/, _fieldValues];
+                        }
+                        // todo: Save to file
+                        return [2 /*return*/, _fieldValues];
+                }
+            });
+        });
+    };
+    // todo: in Adventure einfügen? Lauffähig machen
+    RegisteredUser.prototype.saveAdventureToJSON = function (_newAdventure) {
+        return __awaiter(this, void 0, void 0, function () {
+            var rawdata, adventures, jsonData;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        rawdata = this.fs.readFileSync('adventure.json');
+                        adventures = JSON.parse(rawdata);
+                        adventures.push(_newAdventure);
+                        jsonData = JSON.stringify(adventures);
+                        return [4 /*yield*/, this.fsBack.writeFile('adventure.json', jsonData)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    RegisteredUser.prototype.saveUserToJSON = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var rawdata, users, jsonData;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        rawdata = this.fs.readFileSync('users.json');
                         users = JSON.parse(rawdata);
                         this.id = this.generateId(users[users.length - 1].id);
                         users.push(this);
-                        fsBack = require('fs').promises;
                         jsonData = JSON.stringify(users);
-                        return [4 /*yield*/, fsBack.writeFile('users.json', jsonData)];
+                        return [4 /*yield*/, this.fsBack.writeFile('users.json', jsonData)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];

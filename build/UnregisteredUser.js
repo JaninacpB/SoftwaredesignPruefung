@@ -71,7 +71,7 @@ var UnregisteredUser = /** @class */ (function () {
                     case 1:
                         signUp = _a.sent();
                         registeredUser = new RegisteredUser_1.RegisteredUser(signUp.username, signUp.password, 0);
-                        registeredUser.saveToJSON();
+                        registeredUser.saveUserToJSON();
                         registeredUser.navigateMenu();
                         return [2 /*return*/];
                 }

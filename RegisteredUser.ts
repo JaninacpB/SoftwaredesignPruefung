@@ -1,15 +1,18 @@
-import { stringify } from "querystring";
+import { Adventure } from "./Adventure";
+import { Field } from "./Field";
 
 export class RegisteredUser {
     private prompts = require('prompts');
     private chalk = require('chalk');
+    private fs = require('fs');
+    private fsBack = require('fs').promises;
 
-    public username: string;
-    public password: string;
-    public id: number;
+    private username: string;
+    private password: string;
+    private id: number;
 
     //todo: wenn hier mehr dazu kommt auf Reihenfolge achten, sonst regestieren falsch
-    constructor(username: string, password: string, id: number) {
+    private constructor(username: string, password: string, id: number) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -53,54 +56,114 @@ export class RegisteredUser {
         console.log(this.chalk.bgBlue('\nArbeitszimmer (Erstelle ein Textadventure)\n'));
         console.log('"So, nichts ist wichter als ein guter Titel. Etwas fabulöses, etwas magisches mit einem Hauch von Abendteuer. Etwas wie: \n Maximus Reise ins Zauberland.\n Maximus 2: Tag der Abrechnung \n Maximus: Der Tollkühneheld \n Maximus: Casino Royal \n Also ich denke du hast ja jetzt schon ein paar gute Ideen"');
 
-            (async () => {
-                const mapData = await this.prompts([
-                    {
-                        type: 'text',
-                        name: 'title',
-                        message: 'Nun was ist dein Titel..." (Adventuretitle angeben)"',
-                    },
-                    {
-                        type: 'number',
-                        name: 'mapSizeX',
-                        min: 1,
-                        max: 10,
-                        message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in horizotaler Richtung)"',
-                        initial: 1
-                    },
-                    {
-                        type: 'number',
-                        name: 'mapSizeY',
-                        min: 1,
-                        max: 10,
-                        message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in vertikaler Richtung)"',
-                        initial: 1
-                    }
-                ]);
-                let mapSize = mapData.mapSizeX * mapData.mapSizeY;
-                console.log('"Perfekt. Deine Karte ist also: ' + mapSize + ' Felder groß. Fantastisch!')
-                // console.log(mapData.title);
-                // console.log(mapData.title.match('/Maximus/'));
-                // if(mapData.title.match('/Maximus/') !== -1){
-                //     console.log('"Welch wunderbarer Title!"');
-                // }
-            })();
+        (async () => {
+            const mapData = await this.prompts([
+                {
+                    type: 'text',
+                    name: 'title',
+                    message: 'Nun was ist dein Titel..." (Adventuretitle angeben)"',
+                },
+                {
+                    type: 'number',
+                    name: 'mapSizeX',
+                    min: 1,
+                    max: 10,
+                    message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in X Richtung →)"',
+                    initial: 1
+                },
+                {
+                    type: 'number',
+                    name: 'mapSizeY',
+                    min: 1,
+                    max: 10,
+                    message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in Y Richtung ↓)"',
+                    initial: 1
+                }
+            ]);
+            let maximusRegrex = /Maximus/gi;
+            if (maximusRegrex.test(mapData.title)) {
+                console.log('"Welch wunderbarer Title!');
+            } else {
+                console.log('"Am Titel könnte man Arbeiten, aber sonst in Ordnung...')
+            }
+            let mapSize = mapData.mapSizeX * mapData.mapSizeY;
+            console.log('Deine Karte ist übrigens: ' + mapSize + ' Felder groß. Fantastisch!"');
+            this.giveStartpoint(mapData);
+            // todo: weder x,y einschränkung funktioniert noch schleife (nicht synchron)!
+        })();
     }
 
-    public async saveToJSON() {
+    private async giveStartpoint(_mapData: any) {
+        console.log(_mapData.xPosistion);
+        const StartConfig = await this.prompts([
+            {
+                type: 'number',
+                name: 'startpointX',
+                min: '1',
+                max: _mapData.mapSizeX,
+                initial: 1,
+                message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... (X Startpunkt auf der Karteangeben)"',
+            },
+            {
+                type: 'number',
+                name: 'startpointY',
+                min: '1',
+                max: _mapData.mapSizeY,
+                initial: 1,
+                message: 'Und wo ist der Y Startpunkt... (Y Startpunkt auf der Karteangeben)"',
+            },
+        ]);
+        let field: Field[] = [];
+        //todo: asncy bekomme Ergebniss erst später! wie weiter machen?
+        let allFields = this.giveFieldDescription(_mapData, 1, 1, field);
+    }
+
+    private async giveFieldDescription(_mapData: any, _currentX: number, _currentY: number, _fieldValues: Field[]): Promise<Field[]>{
+         const fieldDescription = await this.prompts([
+            {
+                type: 'text',
+                name: 'discription',
+                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... (Beschreibung eingeben)"'
+            }
+        ]);
+        let currentField = new Field(_currentX, _currentY, fieldDescription.discription);
+        _fieldValues.push(currentField);
+
+        // Loop untill all fields have a description. Go Vertical over x Fields untill end of row, than add +1 to y and start over.
+        if(_currentX === _mapData.mapSizeX && _currentY !== _mapData.mapSizeY) {
+            this.giveFieldDescription(_mapData, 1, _currentY+1, _fieldValues);
+            return _fieldValues;
+        } else if(_currentX < _mapData.mapSizeX ) {
+            this.giveFieldDescription(_mapData, _currentX + 1, _currentY, _fieldValues);
+            return _fieldValues;
+        }
+        // todo: Save to file
+        return _fieldValues;
+    }
+
+    // todo: in Adventure einfügen? Lauffähig machen
+    public async saveAdventureToJSON(_newAdventure: Adventure) {
+        let rawdata = this.fs.readFileSync('adventure.json');
+        let adventures: Adventure[] = JSON.parse(rawdata);
+
+        adventures.push(_newAdventure);
+
+        // save to JSON
+        let jsonData = JSON.stringify(adventures);
+        await this.fsBack.writeFile('adventure.json', jsonData);
+    }
+
+    public async saveUserToJSON() {
         // get complete Users Data and add new entry
-        const fs = require('fs');
-        let rawdata = fs.readFileSync('users.json');
+        let rawdata = this.fs.readFileSync('users.json');
         let users: RegisteredUser[] = JSON.parse(rawdata);
 
         this.id = this.generateId(users[users.length - 1].id);
         users.push(this);
 
-        const fsBack = require('fs').promises;
-
         // save to JSON file
         let jsonData = JSON.stringify(users);
-        await fsBack.writeFile('users.json', jsonData);
+        await this.fsBack.writeFile('users.json', jsonData);
     }
 
     // todo: useless?

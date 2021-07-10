@@ -30,7 +30,7 @@ export class UnregisteredUser {
             // todo: weiternavigieren
             // id will be changed in saveToJSON
             let registeredUser: RegisteredUser = new RegisteredUser(signUp.username, signUp.password, 0);
-            registeredUser.saveToJSON();
+            registeredUser.saveUserToJSON();
             registeredUser.navigateMenu();
         })();
     }
