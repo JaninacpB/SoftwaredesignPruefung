@@ -70,7 +70,7 @@ var UnregisteredUser = /** @class */ (function () {
                         ])];
                     case 1:
                         signUp = _a.sent();
-                        registeredUser = new RegisteredUser_1.RegisteredUser(signUp.username, signUp.password, 0);
+                        registeredUser = RegisteredUser_1.RegisteredUser.getInstance(signUp.username, signUp.password, 0);
                         registeredUser.saveUserToJSON();
                         registeredUser.navigateMenu();
                         return [2 /*return*/];
@@ -102,7 +102,7 @@ var UnregisteredUser = /** @class */ (function () {
                     case 1:
                         loginData = _a.sent();
                         if (this.usernameAndPasswordCheck(loginData)) {
-                            registeredUser = new RegisteredUser_1.RegisteredUser(loginData.username, loginData.password, 0);
+                            registeredUser = RegisteredUser_1.RegisteredUser.getInstance(loginData.username, loginData.password, 0);
                             registeredUser.navigateMenu();
                         }
                         else {

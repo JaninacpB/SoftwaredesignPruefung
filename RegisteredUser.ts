@@ -7,15 +7,25 @@ export class RegisteredUser {
     private fs = require('fs');
     private fsBack = require('fs').promises;
 
-    private username: string;
-    private password: string;
-    private id: number;
+    private static instance: RegisteredUser;
+
+    public username: string;
+    public password: string;
+    public id: number;
 
     //todo: wenn hier mehr dazu kommt auf Reihenfolge achten, sonst regestieren falsch
     private constructor(username: string, password: string, id: number) {
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    // Singleton Method Code from: https://refactoring.guru/design-patterns/singleton/typescript/example
+    public static getInstance(_username: string, _password: string, _id: number): RegisteredUser {
+        if (!RegisteredUser.instance) {
+            RegisteredUser.instance = new RegisteredUser(_username, _password, _id);
+        }
+        return RegisteredUser.instance;
     }
 
     public navigateMenu() {
@@ -115,30 +125,50 @@ export class RegisteredUser {
         ]);
         let field: Field[] = [];
         //todo: asncy bekomme Ergebniss erst später! wie weiter machen?
-        let allFields = this.giveFieldDescription(_mapData, 1, 1, field);
+        let allFields = this.giveFieldNameAndSave(_mapData, 1, 1, field);
     }
 
-    private async giveFieldDescription(_mapData: any, _currentX: number, _currentY: number, _fieldValues: Field[]): Promise<Field[]>{
-         const fieldDescription = await this.prompts([
+    private async giveFieldNameAndSave(_mapData: any, _currentX: number, _currentY: number, _fieldValues: Field[]): Promise<Field[]> {
+        const fieldName = await this.prompts([
             {
                 type: 'text',
-                name: 'discription',
-                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... (Beschreibung eingeben)"'
+                name: 'place',
+                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... (Ort eingeben)"',
+                validate: (value: string) => value === '' ? 'Bitte trage einen Ort ein' : true
             }
         ]);
-        let currentField = new Field(_currentX, _currentY, fieldDescription.discription);
+        let currentField: Field = { xPosistion: _currentX, yPosistion: _currentY, place: fieldName.place };
         _fieldValues.push(currentField);
 
         // Loop untill all fields have a description. Go Vertical over x Fields untill end of row, than add +1 to y and start over.
-        if(_currentX === _mapData.mapSizeX && _currentY !== _mapData.mapSizeY) {
-            this.giveFieldDescription(_mapData, 1, _currentY+1, _fieldValues);
+        if (_currentX === _mapData.mapSizeX && _currentY !== _mapData.mapSizeY) {
+            this.giveFieldNameAndSave(_mapData, 1, _currentY + 1, _fieldValues);
             return _fieldValues;
-        } else if(_currentX < _mapData.mapSizeX ) {
-            this.giveFieldDescription(_mapData, _currentX + 1, _currentY, _fieldValues);
+        } else if (_currentX < _mapData.mapSizeX) {
+            this.giveFieldNameAndSave(_mapData, _currentX + 1, _currentY, _fieldValues);
             return _fieldValues;
         }
         // todo: Save to file
+        console.log(_mapData);
+        // this.saveAdventureToJSON()
+        // User confirms 
+
+        //console.log(this.confirmAction());
+        // TODO: IREGENWIE HIER USER INPUT AKZEPTIEREN!
+        (async() => this.confirmAction() );
         return _fieldValues;
+    }
+
+    private confirmAction(): boolean {
+        const confirm = this.prompts({
+                type: 'toggle',
+                name: 'value',
+                message: 'Willst du dieses Textadventure wirklich erstellen?',
+                initial: true,
+                active: 'Ja',
+                inactive: 'Nein'
+            });
+        return confirm.value;
     }
 
     // todo: in Adventure einfügen? Lauffähig machen

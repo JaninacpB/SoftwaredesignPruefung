@@ -29,7 +29,7 @@ export class UnregisteredUser {
             ]);
             // todo: weiternavigieren
             // id will be changed in saveToJSON
-            let registeredUser: RegisteredUser = new RegisteredUser(signUp.username, signUp.password, 0);
+            let registeredUser: RegisteredUser = RegisteredUser.getInstance(signUp.username, signUp.password, 0);
             registeredUser.saveUserToJSON();
             registeredUser.navigateMenu();
         })();
@@ -54,7 +54,7 @@ export class UnregisteredUser {
             ]);
             if (this.usernameAndPasswordCheck(loginData)) {
                 // id will be changed in saveToJSON
-                let registeredUser: RegisteredUser = new RegisteredUser(loginData.username, loginData.password, 0);
+                let registeredUser: RegisteredUser = RegisteredUser.getInstance(loginData.username, loginData.password, 0);
                 registeredUser.navigateMenu();
             } else {
                 console.log(this.chalk.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));

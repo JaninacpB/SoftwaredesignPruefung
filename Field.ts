@@ -1,12 +1,12 @@
-export class Field{
+export interface Field{
     
-    public xPosistion: number;
-    public yPosistion: number;
-    public discription: string;
+    xPosistion: number;
+    yPosistion: number;
+    place: string;
 
-    constructor(_xPosistion: number, _yPosistion: number, _discription: string) {
-        this.xPosistion = _xPosistion;
-        this.yPosistion = _yPosistion;
-        this.discription = _discription;
-    }
+    // constructor(_xPosistion: number, _yPosistion: number, _place: string) {
+    //     this.xPosistion = _xPosistion;
+    //     this.yPosistion = _yPosistion;
+    //     this.place = _place;
+    // }
 }

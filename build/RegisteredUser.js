@@ -37,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisteredUser = void 0;
-var Field_1 = require("./Field");
 var RegisteredUser = /** @class */ (function () {
     //todo: wenn hier mehr dazu kommt auf Reihenfolge achten, sonst regestieren falsch
     function RegisteredUser(username, password, id) {
@@ -49,6 +48,13 @@ var RegisteredUser = /** @class */ (function () {
         this.username = username;
         this.password = password;
     }
+    // Singleton Method Code from: https://refactoring.guru/design-patterns/singleton/typescript/example
+    RegisteredUser.getInstance = function (_username, _password, _id) {
+        if (!RegisteredUser.instance) {
+            RegisteredUser.instance = new RegisteredUser(_username, _password, _id);
+        }
+        return RegisteredUser.instance;
+    };
     RegisteredUser.prototype.navigateMenu = function () {
         var _this = this;
         (function () { return __awaiter(_this, void 0, void 0, function () {
@@ -164,42 +170,63 @@ var RegisteredUser = /** @class */ (function () {
                     case 1:
                         StartConfig = _a.sent();
                         field = [];
-                        allFields = this.giveFieldDescription(_mapData, 1, 1, field);
+                        allFields = this.giveFieldNameAndSave(_mapData, 1, 1, field);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    RegisteredUser.prototype.giveFieldDescription = function (_mapData, _currentX, _currentY, _fieldValues) {
+    RegisteredUser.prototype.giveFieldNameAndSave = function (_mapData, _currentX, _currentY, _fieldValues) {
         return __awaiter(this, void 0, void 0, function () {
-            var fieldDescription, currentField;
+            var fieldName, currentField;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.prompts([
                             {
                                 type: 'text',
-                                name: 'discription',
-                                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... (Beschreibung eingeben)"'
+                                name: 'place',
+                                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... (Ort eingeben)"',
+                                validate: function (value) { return value === '' ? 'Bitte trage einen Ort ein' : true; }
                             }
                         ])];
                     case 1:
-                        fieldDescription = _a.sent();
-                        currentField = new Field_1.Field(_currentX, _currentY, fieldDescription.discription);
+                        fieldName = _a.sent();
+                        currentField = { xPosistion: _currentX, yPosistion: _currentY, place: fieldName.place };
                         _fieldValues.push(currentField);
                         // Loop untill all fields have a description. Go Vertical over x Fields untill end of row, than add +1 to y and start over.
                         if (_currentX === _mapData.mapSizeX && _currentY !== _mapData.mapSizeY) {
-                            this.giveFieldDescription(_mapData, 1, _currentY + 1, _fieldValues);
+                            this.giveFieldNameAndSave(_mapData, 1, _currentY + 1, _fieldValues);
                             return [2 /*return*/, _fieldValues];
                         }
                         else if (_currentX < _mapData.mapSizeX) {
-                            this.giveFieldDescription(_mapData, _currentX + 1, _currentY, _fieldValues);
+                            this.giveFieldNameAndSave(_mapData, _currentX + 1, _currentY, _fieldValues);
                             return [2 /*return*/, _fieldValues];
                         }
                         // todo: Save to file
+                        console.log(_mapData);
+                        // this.saveAdventureToJSON()
+                        // User confirms 
+                        //console.log(this.confirmAction());
+                        // TODO: IREGENWIE HIER USER INPUT AKZEPTIEREN!
+                        (function () { return __awaiter(_this, void 0, void 0, function () { return __generator(this, function (_a) {
+                            return [2 /*return*/, this.confirmAction()];
+                        }); }); });
                         return [2 /*return*/, _fieldValues];
                 }
             });
         });
+    };
+    RegisteredUser.prototype.confirmAction = function () {
+        var confirm = this.prompts({
+            type: 'toggle',
+            name: 'value',
+            message: 'Willst du dieses Textadventure wirklich erstellen?',
+            initial: true,
+            active: 'Ja',
+            inactive: 'Nein'
+        });
+        return confirm.value;
     };
     // todo: in Adventure einfügen? Lauffähig machen
     RegisteredUser.prototype.saveAdventureToJSON = function (_newAdventure) {
