@@ -19,7 +19,6 @@ export class Adventure{
     constructor(_id:number, _title: string, _author: number, _startpointX: number, _startpointY: number,
          _amountPlayers: number, _amountTurns: number, _mapSizeX: number, _mapSizeY: number,
           _field: Field[]) {
-        //todo: generate Id
         this.adventureId = _id;
         this.title = _title;
         this.author = _author;
@@ -32,19 +31,11 @@ export class Adventure{
         this.field = _field;
     }
 
-    // todo: eventuell unnötig weil gleich erledigt bei erstellen?
-    // gerade unnötig
-    // public createID()  {
-    //     this.adventureId = 1;
-    // }
-
     public async saveToJSON() {
         let rawdata = this.fs.readFileSync('adventure.json');
         let adventures: Adventure[] = JSON.parse(rawdata);
 
-        console.log(adventures);
-        console.log(this);
-
+        this.adventureId = adventures[adventures.length - 1].adventureId + 1;
         adventures.push(this);
 
         // save to JSON

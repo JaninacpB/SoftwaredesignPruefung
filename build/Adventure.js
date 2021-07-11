@@ -42,7 +42,6 @@ var Adventure = /** @class */ (function () {
         // todo: File mir verweisen machen? statt doppelt
         this.fs = require('fs');
         this.fsBack = require('fs').promises;
-        //todo: generate Id
         this.adventureId = _id;
         this.title = _title;
         this.author = _author;
@@ -54,11 +53,6 @@ var Adventure = /** @class */ (function () {
         this.mapSizeY = _mapSizeY;
         this.field = _field;
     }
-    // todo: eventuell unnötig weil gleich erledigt bei erstellen?
-    // gerade unnötig
-    // public createID()  {
-    //     this.adventureId = 1;
-    // }
     Adventure.prototype.saveToJSON = function () {
         return __awaiter(this, void 0, void 0, function () {
             var rawdata, adventures, jsonData;
@@ -67,8 +61,7 @@ var Adventure = /** @class */ (function () {
                     case 0:
                         rawdata = this.fs.readFileSync('adventure.json');
                         adventures = JSON.parse(rawdata);
-                        console.log(adventures);
-                        console.log(this);
+                        this.adventureId = adventures[adventures.length - 1].adventureId + 1;
                         adventures.push(this);
                         jsonData = JSON.stringify(adventures);
                         return [4 /*yield*/, this.fsBack.writeFile('adventure.json', jsonData)];

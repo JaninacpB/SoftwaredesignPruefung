@@ -13,7 +13,6 @@ export class RegisteredUser {
     public password: string;
     public id: number;
 
-    //todo: wenn hier mehr dazu kommt auf Reihenfolge achten, sonst regestieren falsch
     private constructor(username: string, password: string, id: number) {
         this.id = id;
         this.username = username;
@@ -131,7 +130,6 @@ export class RegisteredUser {
         _adventure.startpointX = startConfig.startpointX;
         _adventure.startpointY = startConfig.startpointY;
         let field: Field[] = [];
-        //todo: asncy bekomme Ergebniss erst später! wie weiter machen?
         let allFields = this.giveFieldInput(_adventure, 1, 1, field);
     }
 
@@ -174,21 +172,12 @@ export class RegisteredUser {
             _adventure.startpointX,_adventure.startpointY, _adventure.amountPlayers, 
             _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
             adventure.saveToJSON();
+       } else {
+           console.log(this.chalk.red('Adventure wurde verworfen'));
+           // todo: stattdessen von vorne anfangen? 
        }
+       this.navigateMenu();
     }
-
-    // todo: in Adventure einfügen? Lauffähig machen
-    // in adventure 
-    // public async saveAdventureToJSON(_newAdventure: Adventure) {
-    //     let rawdata = this.fs.readFileSync('adventure.json');
-    //     let adventures: Adventure[] = JSON.parse(rawdata);
-
-    //     adventures.push(_newAdventure);
-
-    //     // save to JSON
-    //     let jsonData = JSON.stringify(adventures);
-    //     await this.fsBack.writeFile('adventure.json', jsonData);
-    // }
 
     public async saveUserToJSON() {
         // get complete Users Data and add new entry

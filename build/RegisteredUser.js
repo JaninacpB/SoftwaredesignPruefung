@@ -39,7 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisteredUser = void 0;
 var Adventure_1 = require("./Adventure");
 var RegisteredUser = /** @class */ (function () {
-    //todo: wenn hier mehr dazu kommt auf Reihenfolge achten, sonst regestieren falsch
     function RegisteredUser(username, password, id) {
         this.prompts = require('prompts');
         this.chalk = require('chalk');
@@ -236,21 +235,16 @@ var RegisteredUser = /** @class */ (function () {
                             adventure = new Adventure_1.Adventure(0, _adventure.title, _adventure.author, _adventure.startpointX, _adventure.startpointY, _adventure.amountPlayers, _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
                             adventure.saveToJSON();
                         }
+                        else {
+                            console.log(this.chalk.red('Adventure wurde verworfen'));
+                            // todo: stattdessen von vorne anfangen? 
+                        }
+                        this.navigateMenu();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    // todo: in Adventure einfügen? Lauffähig machen
-    // in adventure 
-    // public async saveAdventureToJSON(_newAdventure: Adventure) {
-    //     let rawdata = this.fs.readFileSync('adventure.json');
-    //     let adventures: Adventure[] = JSON.parse(rawdata);
-    //     adventures.push(_newAdventure);
-    //     // save to JSON
-    //     let jsonData = JSON.stringify(adventures);
-    //     await this.fsBack.writeFile('adventure.json', jsonData);
-    // }
     RegisteredUser.prototype.saveUserToJSON = function () {
         return __awaiter(this, void 0, void 0, function () {
             var rawdata, users, jsonData;
