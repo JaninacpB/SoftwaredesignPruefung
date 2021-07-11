@@ -1,7 +1,7 @@
 export interface Field{
     
-    xPosistion: number;
-    yPosistion: number;
+    xPosition: number;
+    yPosition: number;
     place: string;
 
     // constructor(_xPosistion: number, _yPosistion: number, _place: string) {

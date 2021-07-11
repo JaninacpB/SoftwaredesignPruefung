@@ -44,7 +44,6 @@ export class RegisteredUser {
                     initial: 0
                 }
             ]);
-            console.log(startScreen);
             switch (startScreen.value) {
                 case '0':
 
@@ -62,6 +61,11 @@ export class RegisteredUser {
     }
 
     private createMap() {
+        // fill empty object during creation prozess
+        let adventure: Adventure = {} as any;
+        adventure.amountPlayers = 0;
+        adventure.amountTurns = 0;
+        adventure.author = this.id;
 
         console.log(this.chalk.bgBlue('\nArbeitszimmer (Erstelle ein Textadventure)\n'));
         console.log('"So, nichts ist wichter als ein guter Titel. Etwas fabulöses, etwas magisches mit einem Hauch von Abendteuer. Etwas wie: \n Maximus Reise ins Zauberland.\n Maximus 2: Tag der Abrechnung \n Maximus: Der Tollkühneheld \n Maximus: Casino Royal \n Also ich denke du hast ja jetzt schon ein paar gute Ideen"');
@@ -98,19 +102,20 @@ export class RegisteredUser {
             }
             let mapSize = mapData.mapSizeX * mapData.mapSizeY;
             console.log('Deine Karte ist übrigens: ' + mapSize + ' Felder groß. Fantastisch!"');
-            this.giveStartpoint(mapData);
-            // todo: weder x,y einschränkung funktioniert noch schleife (nicht synchron)!
+            adventure.title = mapData.title;
+            adventure.mapSizeX = mapData.mapSizeX;
+            adventure.mapSizeY = mapData.mapSizeY;
+            this.giveStartpoint(adventure);
         })();
     }
 
-    private async giveStartpoint(_mapData: any) {
-        console.log(_mapData.xPosistion);
-        const StartConfig = await this.prompts([
+    private async giveStartpoint(_adventure: Adventure) {
+        const startConfig = await this.prompts([
             {
                 type: 'number',
                 name: 'startpointX',
                 min: '1',
-                max: _mapData.mapSizeX,
+                max: _adventure.mapSizeX,
                 initial: 1,
                 message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... (X Startpunkt auf der Karteangeben)"',
             },
@@ -118,17 +123,19 @@ export class RegisteredUser {
                 type: 'number',
                 name: 'startpointY',
                 min: '1',
-                max: _mapData.mapSizeY,
+                max: _adventure.mapSizeY,
                 initial: 1,
                 message: 'Und wo ist der Y Startpunkt... (Y Startpunkt auf der Karteangeben)"',
             },
         ]);
+        _adventure.startpointX = startConfig.startpointX;
+        _adventure.startpointY = startConfig.startpointY;
         let field: Field[] = [];
         //todo: asncy bekomme Ergebniss erst später! wie weiter machen?
-        let allFields = this.giveFieldNameAndSave(_mapData, 1, 1, field);
+        let allFields = this.giveFieldInput(_adventure, 1, 1, field);
     }
 
-    private async giveFieldNameAndSave(_mapData: any, _currentX: number, _currentY: number, _fieldValues: Field[]): Promise<Field[]> {
+    private async giveFieldInput(_adventure: Adventure, _currentX: number, _currentY: number, _fieldValues: Field[]): Promise<Field[]> {
         const fieldName = await this.prompts([
             {
                 type: 'text',
@@ -137,30 +144,24 @@ export class RegisteredUser {
                 validate: (value: string) => value === '' ? 'Bitte trage einen Ort ein' : true
             }
         ]);
-        let currentField: Field = { xPosistion: _currentX, yPosistion: _currentY, place: fieldName.place };
+        let currentField: Field = { xPosition: _currentX, yPosition: _currentY, place: fieldName.place };
         _fieldValues.push(currentField);
 
         // Loop untill all fields have a description. Go Vertical over x Fields untill end of row, than add +1 to y and start over.
-        if (_currentX === _mapData.mapSizeX && _currentY !== _mapData.mapSizeY) {
-            this.giveFieldNameAndSave(_mapData, 1, _currentY + 1, _fieldValues);
+        if (_currentX === _adventure.mapSizeX && _currentY !== _adventure.mapSizeY) {
+            this.giveFieldInput(_adventure, 1, _currentY + 1, _fieldValues);
             return _fieldValues;
-        } else if (_currentX < _mapData.mapSizeX) {
-            this.giveFieldNameAndSave(_mapData, _currentX + 1, _currentY, _fieldValues);
+        } else if (_currentX < _adventure.mapSizeX) {
+            this.giveFieldInput(_adventure, _currentX + 1, _currentY, _fieldValues);
             return _fieldValues;
         }
-        // todo: Save to file
-        console.log(_mapData);
-        // this.saveAdventureToJSON()
-        // User confirms 
-
-        //console.log(this.confirmAction());
-        // TODO: IREGENWIE HIER USER INPUT AKZEPTIEREN!
-        (async() => this.confirmAction() );
+        _adventure.field = _fieldValues;
+        this.confirmAction(_adventure);
         return _fieldValues;
     }
 
-    private confirmAction(): boolean {
-        const confirm = this.prompts({
+    private async confirmAction(_adventure: Adventure) {
+    const confirm = await this.prompts({
                 type: 'toggle',
                 name: 'value',
                 message: 'Willst du dieses Textadventure wirklich erstellen?',
@@ -168,20 +169,26 @@ export class RegisteredUser {
                 active: 'Ja',
                 inactive: 'Nein'
             });
-        return confirm.value;
+       if(confirm.value) {
+           let adventure = new Adventure(0, _adventure.title, _adventure.author, 
+            _adventure.startpointX,_adventure.startpointY, _adventure.amountPlayers, 
+            _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
+            adventure.saveToJSON();
+       }
     }
 
     // todo: in Adventure einfügen? Lauffähig machen
-    public async saveAdventureToJSON(_newAdventure: Adventure) {
-        let rawdata = this.fs.readFileSync('adventure.json');
-        let adventures: Adventure[] = JSON.parse(rawdata);
+    // in adventure 
+    // public async saveAdventureToJSON(_newAdventure: Adventure) {
+    //     let rawdata = this.fs.readFileSync('adventure.json');
+    //     let adventures: Adventure[] = JSON.parse(rawdata);
 
-        adventures.push(_newAdventure);
+    //     adventures.push(_newAdventure);
 
-        // save to JSON
-        let jsonData = JSON.stringify(adventures);
-        await this.fsBack.writeFile('adventure.json', jsonData);
-    }
+    //     // save to JSON
+    //     let jsonData = JSON.stringify(adventures);
+    //     await this.fsBack.writeFile('adventure.json', jsonData);
+    // }
 
     public async saveUserToJSON() {
         // get complete Users Data and add new entry

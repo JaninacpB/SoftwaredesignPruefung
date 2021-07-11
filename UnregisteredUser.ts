@@ -60,8 +60,7 @@ export class UnregisteredUser {
                 console.log(this.chalk.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
                 this.login();
             }
-        }
-        )();
+        })();
     }
 
     // const onCancel = prompt => {
