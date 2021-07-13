@@ -84,7 +84,7 @@ var UnregisteredUser = /** @class */ (function () {
         // todo: Implementieren
         console.log(this.chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var loginData, registeredUser;
+            var loginData, user, registeredUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.prompts([
@@ -101,8 +101,9 @@ var UnregisteredUser = /** @class */ (function () {
                         ])];
                     case 1:
                         loginData = _a.sent();
-                        if (this.usernameAndPasswordCheck(loginData)) {
-                            registeredUser = RegisteredUser_1.RegisteredUser.getInstance(loginData.username, loginData.password, 0);
+                        user = this.getUserIfExist(loginData);
+                        if (user !== null) {
+                            registeredUser = RegisteredUser_1.RegisteredUser.getInstance(user.username, user.password, user.id);
                             registeredUser.navigateMenu();
                         }
                         else {
@@ -136,14 +137,15 @@ var UnregisteredUser = /** @class */ (function () {
         }
         return valid;
     };
-    UnregisteredUser.prototype.usernameAndPasswordCheck = function (_userInput) {
+    // return null if not exist, return user if exist 
+    UnregisteredUser.prototype.getUserIfExist = function (_userInput) {
         var users = this.getJSONData();
         for (var i = 0; i < users.length; i++) {
             if (users[i].username === _userInput.username && users[i].password == _userInput.password) {
-                return true;
+                return users[i];
             }
         }
-        return false;
+        return null;
     };
     UnregisteredUser.prototype.getJSONData = function () {
         var rawdata = this.fs.readFileSync('users.json');

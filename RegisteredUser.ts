@@ -1,5 +1,6 @@
 import { Adventure } from "./Adventure";
 import { Field } from "./Field";
+import { promptChoice } from "./promptChoice";
 
 export class RegisteredUser {
     private prompts = require('prompts');
@@ -12,11 +13,13 @@ export class RegisteredUser {
     public username: string;
     public password: string;
     public id: number;
+    private userAdventure: Adventure[];
 
     private constructor(username: string, password: string, id: number) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.userAdventure = this.checkUserAdventures();
     }
 
     // Singleton Method Code from: https://refactoring.guru/design-patterns/singleton/typescript/example
@@ -54,9 +57,59 @@ export class RegisteredUser {
                     this.createMap();
                     break
                 case '3':
+                    this.showStatistic();
                     break
             }
         })();
+    }
+
+    private async showStatistic() {
+        console.log(this.chalk.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abendteuer an)\n'));
+        let promptAdventureTitles: promptChoice[] = [];
+        // Für prompt vorbereiten
+        for (let i = 0; i < this.userAdventure.length; i++) {
+            let choice: promptChoice = { value: this.userAdventure[i].adventureId, title: this.userAdventure[i].title };
+            promptAdventureTitles.push(choice);
+        }
+        (async () => {
+            const userAdventuresChoice = await this.prompts([
+                {
+                    type: 'select',
+                    name: 'value',
+                    message: '"Welche Geschichte möchtest du dir genauer ansehen?"',
+                    choices: promptAdventureTitles,
+                    initial: 1
+                },
+            ]);
+            // Get current Adventure from this (Prompt return does not have all needed values)
+            let adventureCurrentIndex = this.userAdventure.findIndex(i => i.adventureId === userAdventuresChoice.value);
+            // todo: Prototype?
+            let adventureCurrent = this.userAdventure[adventureCurrentIndex];
+            // Get Choice from User in 
+            console.log('"Nun gut schauen wir einmal, was ich so über die Geschichte "' + adventureCurrent.title + '" weiß..."');
+            console.log('"Interessant, diese Geschichte wurde schon von: ' + this.chalk.green(adventureCurrent.amountPlayers + ' Spieleren gespielt.') + '"');
+            if (adventureCurrent.amountPlayers !== 0) {
+                console.log('"Und auch gut zu wissen, insgesamt verbrachen Spieler'
+                    + this.chalk.green(' durschnittlich ' + (adventureCurrent.amountTurns / adventureCurrent.amountPlayers) + ' Züge ') + 'auf deiner Karte."');
+            } else {
+                console.log('"Mehr kann ich dir im Moment leider nicht sagen."');
+            }
+            this.navigateMenu();
+        })();
+    }
+
+    private checkUserAdventures(): Adventure[] {
+        // Get Adventure from JSON
+        let rawdata = this.fs.readFileSync('adventure.json');
+        let adventures: Adventure[] = JSON.parse(rawdata);
+
+        let userAdventures: Adventure[] = [];
+        for (let i = 0; i < adventures.length; i++) {
+            if (adventures[i].author === this.id) {
+                userAdventures.push(adventures[i]);
+            }
+        }
+        return userAdventures;
     }
 
     private createMap() {
@@ -159,24 +212,24 @@ export class RegisteredUser {
     }
 
     private async confirmAction(_adventure: Adventure) {
-    const confirm = await this.prompts({
-                type: 'toggle',
-                name: 'value',
-                message: 'Willst du dieses Textadventure wirklich erstellen?',
-                initial: true,
-                active: 'Ja',
-                inactive: 'Nein'
-            });
-       if(confirm.value) {
-           let adventure = new Adventure(0, _adventure.title, _adventure.author, 
-            _adventure.startpointX,_adventure.startpointY, _adventure.amountPlayers, 
-            _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
+        const confirm = await this.prompts({
+            type: 'toggle',
+            name: 'value',
+            message: 'Willst du dieses Textadventure wirklich erstellen?',
+            initial: true,
+            active: 'Ja',
+            inactive: 'Nein'
+        });
+        if (confirm.value) {
+            let adventure = new Adventure(0, _adventure.title, _adventure.author,
+                _adventure.startpointX, _adventure.startpointY, _adventure.amountPlayers,
+                _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
             adventure.saveToJSON();
-       } else {
-           console.log(this.chalk.red('Adventure wurde verworfen'));
-           // todo: stattdessen von vorne anfangen? 
-       }
-       this.navigateMenu();
+        } else {
+            console.log(this.chalk.red('Adventure wurde verworfen'));
+            // todo: stattdessen von vorne anfangen? 
+        }
+        this.navigateMenu();
     }
 
     public async saveUserToJSON() {

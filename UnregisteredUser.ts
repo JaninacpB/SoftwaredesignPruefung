@@ -52,9 +52,10 @@ export class UnregisteredUser {
                     message: '"Um sicher zu sein, kennst du noch unser geheimes Codewort... \n  (Password eingeben)"'
                 }
             ]);
-            if (this.usernameAndPasswordCheck(loginData)) {
-                // id will be changed in saveToJSON
-                let registeredUser: RegisteredUser = RegisteredUser.getInstance(loginData.username, loginData.password, 0);
+            let user = this.getUserIfExist(loginData)
+            if (user!== null) {
+                //todo: id will be changed in saveToJSON _> Reicht nicht! 
+                let registeredUser: RegisteredUser = RegisteredUser.getInstance(user.username, user.password, user.id);
                 registeredUser.navigateMenu();
             } else {
                 console.log(this.chalk.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
@@ -87,14 +88,15 @@ export class UnregisteredUser {
         return valid;
     }
 
-    private usernameAndPasswordCheck(_userInput: any): boolean {
+    // return null if not exist, return user if exist 
+    private getUserIfExist(_userInput: any): any {
         let users = this.getJSONData();
         for (let i = 0; i < users.length; i++) {
             if (users[i].username === _userInput.username && users[i].password == _userInput.password) {
-                return true;
+                return users[i];
             }
         }
-        return false;
+        return null;
     }
 
     private getJSONData(): RegisteredUser[] {

@@ -47,6 +47,7 @@ var RegisteredUser = /** @class */ (function () {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.userAdventure = this.checkUserAdventures();
     }
     // Singleton Method Code from: https://refactoring.guru/design-patterns/singleton/typescript/example
     RegisteredUser.getInstance = function (_username, _password, _id) {
@@ -86,12 +87,73 @@ var RegisteredUser = /** @class */ (function () {
                                 this.createMap();
                                 break;
                             case '3':
+                                this.showStatistic();
                                 break;
                         }
                         return [2 /*return*/];
                 }
             });
         }); })();
+    };
+    RegisteredUser.prototype.showStatistic = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var promptAdventureTitles, i, choice;
+            var _this = this;
+            return __generator(this, function (_a) {
+                console.log(this.chalk.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abendteuer an)\n'));
+                promptAdventureTitles = [];
+                // Für prompt vorbereiten
+                for (i = 0; i < this.userAdventure.length; i++) {
+                    choice = { value: this.userAdventure[i].adventureId, title: this.userAdventure[i].title };
+                    promptAdventureTitles.push(choice);
+                }
+                (function () { return __awaiter(_this, void 0, void 0, function () {
+                    var userAdventuresChoice, adventureCurrentIndex, adventureCurrent;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, this.prompts([
+                                    {
+                                        type: 'select',
+                                        name: 'value',
+                                        message: '"Welche Geschichte möchtest du dir genauer ansehen?"',
+                                        choices: promptAdventureTitles,
+                                        initial: 1
+                                    },
+                                ])];
+                            case 1:
+                                userAdventuresChoice = _a.sent();
+                                adventureCurrentIndex = this.userAdventure.findIndex(function (i) { return i.adventureId === userAdventuresChoice.value; });
+                                adventureCurrent = this.userAdventure[adventureCurrentIndex];
+                                // Get Choice from User in 
+                                console.log('"Nun gut schauen wir einmal, was ich so über die Geschichte "' + adventureCurrent.title + '" weiß..."');
+                                console.log('"Interessant, diese Geschichte wurde schon von: ' + this.chalk.green(adventureCurrent.amountPlayers + ' Spieleren gespielt.') + '"');
+                                if (adventureCurrent.amountPlayers !== 0) {
+                                    console.log('"Und auch gut zu wissen, insgesamt verbrachen Spieler'
+                                        + this.chalk.green(' durschnittlich ' + (adventureCurrent.amountTurns / adventureCurrent.amountPlayers) + ' Züge ') + 'auf deiner Karte."');
+                                }
+                                else {
+                                    console.log('"Mehr kann ich dir im Moment leider nicht sagen."');
+                                }
+                                this.navigateMenu();
+                                return [2 /*return*/];
+                        }
+                    });
+                }); })();
+                return [2 /*return*/];
+            });
+        });
+    };
+    RegisteredUser.prototype.checkUserAdventures = function () {
+        // Get Adventure from JSON
+        var rawdata = this.fs.readFileSync('adventure.json');
+        var adventures = JSON.parse(rawdata);
+        var userAdventures = [];
+        for (var i = 0; i < adventures.length; i++) {
+            if (adventures[i].author === this.id) {
+                userAdventures.push(adventures[i]);
+            }
+        }
+        return userAdventures;
     };
     RegisteredUser.prototype.createMap = function () {
         var _this = this;

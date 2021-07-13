@@ -1,1 +1,212 @@
-[{"adventureId":1,"title":"Das Auenland wartet","author":0,"startpointX":2,"startpointY":2,"amountPlayers":0,"amountTurns":3,"mapSizeX":3,"mapSizeY":3,"field":[{"xPosition":1,"yPosition":1,"place":"Dunkler Wald"},{"xPosition":2,"yPosition":1,"place":"fließender Strom"},{"xPosition":3,"yPosition":1,"place":"Hügelkette"},{"xPosition":1,"yPosition":2,"place":"Taverne zum tänzelnden Pony"},{"xPosition":2,"yPosition":2,"place":"Hobbington"},{"xPosition":3,"yPosition":2,"place":"Trolle"},{"xPosition":1,"yPosition":3,"place":"Steinkreis"},{"xPosition":2,"yPosition":3,"place":"Blumenfeld"},{"xPosition":3,"yPosition":3,"place":"Wasserfall"}]},{"fs":{"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"constants":{"UV_FS_SYMLINK_DIR":1,"UV_FS_SYMLINK_JUNCTION":2,"O_RDONLY":0,"O_WRONLY":1,"O_RDWR":2,"UV_DIRENT_UNKNOWN":0,"UV_DIRENT_FILE":1,"UV_DIRENT_DIR":2,"UV_DIRENT_LINK":3,"UV_DIRENT_FIFO":4,"UV_DIRENT_SOCKET":5,"UV_DIRENT_CHAR":6,"UV_DIRENT_BLOCK":7,"S_IFMT":61440,"S_IFREG":32768,"S_IFDIR":16384,"S_IFCHR":8192,"S_IFLNK":40960,"O_CREAT":256,"O_EXCL":1024,"UV_FS_O_FILEMAP":536870912,"O_TRUNC":512,"O_APPEND":8,"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"UV_FS_COPYFILE_EXCL":1,"COPYFILE_EXCL":1,"UV_FS_COPYFILE_FICLONE":2,"COPYFILE_FICLONE":2,"UV_FS_COPYFILE_FICLONE_FORCE":4,"COPYFILE_FICLONE_FORCE":4},"promises":{}},"fsBack":{},"adventureId":2,"title":"Hufflepuff","author":0,"startpointX":1,"startpointY":1,"amountPlayers":0,"amountTurns":2,"mapSizeX":2,"mapSizeY":2,"field":[{"xPosition":1,"yPosition":1,"place":"Mädchenschlafsaal"},{"xPosition":2,"yPosition":1,"place":"Jungenschlafsaal"},{"xPosition":1,"yPosition":2,"place":"Gemeinschaftsraum"},{"xPosition":2,"yPosition":2,"place":"Küche"}]},{"fs":{"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"constants":{"UV_FS_SYMLINK_DIR":1,"UV_FS_SYMLINK_JUNCTION":2,"O_RDONLY":0,"O_WRONLY":1,"O_RDWR":2,"UV_DIRENT_UNKNOWN":0,"UV_DIRENT_FILE":1,"UV_DIRENT_DIR":2,"UV_DIRENT_LINK":3,"UV_DIRENT_FIFO":4,"UV_DIRENT_SOCKET":5,"UV_DIRENT_CHAR":6,"UV_DIRENT_BLOCK":7,"S_IFMT":61440,"S_IFREG":32768,"S_IFDIR":16384,"S_IFCHR":8192,"S_IFLNK":40960,"O_CREAT":256,"O_EXCL":1024,"UV_FS_O_FILEMAP":536870912,"O_TRUNC":512,"O_APPEND":8,"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"UV_FS_COPYFILE_EXCL":1,"COPYFILE_EXCL":1,"UV_FS_COPYFILE_FICLONE":2,"COPYFILE_FICLONE":2,"UV_FS_COPYFILE_FICLONE_FORCE":4,"COPYFILE_FICLONE_FORCE":4},"promises":{}},"fsBack":{},"adventureId":3,"title":"Ravenclaw","author":0,"startpointX":1,"startpointY":1,"amountPlayers":0,"amountTurns":2,"mapSizeX":2,"mapSizeY":2,"field":[{"xPosition":1,"yPosition":1,"place":"Jungenschlafsaal"},{"xPosition":2,"yPosition":1,"place":"Mädchenschlafsaal"},{"xPosition":1,"yPosition":2,"place":"Bibliothek"},{"xPosition":2,"yPosition":2,"place":"Gemeinschaftssaal"}]}]
+[
+    {
+        "adventureId": 1,
+        "title": "Das Auenland wartet",
+        "author": 0,
+        "startpointX": 2,
+        "startpointY": 2,
+        "amountPlayers": 0,
+        "amountTurns": 3,
+        "mapSizeX": 3,
+        "mapSizeY": 3,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Dunkler Wald"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "fließender Strom"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 1,
+                "place": "Hügelkette"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "Taverne zum tänzelnden Pony"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Hobbington"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 2,
+                "place": "Trolle"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 3,
+                "place": "Steinkreis"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 3,
+                "place": "Blumenfeld"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 3,
+                "place": "Wasserfall"
+            }
+        ]
+    },
+    {
+        "fs": {
+            "F_OK": 0,
+            "R_OK": 4,
+            "W_OK": 2,
+            "X_OK": 1,
+            "constants": {
+                "UV_FS_SYMLINK_DIR": 1,
+                "UV_FS_SYMLINK_JUNCTION": 2,
+                "O_RDONLY": 0,
+                "O_WRONLY": 1,
+                "O_RDWR": 2,
+                "UV_DIRENT_UNKNOWN": 0,
+                "UV_DIRENT_FILE": 1,
+                "UV_DIRENT_DIR": 2,
+                "UV_DIRENT_LINK": 3,
+                "UV_DIRENT_FIFO": 4,
+                "UV_DIRENT_SOCKET": 5,
+                "UV_DIRENT_CHAR": 6,
+                "UV_DIRENT_BLOCK": 7,
+                "S_IFMT": 61440,
+                "S_IFREG": 32768,
+                "S_IFDIR": 16384,
+                "S_IFCHR": 8192,
+                "S_IFLNK": 40960,
+                "O_CREAT": 256,
+                "O_EXCL": 1024,
+                "UV_FS_O_FILEMAP": 536870912,
+                "O_TRUNC": 512,
+                "O_APPEND": 8,
+                "F_OK": 0,
+                "R_OK": 4,
+                "W_OK": 2,
+                "X_OK": 1,
+                "UV_FS_COPYFILE_EXCL": 1,
+                "COPYFILE_EXCL": 1,
+                "UV_FS_COPYFILE_FICLONE": 2,
+                "COPYFILE_FICLONE": 2,
+                "UV_FS_COPYFILE_FICLONE_FORCE": 4,
+                "COPYFILE_FICLONE_FORCE": 4
+            },
+            "promises": {}
+        },
+        "fsBack": {},
+        "adventureId": 2,
+        "title": "Hufflepuff",
+        "author": 7,
+        "startpointX": 1,
+        "startpointY": 1,
+        "amountPlayers": 0,
+        "amountTurns": 2,
+        "mapSizeX": 2,
+        "mapSizeY": 2,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Mädchenschlafsaal"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "Jungenschlafsaal"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "Gemeinschaftsraum"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Küche"
+            }
+        ]
+    },
+    {
+        "fs": {
+            "F_OK": 0,
+            "R_OK": 4,
+            "W_OK": 2,
+            "X_OK": 1,
+            "constants": {
+                "UV_FS_SYMLINK_DIR": 1,
+                "UV_FS_SYMLINK_JUNCTION": 2,
+                "O_RDONLY": 0,
+                "O_WRONLY": 1,
+                "O_RDWR": 2,
+                "UV_DIRENT_UNKNOWN": 0,
+                "UV_DIRENT_FILE": 1,
+                "UV_DIRENT_DIR": 2,
+                "UV_DIRENT_LINK": 3,
+                "UV_DIRENT_FIFO": 4,
+                "UV_DIRENT_SOCKET": 5,
+                "UV_DIRENT_CHAR": 6,
+                "UV_DIRENT_BLOCK": 7,
+                "S_IFMT": 61440,
+                "S_IFREG": 32768,
+                "S_IFDIR": 16384,
+                "S_IFCHR": 8192,
+                "S_IFLNK": 40960,
+                "O_CREAT": 256,
+                "O_EXCL": 1024,
+                "UV_FS_O_FILEMAP": 536870912,
+                "O_TRUNC": 512,
+                "O_APPEND": 8,
+                "F_OK": 0,
+                "R_OK": 4,
+                "W_OK": 2,
+                "X_OK": 1,
+                "UV_FS_COPYFILE_EXCL": 1,
+                "COPYFILE_EXCL": 1,
+                "UV_FS_COPYFILE_FICLONE": 2,
+                "COPYFILE_FICLONE": 2,
+                "UV_FS_COPYFILE_FICLONE_FORCE": 4,
+                "COPYFILE_FICLONE_FORCE": 4
+            },
+            "promises": {}
+        },
+        "fsBack": {},
+        "adventureId": 3,
+        "title": "Ravenclaw",
+        "author": 7,
+        "startpointX": 1,
+        "startpointY": 1,
+        "amountPlayers": 5,
+        "amountTurns": 25,
+        "mapSizeX": 2,
+        "mapSizeY": 2,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Jungenschlafsaal"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "Mädchenschlafsaal"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "Bibliothek"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Gemeinschaftssaal"
+            }
+        ]
+    }
+]
