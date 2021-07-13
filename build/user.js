@@ -46,6 +46,7 @@ var User = /** @class */ (function () {
     }
     User.prototype.searchAdventure = function () {
         var _this = this;
+        console.log(this.chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
         // für Prompt vorbereiten
         var allAdventures = this.parseForPrompt(this.getAdventures());
         (function () { return __awaiter(_this, void 0, void 0, function () {
@@ -74,6 +75,7 @@ var User = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var allAdventures;
             return __generator(this, function (_a) {
+                console.log(this.chalk.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
                 allAdventures = this.parseForPrompt(this.getAdventures());
                 this.navigateThroughList(allAdventures, 1);
                 return [2 /*return*/];

@@ -56,9 +56,6 @@ var RegisteredUser_1 = require("./RegisteredUser");
 var User_1 = require("./User");
 var UnregisteredUser = /** @class */ (function (_super) {
     __extends(UnregisteredUser, _super);
-    // todo: private prompts = require('prompts');
-    // private chalk = require('chalk');
-    //  private fs = require('fs');
     function UnregisteredUser() {
         return _super.call(this) || this;
     }
@@ -98,7 +95,7 @@ var UnregisteredUser = /** @class */ (function (_super) {
     UnregisteredUser.prototype.login = function () {
         var _this = this;
         console.log(this.chalk.bgBlue('\nTürschwelle (Login)\n'));
-        // todo: Implementieren
+        // todo: Implementieren oder weg machen weil komplex? bzw. gleiches Problem wie beim Abendteuer
         console.log(this.chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
         (function () { return __awaiter(_this, void 0, void 0, function () {
             var loginData, user, registeredUser;
@@ -136,6 +133,7 @@ var UnregisteredUser = /** @class */ (function (_super) {
     //     console.log('Test');
     //     return true; };
     // const response = await prompt(this.prompts, {onCancel});
+    // for unittest public 
     UnregisteredUser.prototype.checkUsername = function (_username) {
         var valid = false;
         // Alphanumeric check

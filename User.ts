@@ -8,6 +8,7 @@ export class User {
     public fsBack = require('fs').promises;
 
     public searchAdventure() {
+        console.log(this.chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
         // für Prompt vorbereiten
         let allAdventures: PromptChoice[] = this.parseForPrompt(this.getAdventures());
 
@@ -28,6 +29,7 @@ export class User {
     }
 
     public async firstFiveAdventures() {
+        console.log(this.chalk.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
         let allAdventures: PromptChoice[] = this.parseForPrompt(this.getAdventures());
         this.navigateThroughList(allAdventures, 1);
     }

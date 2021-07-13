@@ -2,9 +2,6 @@ import { RegisteredUser } from "./RegisteredUser";
 import { User } from "./User";
 
 export class UnregisteredUser extends User {
-    // todo: private prompts = require('prompts');
-    // private chalk = require('chalk');
-   //  private fs = require('fs');
 
     constructor() {
         super();
@@ -38,7 +35,7 @@ export class UnregisteredUser extends User {
 
     public login(): void {
         console.log(this.chalk.bgBlue('\nTürschwelle (Login)\n'));
-        // todo: Implementieren
+        // todo: Implementieren oder weg machen weil komplex? bzw. gleiches Problem wie beim Abendteuer
         console.log(this.chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
         (async () => {
             const loginData = await this.prompts([
@@ -55,7 +52,6 @@ export class UnregisteredUser extends User {
             ]);
             let user = this.getUserIfExist(loginData)
             if (user!== null) {
-                //todo: id will be changed in saveToJSON _> Reicht nicht! 
                 let registeredUser: RegisteredUser = RegisteredUser.getInstance(user.username, user.password, user.id);
                 registeredUser.navigateMenu();
             } else {
@@ -70,7 +66,8 @@ export class UnregisteredUser extends User {
     //     return true; };
     // const response = await prompt(this.prompts, {onCancel});
 
-    private checkUsername(_username: string): boolean {
+    // for unittest public 
+    public checkUsername(_username: string): boolean {
         let valid = false;
         // Alphanumeric check
         if (_username.match('^[a-zA-Z0-9]*$') != null) {
