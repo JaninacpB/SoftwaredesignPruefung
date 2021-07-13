@@ -1,4 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -38,11 +53,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnregisteredUser = void 0;
 var RegisteredUser_1 = require("./RegisteredUser");
-var UnregisteredUser = /** @class */ (function () {
+var User_1 = require("./User");
+var UnregisteredUser = /** @class */ (function (_super) {
+    __extends(UnregisteredUser, _super);
+    // todo: private prompts = require('prompts');
+    // private chalk = require('chalk');
+    //  private fs = require('fs');
     function UnregisteredUser() {
-        this.prompts = require('prompts');
-        this.chalk = require('chalk');
-        this.fs = require('fs');
+        return _super.call(this) || this;
     }
     UnregisteredUser.prototype.getUserData = function () {
         var _this = this;
@@ -57,7 +75,6 @@ var UnregisteredUser = /** @class */ (function () {
                                 type: 'text',
                                 name: 'username',
                                 message: '"Unter welchen Namen kennt man deine Gestalt?"',
-                                // todo: Username exist and is not valid different message
                                 // note: no \n in error message or bug
                                 validate: function (value) { return _this.checkUsername(value) ? true :
                                     "Oh verzeih mir, aber ich kann leider nur Alphanumerische Werte mit dieser Feder schreiben, bitte versuch es noch einmal (Korrigiere Eingabe so, dass nur a-z und Zahlen im Nutzernmane stehen, keine doppelten Usernames erlaubt)"; }
@@ -153,5 +170,5 @@ var UnregisteredUser = /** @class */ (function () {
         return users;
     };
     return UnregisteredUser;
-}());
+}(User_1.User));
 exports.UnregisteredUser = UnregisteredUser;

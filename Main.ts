@@ -52,7 +52,7 @@ class Main {
           choices: [
             { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: '0' },
             { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: '1' },
-            { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht aller Abendteuer anzeigen)"', value: '2' },
+            { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht von Abendteuern anzeigen)"', value: '2' },
             { title: '"Gut ein anderes Gesicht zu sehen. Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: '3' }
           ],
           initial: 0
@@ -66,6 +66,10 @@ class Main {
           this.unregisteredUser.getUserData();
           break;
         case '2':
+          this.unregisteredUser.firstFiveAdventures();
+          break
+        case '3':
+          this.unregisteredUser.searchAdventure();
           break
       }
     })();

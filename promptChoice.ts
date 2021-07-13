@@ -1,4 +1,4 @@
-export interface promptChoice {
+export interface PromptChoice {
     value: number;
     title: string;
 }

@@ -1,12 +1,14 @@
 import { Adventure } from "./Adventure";
 import { Field } from "./Field";
-import { promptChoice } from "./promptChoice";
+import { User } from "./User";
+import { PromptChoice } from "./PromptChoice";
 
-export class RegisteredUser {
-    private prompts = require('prompts');
-    private chalk = require('chalk');
-    private fs = require('fs');
-    private fsBack = require('fs').promises;
+export class RegisteredUser extends User {
+    // todo: ersetzen? --> Webb ub user nicht hier notwendig?
+    // private prompts = require('prompts');
+    // private chalk = require('chalk');
+    // private fs = require('fs');
+   // private fsBack = require('fs').promises;
 
     private static instance: RegisteredUser;
 
@@ -16,6 +18,7 @@ export class RegisteredUser {
     private userAdventure: Adventure[];
 
     private constructor(username: string, password: string, id: number) {
+        super();
         this.id = id;
         this.username = username;
         this.password = password;
@@ -48,10 +51,10 @@ export class RegisteredUser {
             ]);
             switch (startScreen.value) {
                 case '0':
-
+                    this.firstFiveAdventures();
                     break;
                 case '1':
-
+                    this.searchAdventure();
                     break;
                 case '2':
                     this.createMap();
@@ -65,10 +68,10 @@ export class RegisteredUser {
 
     private async showStatistic() {
         console.log(this.chalk.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abendteuer an)\n'));
-        let promptAdventureTitles: promptChoice[] = [];
+        let promptAdventureTitles: PromptChoice[] = [];
         // Für prompt vorbereiten
         for (let i = 0; i < this.userAdventure.length; i++) {
-            let choice: promptChoice = { value: this.userAdventure[i].adventureId, title: this.userAdventure[i].title };
+            let choice: PromptChoice = { value: this.userAdventure[i].adventureId, title: this.userAdventure[i].title };
             promptAdventureTitles.push(choice);
         }
         (async () => {
@@ -183,6 +186,7 @@ export class RegisteredUser {
         _adventure.startpointX = startConfig.startpointX;
         _adventure.startpointY = startConfig.startpointY;
         let field: Field[] = [];
+        // todo nie genutzt? allField nur Methoden aufruf?
         let allFields = this.giveFieldInput(_adventure, 1, 1, field);
     }
 

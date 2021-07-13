@@ -1,11 +1,13 @@
 import { RegisteredUser } from "./RegisteredUser";
+import { User } from "./User";
 
-export class UnregisteredUser {
-    private prompts = require('prompts');
-    private chalk = require('chalk');
-    private fs = require('fs');
+export class UnregisteredUser extends User {
+    // todo: private prompts = require('prompts');
+    // private chalk = require('chalk');
+   //  private fs = require('fs');
 
     constructor() {
+        super();
     }
 
     public getUserData(): void {
@@ -16,7 +18,6 @@ export class UnregisteredUser {
                     type: 'text',
                     name: 'username',
                     message: '"Unter welchen Namen kennt man deine Gestalt?"',
-                    // todo: Username exist and is not valid different message
                     // note: no \n in error message or bug
                     validate: (value: string) => this.checkUsername(value) ? true :
                         "Oh verzeih mir, aber ich kann leider nur Alphanumerische Werte mit dieser Feder schreiben, bitte versuch es noch einmal (Korrigiere Eingabe so, dass nur a-z und Zahlen im Nutzernmane stehen, keine doppelten Usernames erlaubt)"
