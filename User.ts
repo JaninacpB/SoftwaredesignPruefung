@@ -1,4 +1,6 @@
 import { Adventure } from "./Adventure";
+import { ConcretePlayerTextadventure } from "./ConcretePlayerTextadventure";
+import { PlayerTextadventure } from "./PlayerTextadventure";
 import { PromptChoice } from "./PromptChoice";
 
 export class User {
@@ -10,21 +12,29 @@ export class User {
     public searchAdventure() {
         console.log(this.chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
         // für Prompt vorbereiten
-        let allAdventures: PromptChoice[] = this.parseForPrompt(this.getAdventures());
+        let allAdventures: Adventure[] = this.getAdventures();
+        let allAdventuresPrompt: PromptChoice[] = this.parseForPrompt(allAdventures);
 
         (async () => {
-            const userChoiceAdventure = await this.prompts([
+            const userChoiceId = await this.prompts([
                 {
                     type: 'autocomplete',
                     limit: 3,
                     name: 'value',
                     fallback: '"Es tut mir Leid, diese Geschichte ist mir nicht bekannt."',
                     message: '"Gebe ein, was du erleben willst..."',
-                    choices: allAdventures,
+                    choices: allAdventuresPrompt,
                     initial: 0
                 }
             ]); 
-            // todo: New Player
+
+            // get Adventure Type
+            let userChoiceAdventure: Adventure | undefined = allAdventures.find(adventure => adventure.adventureId === userChoiceId.value);
+            let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
+            let player = playerFactroy.createPlayer();
+            // todo: wo id gleich
+            player.playAdventure(userChoiceAdventure);
+            // todo: Jetzt? irgendwie zurück
         })();
     }
 
@@ -63,7 +73,10 @@ export class User {
             console.log(this.chalk.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
             this.navigateThroughList(_allAdventures, 1);
         }
-        // todo: new Player 
+       let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
+       let player = playerFactroy.createPlayer();
+       player.playAdventure(userChoiceAdventure.value);
+       //todo: irgendwie zurück
     }
 
     private parseForPrompt(_allAdventures: Adventure[]): PromptChoice[] {

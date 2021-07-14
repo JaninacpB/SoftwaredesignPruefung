@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+var PlayerTextadventure_1 = require("./PlayerTextadventure");
 var User = /** @class */ (function () {
     function User() {
         this.fs = require('fs');
@@ -48,9 +49,10 @@ var User = /** @class */ (function () {
         var _this = this;
         console.log(this.chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
         // für Prompt vorbereiten
-        var allAdventures = this.parseForPrompt(this.getAdventures());
+        var allAdventures = this.getAdventures();
+        var allAdventuresPrompt = this.parseForPrompt(allAdventures);
         (function () { return __awaiter(_this, void 0, void 0, function () {
-            var userChoiceAdventure;
+            var userChoiceId, userChoiceAdventure, playerFactroy, player;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.prompts([
@@ -60,12 +62,17 @@ var User = /** @class */ (function () {
                                 name: 'value',
                                 fallback: '"Es tut mir Leid, diese Geschichte ist mir nicht bekannt."',
                                 message: '"Gebe ein, was du erleben willst..."',
-                                choices: allAdventures,
+                                choices: allAdventuresPrompt,
                                 initial: 0
                             }
                         ])];
                     case 1:
-                        userChoiceAdventure = _a.sent();
+                        userChoiceId = _a.sent();
+                        userChoiceAdventure = allAdventures.find(function (adventure) { return adventure.adventureId === userChoiceId.value; });
+                        playerFactroy = new PlayerTextadventure_1.PlayerTextadventure();
+                        player = playerFactroy.createPlayer();
+                        // todo: wo id gleich
+                        player.playAdventure(userChoiceAdventure);
                         return [2 /*return*/];
                 }
             });
@@ -85,7 +92,7 @@ var User = /** @class */ (function () {
     // i counts the loop/rekussion 
     User.prototype.navigateThroughList = function (_allAdventures, i) {
         return __awaiter(this, void 0, void 0, function () {
-            var currentAdventure, showMore, userChoiceAdventure;
+            var currentAdventure, showMore, userChoiceAdventure, playerFactroy, player;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -118,6 +125,9 @@ var User = /** @class */ (function () {
                             console.log(this.chalk.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
                             this.navigateThroughList(_allAdventures, 1);
                         }
+                        playerFactroy = new PlayerTextadventure_1.PlayerTextadventure();
+                        player = playerFactroy.createPlayer();
+                        player.playAdventure(userChoiceAdventure.value);
                         return [2 /*return*/];
                 }
             });
