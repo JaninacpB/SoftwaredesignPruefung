@@ -1,13 +1,14 @@
 import { Adventure } from "./Adventure";
 import { PlayerTextadventure } from "./PlayerTextadventure";
-import {PromptChoice} from "./PromptChoice";
+import { PromptChoice } from "./PromptChoice";
 import prompts from "prompts";
 import fs from "fs";
 import chalk from "chalk";
 
 export class User {
 
-    public searchAdventure() {
+    // id to identify in ConcretePlayerTextadventure later if registered or not
+    public async searchAdventure(_id: string){
         console.log(chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
         // für Prompt vorbereiten
         let allAdventures: Adventure[] = this.getAdventures();
@@ -16,26 +17,25 @@ export class User {
         // Fallback doesnt workt without require here
         const prompts = require('prompts');
 
-        (async () => {
-            const userChoiceId = await prompts([
-                {
-                    type: 'autocomplete',
-                    limit: 3,
-                    name: 'value',
-                    message: '"Gebe ein, was du erleben willst..."',
-                    choices: allAdventuresPrompt,
-                    fallback: '"Es tut mir Leid, diese Geschichte ist mir nicht bekannt."',
-                    initial: 0
-                }
-            ]); 
+        const userChoiceId = await prompts([
+            {
+                type: 'autocomplete',
+                limit: 3,
+                name: 'value',
+                message: '"Gebe ein, was du erleben willst..."',
+                choices: allAdventuresPrompt,
+                fallback: '"Es tut mir Leid, diese Geschichte ist mir nicht bekannt."',
+                initial: 0
+            }
+        ]);
 
-            // get Adventure Type
-            let userChoiceAdventure: Adventure | undefined = allAdventures.find(adventure => adventure.adventureId === userChoiceId.value);
-            let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
-            let player = playerFactroy.createPlayer();
-            player.playAdventure(userChoiceAdventure);
-            // todo: Jetzt? irgendwie zurück
-        })();
+        // get Adventure Type
+        let userChoiceAdventure: Adventure | undefined = allAdventures.find(adventure => adventure.adventureId === userChoiceId.value);
+        let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
+        let player = playerFactroy.createPlayer();
+        player.id = _id;
+        player.playAdventure(userChoiceAdventure);
+        // todo: Jetzt? irgendwie zurück
     }
 
     public async firstFiveAdventures() {
@@ -73,12 +73,12 @@ export class User {
             this.navigateThroughList(_allAdventures, 1);
         } else {
             // get Adventures not prompt Interface & use Factory 
-       let adventures = this.getAdventures();
-       let userChoiceAdventure: Adventure | undefined = adventures.find(adventure => adventure.adventureId === userChoiceAdventurePrompt.value);
-       let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
-       let player = playerFactroy.createPlayer();
-       player.playAdventure(userChoiceAdventure);
-       //todo: irgendwie zurück
+            let adventures = this.getAdventures();
+            let userChoiceAdventure: Adventure | undefined = adventures.find(adventure => adventure.adventureId === userChoiceAdventurePrompt.value);
+            let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
+            let player = playerFactroy.createPlayer();
+            player.playAdventure(userChoiceAdventure);
+            //todo: irgendwie zurück
         }
     }
 

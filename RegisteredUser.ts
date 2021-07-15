@@ -32,6 +32,7 @@ export class RegisteredUser extends User {
         return RegisteredUser.instance;
     }
 
+    // move to unregistered User?
     public navigateMenu() {
         (async () => {
             const startScreen = await prompts([
@@ -40,25 +41,26 @@ export class RegisteredUser extends User {
                     name: 'value',
                     message: '"Wie kann ich dir helfen "' + this.username + '"?"',
                     choices: [
-                        { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht aller Abendteuer anzeigen)"', value: '0' },
-                        { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: '1' },
-                        { title: '"Ich möchte eine eigene Geschichte erschaffen... (Erstelle ein Textadventure)"', value: '2' },
-                        { title: '"Hast du anderen bereits meine Geschichten gegeben? Was sagten sie... (Statistik ansehen)"', value: '3' },
+                        { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht aller Abendteuer anzeigen)"', value: 0 },
+                        { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: 1 },
+                        { title: '"Ich möchte eine eigene Geschichte erschaffen... (Erstelle ein Textadventure)"', value: 2 },
+                        { title: '"Hast du anderen bereits meine Geschichten gegeben? Was sagten sie... (Statistik ansehen)"', value: 3 },
+                        { title: chalk.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
                     ],
                     initial: 0
                 }
             ]);
             switch (startScreen.value) {
-                case '0':
+                case 0:
                     this.firstFiveAdventures();
                     break;
-                case '1':
-                    this.searchAdventure();
+                case 1:
+                    this.searchAdventure(this.id);
                     break;
-                case '2':
+                case 2:
                     this.createMap();
                     break
-                case '3':
+                case 3:
                     this.showStatistic();
                     break
             }

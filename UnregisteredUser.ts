@@ -11,6 +11,40 @@ export class UnregisteredUser extends User {
         super();
     }
 
+    public menu() {
+        (async () => {
+          const startScreen = await prompts([
+            {
+              type: 'select',
+              name: 'value',
+              message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
+              choices: [
+                { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: 0 },
+                { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: 1 },
+                { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht von Abenteuern anzeigen)"', value: 2 },
+                { title: '"Gut ein anderes Gesicht zu sehen. Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abenteuer suchen)"', value: 3 },
+                { title: chalk.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
+              ],
+              initial: 0
+            }
+          ]);
+          switch (startScreen.value) {
+            case 0:
+              this.login();
+              break;
+            case 1:
+              this.getUserData();
+              break;
+            case 2:
+              this.firstFiveAdventures();
+              break
+            case 3:
+              this.searchAdventure('');
+              break;
+          }
+        })();
+      }
+
     public getUserData(): void {
         console.log(chalk.bgBlue('\nTürschwelle (Sign Up)\n'));
         (async () => {

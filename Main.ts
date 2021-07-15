@@ -1,14 +1,20 @@
 import wait from 'wait';
 import { UnregisteredUser } from './UnregisteredUser';
 
-class Main {
+export class Main {
+  static menu() {
+      throw new Error("Method not implemented.");
+  }
+  static startMenu() {
+      throw new Error("Method not implemented.");
+  }
   public unregisteredUser: UnregisteredUser = new UnregisteredUser();
 
   constructor() {
-    this.startMenu();
+    this.startTitle();
   }
 
-  private async startMenu() {
+  private async startTitle() {
     let adventuriaArt = [
       " _____   _             _           _               ____      _        _____        _      _____   _             _               ",
       "|  _  |_| |_ _ ___ ___| |_ _ _ ___|_|___    ___   |    \\ ___|_|___   |_   ____ _ _| |_   |  _  |_| |_ _ ___ ___| |_ _ _ ___ ___ ",
@@ -41,39 +47,45 @@ class Main {
     await wait(timeToWait * (adventuriaArt.length + 1));
     this.loadAsciiArt(timeToWait, maximusArt);
 
-    const prompts = require('prompts');
     await wait(timeToWait * (maximusArt.length + 1));
-    (async () => {
-      const startScreen = await prompts([
-        {
-          type: 'select',
-          name: 'value',
-          message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
-          choices: [
-            { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: '0' },
-            { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: '1' },
-            { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht von Abendteuern anzeigen)"', value: '2' },
-            { title: '"Gut ein anderes Gesicht zu sehen. Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: '3' }
-          ],
-          initial: 0
-        }
-      ]);
-      switch (startScreen.value) {
-        case '0':
-          this.unregisteredUser.login();
-          break;
-        case '1':
-          this.unregisteredUser.getUserData();
-          break;
-        case '2':
-          this.unregisteredUser.firstFiveAdventures();
-          break
-        case '3':
-          this.unregisteredUser.searchAdventure();
-          break
-      }
-    })();
+    let unregisteredUser = new UnregisteredUser();
+    unregisteredUser.menu();
   }
+
+  // public menu() {
+  //   const prompts = require('prompts');
+  //   (async () => {
+  //     const startScreen = await prompts([
+  //       {
+  //         type: 'select',
+  //         name: 'value',
+  //         message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
+  //         choices: [
+  //           { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: '0' },
+  //           { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: '1' },
+  //           { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht von Abendteuern anzeigen)"', value: '2' },
+  //           { title: '"Gut ein anderes Gesicht zu sehen. Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: '3' }
+  //         ],
+  //         initial: 0
+  //       }
+  //     ]);
+  //     switch (startScreen.value) {
+  //       case '0':
+  //         this.unregisteredUser.login();
+  //         break;
+  //       case '1':
+  //         this.unregisteredUser.getUserData();
+  //         break;
+  //       case '2':
+  //         this.unregisteredUser.firstFiveAdventures();
+  //         break
+  //       case '3':
+  //         this.unregisteredUser.searchAdventure('');
+  //         break
+  //     }
+  //   })();
+  // }
+
   async loadAsciiArt(timeToWaitInMs: number, asciiArt: string[]) {
     for (let i = 0; i < asciiArt.length; i++) {
       console.log(asciiArt[i]);

@@ -45,9 +45,11 @@ var prompts_1 = __importDefault(require("prompts"));
 var Direction_1 = require("./Direction");
 var fs_1 = __importDefault(require("fs"));
 var promises_1 = __importDefault(require("fs/promises"));
+var UnregisteredUser_1 = require("./UnregisteredUser");
 var ConcretePlayerTextadventure = /** @class */ (function () {
     function ConcretePlayerTextadventure() {
         this.amountTurns = 0;
+        this.id = '';
     }
     ConcretePlayerTextadventure.prototype.playAdventure = function (_adventure) {
         return __awaiter(this, void 0, void 0, function () {
@@ -63,7 +65,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
     };
     ConcretePlayerTextadventure.prototype.goOverMap = function (_x, _y, _adventure) {
         return __awaiter(this, void 0, void 0, function () {
-            var userChoiceMove, field;
+            var userChoiceMove, field, unregisteredUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, prompts_1.default([
@@ -97,7 +99,14 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                         }
                         else {
                             this.saveToAdventureStatistikJSON(_adventure.adventureId);
-                            //todo: back To Menü pedending that 
+                            if (this.id !== '') {
+                                // todo: get password and username
+                                //  let registeredUser: RegisteredUser = new RegisteredUser();
+                            }
+                            else {
+                                unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
+                                unregisteredUser.menu();
+                            }
                         }
                         return [2 /*return*/];
                 }

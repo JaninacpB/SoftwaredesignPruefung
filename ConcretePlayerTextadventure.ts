@@ -6,10 +6,13 @@ import { Field } from "./Field";
 import { Direction } from "./Direction";
 import fs from "fs";
 import fsBack from "fs/promises";
+import { RegisteredUser } from "./RegisteredUser";
+import { UnregisteredUser } from "./UnregisteredUser";
 
 export class ConcretePlayerTextadventure implements GeneralPlayer {
 
     public amountTurns = 0;
+    public id = '';
 
     public async playAdventure(_adventure: Adventure) {
         console.log('\n' + chalk.bgBlue(_adventure.title) + '\n');
@@ -50,7 +53,13 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
             this.goOverMap(_x, _y, _adventure);
         } else {
             this.saveToAdventureStatistikJSON(_adventure.adventureId);
-            //todo: back To Menü pedending that 
+            if(this.id !== '') {
+                // todo: get password and username
+              //  let registeredUser: RegisteredUser = new RegisteredUser();
+            } else {
+                let unregisteredUser = new UnregisteredUser(); 
+                unregisteredUser.menu();
+            }
         }
     }
 

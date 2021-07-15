@@ -47,39 +47,39 @@ var chalk_1 = __importDefault(require("chalk"));
 var User = /** @class */ (function () {
     function User() {
     }
-    User.prototype.searchAdventure = function () {
-        var _this = this;
-        console.log(chalk_1.default.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
-        // für Prompt vorbereiten
-        var allAdventures = this.getAdventures();
-        var allAdventuresPrompt = this.parseForPrompt(allAdventures);
-        // Fallback doesnt workt without require here
-        var prompts = require('prompts');
-        (function () { return __awaiter(_this, void 0, void 0, function () {
-            var userChoiceId, userChoiceAdventure, playerFactroy, player;
+    // id to identify in ConcretePlayerTextadventure later if registered or not
+    User.prototype.searchAdventure = function (_id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var allAdventures, allAdventuresPrompt, prompts, userChoiceId, userChoiceAdventure, playerFactroy, player;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, prompts([
-                            {
-                                type: 'autocomplete',
-                                limit: 3,
-                                name: 'value',
-                                message: '"Gebe ein, was du erleben willst..."',
-                                choices: allAdventuresPrompt,
-                                fallback: '"Es tut mir Leid, diese Geschichte ist mir nicht bekannt."',
-                                initial: 0
-                            }
-                        ])];
+                    case 0:
+                        console.log(chalk_1.default.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
+                        allAdventures = this.getAdventures();
+                        allAdventuresPrompt = this.parseForPrompt(allAdventures);
+                        prompts = require('prompts');
+                        return [4 /*yield*/, prompts([
+                                {
+                                    type: 'autocomplete',
+                                    limit: 3,
+                                    name: 'value',
+                                    message: '"Gebe ein, was du erleben willst..."',
+                                    choices: allAdventuresPrompt,
+                                    fallback: '"Es tut mir Leid, diese Geschichte ist mir nicht bekannt."',
+                                    initial: 0
+                                }
+                            ])];
                     case 1:
                         userChoiceId = _a.sent();
                         userChoiceAdventure = allAdventures.find(function (adventure) { return adventure.adventureId === userChoiceId.value; });
                         playerFactroy = new PlayerTextadventure_1.PlayerTextadventure();
                         player = playerFactroy.createPlayer();
+                        player.id = _id;
                         player.playAdventure(userChoiceAdventure);
                         return [2 /*return*/];
                 }
             });
-        }); })();
+        });
     };
     User.prototype.firstFiveAdventures = function () {
         return __awaiter(this, void 0, void 0, function () {

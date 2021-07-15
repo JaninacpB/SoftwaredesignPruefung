@@ -66,6 +66,48 @@ var UnregisteredUser = /** @class */ (function (_super) {
     function UnregisteredUser() {
         return _super.call(this) || this;
     }
+    UnregisteredUser.prototype.menu = function () {
+        var _this = this;
+        (function () { return __awaiter(_this, void 0, void 0, function () {
+            var startScreen;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, prompts_1.default([
+                            {
+                                type: 'select',
+                                name: 'value',
+                                message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
+                                choices: [
+                                    { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: 0 },
+                                    { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: 1 },
+                                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht von Abenteuern anzeigen)"', value: 2 },
+                                    { title: '"Gut ein anderes Gesicht zu sehen. Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abenteuer suchen)"', value: 3 },
+                                    { title: chalk_1.default.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
+                                ],
+                                initial: 0
+                            }
+                        ])];
+                    case 1:
+                        startScreen = _a.sent();
+                        switch (startScreen.value) {
+                            case 0:
+                                this.login();
+                                break;
+                            case 1:
+                                this.getUserData();
+                                break;
+                            case 2:
+                                this.firstFiveAdventures();
+                                break;
+                            case 3:
+                                this.searchAdventure('');
+                                break;
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); })();
+    };
     UnregisteredUser.prototype.getUserData = function () {
         var _this = this;
         console.log(chalk_1.default.bgBlue('\nTürschwelle (Sign Up)\n'));
