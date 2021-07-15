@@ -50,10 +50,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisteredUser = void 0;
 var Adventure_1 = require("./Adventure");
 var User_1 = require("./User");
+var chalk_1 = __importDefault(require("chalk"));
 var RegisteredUser = /** @class */ (function (_super) {
     __extends(RegisteredUser, _super);
     function RegisteredUser(username, password, id) {
@@ -230,7 +234,7 @@ var RegisteredUser = /** @class */ (function (_super) {
     };
     RegisteredUser.prototype.giveStartpoint = function (_adventure) {
         return __awaiter(this, void 0, void 0, function () {
-            var startConfig, field, allFields;
+            var startConfig, field;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.prompts([
@@ -256,7 +260,8 @@ var RegisteredUser = /** @class */ (function (_super) {
                         _adventure.startpointX = startConfig.startpointX;
                         _adventure.startpointY = startConfig.startpointY;
                         field = [];
-                        allFields = this.giveFieldInput(_adventure, 1, 1, field);
+                        // todo: prüfen ob let allField = nicht benötigt wird
+                        this.giveFieldInput(_adventure, 1, 1, field);
                         return [2 /*return*/];
                 }
             });
@@ -303,7 +308,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, this.prompts({
                             type: 'toggle',
                             name: 'value',
-                            message: 'Willst du dieses Textadventure wirklich erstellen?',
+                            message: chalk_1.default.red('Willst du dieses Textadventure wirklich erstellen?'),
                             initial: true,
                             active: 'Ja',
                             inactive: 'Nein'
@@ -315,7 +320,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                             adventure.saveToJSON();
                         }
                         else {
-                            console.log(this.chalk.red('Adventure wurde verworfen'));
+                            console.log(this.chalk.red('Textadventure wurde verworfen'));
                             // todo: stattdessen von vorne anfangen? 
                         }
                         this.navigateMenu();

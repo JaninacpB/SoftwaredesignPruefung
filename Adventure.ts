@@ -31,6 +31,7 @@ export class Adventure{
         this.field = _field;
     }
 
+    // todo: prüfen ob noch läuft (einmal verändert jetzt aber eigentlich wieder normal)
     public async saveToJSON() {
         let rawdata = this.fs.readFileSync('adventure.json');
         let adventures: Adventure[] = JSON.parse(rawdata);

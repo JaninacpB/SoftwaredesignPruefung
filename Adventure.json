@@ -5,8 +5,8 @@
         "author": 0,
         "startpointX": 2,
         "startpointY": 2,
-        "amountPlayers": 0,
-        "amountTurns": 3,
+        "amountPlayers": 4,
+        "amountTurns": 9,
         "mapSizeX": 3,
         "mapSizeY": 3,
         "field": [

@@ -2,13 +2,14 @@ import { Adventure } from "./Adventure";
 import { Field } from "./Field";
 import { User } from "./User";
 import { PromptChoice } from "./PromptChoice";
+import chalk from "chalk";
 
 export class RegisteredUser extends User {
     // todo: ersetzen? --> Webb ub user nicht hier notwendig?
     // private prompts = require('prompts');
     // private chalk = require('chalk');
     // private fs = require('fs');
-   // private fsBack = require('fs').promises;
+    // private fsBack = require('fs').promises;
 
     private static instance: RegisteredUser;
 
@@ -86,7 +87,6 @@ export class RegisteredUser extends User {
             ]);
             // Get current Adventure from this (Prompt return does not have all needed values)
             let adventureCurrentIndex = this.userAdventure.findIndex(i => i.adventureId === userAdventuresChoice.value);
-            // todo: Prototype?
             let adventureCurrent = this.userAdventure[adventureCurrentIndex];
             // Get Choice from User in 
             console.log('"Nun gut schauen wir einmal, was ich so über die Geschichte "' + adventureCurrent.title + '" weiß..."');
@@ -186,8 +186,8 @@ export class RegisteredUser extends User {
         _adventure.startpointX = startConfig.startpointX;
         _adventure.startpointY = startConfig.startpointY;
         let field: Field[] = [];
-        // todo nie genutzt? allField nur Methoden aufruf?
-        let allFields = this.giveFieldInput(_adventure, 1, 1, field);
+        // todo: prüfen ob let allField = nicht benötigt wird
+        this.giveFieldInput(_adventure, 1, 1, field);
     }
 
     private async giveFieldInput(_adventure: Adventure, _currentX: number, _currentY: number, _fieldValues: Field[]): Promise<Field[]> {
@@ -219,7 +219,7 @@ export class RegisteredUser extends User {
         const confirm = await this.prompts({
             type: 'toggle',
             name: 'value',
-            message: 'Willst du dieses Textadventure wirklich erstellen?',
+            message: chalk.red('Willst du dieses Textadventure wirklich erstellen?'),
             initial: true,
             active: 'Ja',
             inactive: 'Nein'
@@ -230,7 +230,7 @@ export class RegisteredUser extends User {
                 _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
             adventure.saveToJSON();
         } else {
-            console.log(this.chalk.red('Adventure wurde verworfen'));
+            console.log(this.chalk.red('Textadventure wurde verworfen'));
             // todo: stattdessen von vorne anfangen? 
         }
         this.navigateMenu();

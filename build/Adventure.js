@@ -53,6 +53,7 @@ var Adventure = /** @class */ (function () {
         this.mapSizeY = _mapSizeY;
         this.field = _field;
     }
+    // todo: prüfen ob noch läuft (einmal verändert jetzt aber eigentlich wieder normal)
     Adventure.prototype.saveToJSON = function () {
         return __awaiter(this, void 0, void 0, function () {
             var rawdata, adventures, jsonData;

@@ -1,5 +1,4 @@
 import { Adventure } from "./Adventure";
-import { ConcretePlayerTextadventure } from "./ConcretePlayerTextadventure";
 import { PlayerTextadventure } from "./PlayerTextadventure";
 import { PromptChoice } from "./PromptChoice";
 
@@ -32,7 +31,6 @@ export class User {
             let userChoiceAdventure: Adventure | undefined = allAdventures.find(adventure => adventure.adventureId === userChoiceId.value);
             let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
             let player = playerFactroy.createPlayer();
-            // todo: wo id gleich
             player.playAdventure(userChoiceAdventure);
             // todo: Jetzt? irgendwie zurück
         })();
@@ -48,7 +46,6 @@ export class User {
     private async navigateThroughList(_allAdventures: PromptChoice[], i: number) {
         let currentAdventure = _allAdventures;
         if (i === 1) {
-            console.log('HIER');
             currentAdventure = currentAdventure.slice(0, 5);
         } else {
             currentAdventure = _allAdventures.slice(5 * i - 5, 5 * i)
@@ -76,9 +73,7 @@ export class User {
 
        // get Adventures not prompt Interface & use Factory 
        let adventures = this.getAdventures();
-       console.log(userChoiceAdventurePrompt.value);
        let userChoiceAdventure: Adventure | undefined = adventures.find(adventure => adventure.adventureId === userChoiceAdventurePrompt.value);
-       console.log(userChoiceAdventure);
        let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
        let player = playerFactroy.createPlayer();
        player.playAdventure(userChoiceAdventure);

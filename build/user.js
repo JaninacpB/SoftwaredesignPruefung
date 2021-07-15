@@ -71,7 +71,6 @@ var User = /** @class */ (function () {
                         userChoiceAdventure = allAdventures.find(function (adventure) { return adventure.adventureId === userChoiceId.value; });
                         playerFactroy = new PlayerTextadventure_1.PlayerTextadventure();
                         player = playerFactroy.createPlayer();
-                        // todo: wo id gleich
                         player.playAdventure(userChoiceAdventure);
                         return [2 /*return*/];
                 }
@@ -98,7 +97,6 @@ var User = /** @class */ (function () {
                     case 0:
                         currentAdventure = _allAdventures;
                         if (i === 1) {
-                            console.log('HIER');
                             currentAdventure = currentAdventure.slice(0, 5);
                         }
                         else {
@@ -126,9 +124,7 @@ var User = /** @class */ (function () {
                             this.navigateThroughList(_allAdventures, 1);
                         }
                         adventures = this.getAdventures();
-                        console.log(userChoiceAdventurePrompt.value);
                         userChoiceAdventure = adventures.find(function (adventure) { return adventure.adventureId === userChoiceAdventurePrompt.value; });
-                        console.log(userChoiceAdventure);
                         playerFactroy = new PlayerTextadventure_1.PlayerTextadventure();
                         player = playerFactroy.createPlayer();
                         player.playAdventure(userChoiceAdventure);
