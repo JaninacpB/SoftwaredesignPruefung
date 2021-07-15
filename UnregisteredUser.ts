@@ -1,5 +1,9 @@
 import { RegisteredUser } from "./RegisteredUser";
 import { User } from "./User";
+import { v4 as uuidv4 } from "uuid";
+import chalk from "chalk";
+import prompts from "prompts";
+import fs from "fs";
 
 export class UnregisteredUser extends User {
 
@@ -8,9 +12,9 @@ export class UnregisteredUser extends User {
     }
 
     public getUserData(): void {
-        console.log(this.chalk.bgBlue('\nTürschwelle (Sign Up)\n'));
+        console.log(chalk.bgBlue('\nTürschwelle (Sign Up)\n'));
         (async () => {
-            const signUp = await this.prompts([
+            const signUp = await prompts([
                 {
                     type: 'text',
                     name: 'username',
@@ -26,19 +30,18 @@ export class UnregisteredUser extends User {
                 }
             ]);
             // todo: weiternavigieren
-            // id will be changed in saveToJSON
-            let registeredUser: RegisteredUser = RegisteredUser.getInstance(signUp.username, signUp.password, 0);
+            let registeredUser: RegisteredUser = RegisteredUser.getInstance(signUp.username, signUp.password, this.generateId());
             registeredUser.saveUserToJSON();
             registeredUser.navigateMenu();
         })();
     }
 
     public login(): void {
-        console.log(this.chalk.bgBlue('\nTürschwelle (Login)\n'));
+        console.log(chalk.bgBlue('\nTürschwelle (Login)\n'));
         // todo: Implementieren oder weg machen weil komplex? bzw. gleiches Problem wie beim Abendteuer
-        console.log(this.chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
+        console.log(chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
         (async () => {
-            const loginData = await this.prompts([
+            const loginData = await prompts([
                 {
                     type: 'text',
                     name: 'username',
@@ -55,7 +58,7 @@ export class UnregisteredUser extends User {
                 let registeredUser: RegisteredUser = RegisteredUser.getInstance(user.username, user.password, user.id);
                 registeredUser.navigateMenu();
             } else {
-                console.log(this.chalk.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
+                console.log(chalk.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
                 this.login();
             }
         })();
@@ -98,9 +101,12 @@ export class UnregisteredUser extends User {
     }
 
     private getJSONData(): RegisteredUser[] {
-        let rawdata = this.fs.readFileSync('users.json');
+        let rawdata: any = fs.readFileSync('users.json');
         let users: RegisteredUser[] = JSON.parse(rawdata);
         return users;
     }
 
+    private generateId(): string {
+        return uuidv4();
+    }
 }

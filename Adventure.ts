@@ -5,9 +5,9 @@ export class Adventure{
     private fs = require('fs');
     private fsBack = require('fs').promises;
 
-    public adventureId: number;
+    public adventureId: string;
     public title: string;
-    public author: number;
+    public author: string;
     public startpointX: number;
     public startpointY: number;
     public amountPlayers: number;
@@ -16,7 +16,7 @@ export class Adventure{
     public mapSizeY: number;
     public field: Field[];
 
-    constructor(_id:number, _title: string, _author: number, _startpointX: number, _startpointY: number,
+    constructor(_id:string, _title: string, _author: string, _startpointX: number, _startpointY: number,
          _amountPlayers: number, _amountTurns: number, _mapSizeX: number, _mapSizeY: number,
           _field: Field[]) {
         this.adventureId = _id;

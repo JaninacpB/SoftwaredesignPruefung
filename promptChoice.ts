@@ -1,4 +1,5 @@
 export interface PromptChoice {
-    value: number;
+    // string because UUID
+    value: string;
     title: string;
 }

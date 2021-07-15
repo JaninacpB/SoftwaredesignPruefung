@@ -35,34 +35,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 var PlayerTextadventure_1 = require("./PlayerTextadventure");
+var prompts_1 = __importDefault(require("prompts"));
+var fs_1 = __importDefault(require("fs"));
+var chalk_1 = __importDefault(require("chalk"));
 var User = /** @class */ (function () {
     function User() {
-        this.fs = require('fs');
-        this.prompts = require('prompts');
-        this.chalk = require('chalk');
-        this.fsBack = require('fs').promises;
     }
     User.prototype.searchAdventure = function () {
         var _this = this;
-        console.log(this.chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
+        console.log(chalk_1.default.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
         // für Prompt vorbereiten
         var allAdventures = this.getAdventures();
         var allAdventuresPrompt = this.parseForPrompt(allAdventures);
+        // Fallback doesnt workt without require here
+        var prompts = require('prompts');
         (function () { return __awaiter(_this, void 0, void 0, function () {
             var userChoiceId, userChoiceAdventure, playerFactroy, player;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.prompts([
+                    case 0: return [4 /*yield*/, prompts([
                             {
                                 type: 'autocomplete',
                                 limit: 3,
                                 name: 'value',
-                                fallback: '"Es tut mir Leid, diese Geschichte ist mir nicht bekannt."',
                                 message: '"Gebe ein, was du erleben willst..."',
                                 choices: allAdventuresPrompt,
+                                fallback: '"Es tut mir Leid, diese Geschichte ist mir nicht bekannt."',
                                 initial: 0
                             }
                         ])];
@@ -81,7 +85,7 @@ var User = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var allAdventures;
             return __generator(this, function (_a) {
-                console.log(this.chalk.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
+                console.log(chalk_1.default.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
                 allAdventures = this.parseForPrompt(this.getAdventures());
                 this.navigateThroughList(allAdventures, 1);
                 return [2 /*return*/];
@@ -102,9 +106,9 @@ var User = /** @class */ (function () {
                         else {
                             currentAdventure = _allAdventures.slice(5 * i - 5, 5 * i);
                         }
-                        showMore = { value: -1, title: '"Zeig mir mehr!"' };
+                        showMore = { value: '-1', title: '"Zeig mir mehr!"' };
                         currentAdventure.push(showMore);
-                        return [4 /*yield*/, this.prompts([
+                        return [4 /*yield*/, prompts_1.default([
                                 {
                                     type: 'select',
                                     name: 'value',
@@ -120,7 +124,7 @@ var User = /** @class */ (function () {
                             this.navigateThroughList(_allAdventures, i);
                         }
                         else if (userChoiceAdventurePrompt.value === -1) {
-                            console.log(this.chalk.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
+                            console.log(chalk_1.default.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
                             this.navigateThroughList(_allAdventures, 1);
                         }
                         adventures = this.getAdventures();
@@ -144,7 +148,7 @@ var User = /** @class */ (function () {
         return promptAdventureTitles;
     };
     User.prototype.getAdventures = function () {
-        var rawdata = this.fs.readFileSync('adventure.json');
+        var rawdata = fs_1.default.readFileSync('adventure.json');
         var adventures = JSON.parse(rawdata);
         return adventures;
     };

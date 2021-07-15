@@ -54,7 +54,7 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
         }
     }
 
-    private async saveToAdventureStatistikJSON(_id: number) {
+    private async saveToAdventureStatistikJSON(_id: string) {
         // Get Advenutre
         let rawdata: any = fs.readFileSync('adventure.json');
         let adventures: Adventure[] = JSON.parse(rawdata);

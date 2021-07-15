@@ -50,10 +50,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnregisteredUser = void 0;
 var RegisteredUser_1 = require("./RegisteredUser");
 var User_1 = require("./User");
+var uuid_1 = require("uuid");
+var chalk_1 = __importDefault(require("chalk"));
+var prompts_1 = __importDefault(require("prompts"));
+var fs_1 = __importDefault(require("fs"));
 var UnregisteredUser = /** @class */ (function (_super) {
     __extends(UnregisteredUser, _super);
     function UnregisteredUser() {
@@ -61,13 +68,13 @@ var UnregisteredUser = /** @class */ (function (_super) {
     }
     UnregisteredUser.prototype.getUserData = function () {
         var _this = this;
-        console.log(this.chalk.bgBlue('\nTürschwelle (Sign Up)\n'));
+        console.log(chalk_1.default.bgBlue('\nTürschwelle (Sign Up)\n'));
         (function () { return __awaiter(_this, void 0, void 0, function () {
             var signUp, registeredUser;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.prompts([
+                    case 0: return [4 /*yield*/, prompts_1.default([
                             {
                                 type: 'text',
                                 name: 'username',
@@ -84,7 +91,7 @@ var UnregisteredUser = /** @class */ (function (_super) {
                         ])];
                     case 1:
                         signUp = _a.sent();
-                        registeredUser = RegisteredUser_1.RegisteredUser.getInstance(signUp.username, signUp.password, 0);
+                        registeredUser = RegisteredUser_1.RegisteredUser.getInstance(signUp.username, signUp.password, this.generateId());
                         registeredUser.saveUserToJSON();
                         registeredUser.navigateMenu();
                         return [2 /*return*/];
@@ -94,14 +101,14 @@ var UnregisteredUser = /** @class */ (function (_super) {
     };
     UnregisteredUser.prototype.login = function () {
         var _this = this;
-        console.log(this.chalk.bgBlue('\nTürschwelle (Login)\n'));
+        console.log(chalk_1.default.bgBlue('\nTürschwelle (Login)\n'));
         // todo: Implementieren oder weg machen weil komplex? bzw. gleiches Problem wie beim Abendteuer
-        console.log(this.chalk.red('**Drücke crt+c um zum Menü zurückzukehren**'));
+        console.log(chalk_1.default.red('**Drücke crt+c um zum Menü zurückzukehren**'));
         (function () { return __awaiter(_this, void 0, void 0, function () {
             var loginData, user, registeredUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.prompts([
+                    case 0: return [4 /*yield*/, prompts_1.default([
                             {
                                 type: 'text',
                                 name: 'username',
@@ -121,7 +128,7 @@ var UnregisteredUser = /** @class */ (function (_super) {
                             registeredUser.navigateMenu();
                         }
                         else {
-                            console.log(this.chalk.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
+                            console.log(chalk_1.default.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
                             this.login();
                         }
                         return [2 /*return*/];
@@ -163,9 +170,12 @@ var UnregisteredUser = /** @class */ (function (_super) {
         return null;
     };
     UnregisteredUser.prototype.getJSONData = function () {
-        var rawdata = this.fs.readFileSync('users.json');
+        var rawdata = fs_1.default.readFileSync('users.json');
         var users = JSON.parse(rawdata);
         return users;
+    };
+    UnregisteredUser.prototype.generateId = function () {
+        return uuid_1.v4();
     };
     return UnregisteredUser;
 }(User_1.User));
