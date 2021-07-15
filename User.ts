@@ -57,7 +57,7 @@ export class User {
         let showMore: PromptChoice = { value: -1, title: '"Zeig mir mehr!"' };
         currentAdventure.push(showMore);
 
-        const userChoiceAdventure = await this.prompts([
+        const userChoiceAdventurePrompt = await this.prompts([
             {
                 type: 'select',
                 name: 'value',
@@ -67,15 +67,21 @@ export class User {
             }
         ]);
         i = i + 1;
-        if (userChoiceAdventure.value === -1 && _allAdventures.length >= i * 5 - 5) {
+        if (userChoiceAdventurePrompt.value === -1 && _allAdventures.length >= i * 5 - 5) {
             this.navigateThroughList(_allAdventures, i);
-        } else if (userChoiceAdventure.value === -1) {
+        } else if (userChoiceAdventurePrompt.value === -1) {
             console.log(this.chalk.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
             this.navigateThroughList(_allAdventures, 1);
         }
+
+       // get Adventures not prompt Interface & use Factory 
+       let adventures = this.getAdventures();
+       console.log(userChoiceAdventurePrompt.value);
+       let userChoiceAdventure: Adventure | undefined = adventures.find(adventure => adventure.adventureId === userChoiceAdventurePrompt.value);
+       console.log(userChoiceAdventure);
        let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
        let player = playerFactroy.createPlayer();
-       player.playAdventure(userChoiceAdventure.value);
+       player.playAdventure(userChoiceAdventure);
        //todo: irgendwie zurück
     }
 

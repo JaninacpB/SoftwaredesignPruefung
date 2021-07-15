@@ -92,7 +92,7 @@ var User = /** @class */ (function () {
     // i counts the loop/rekussion 
     User.prototype.navigateThroughList = function (_allAdventures, i) {
         return __awaiter(this, void 0, void 0, function () {
-            var currentAdventure, showMore, userChoiceAdventure, playerFactroy, player;
+            var currentAdventure, showMore, userChoiceAdventurePrompt, adventures, userChoiceAdventure, playerFactroy, player;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -116,18 +116,22 @@ var User = /** @class */ (function () {
                                 }
                             ])];
                     case 1:
-                        userChoiceAdventure = _a.sent();
+                        userChoiceAdventurePrompt = _a.sent();
                         i = i + 1;
-                        if (userChoiceAdventure.value === -1 && _allAdventures.length >= i * 5 - 5) {
+                        if (userChoiceAdventurePrompt.value === -1 && _allAdventures.length >= i * 5 - 5) {
                             this.navigateThroughList(_allAdventures, i);
                         }
-                        else if (userChoiceAdventure.value === -1) {
+                        else if (userChoiceAdventurePrompt.value === -1) {
                             console.log(this.chalk.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
                             this.navigateThroughList(_allAdventures, 1);
                         }
+                        adventures = this.getAdventures();
+                        console.log(userChoiceAdventurePrompt.value);
+                        userChoiceAdventure = adventures.find(function (adventure) { return adventure.adventureId === userChoiceAdventurePrompt.value; });
+                        console.log(userChoiceAdventure);
                         playerFactroy = new PlayerTextadventure_1.PlayerTextadventure();
                         player = playerFactroy.createPlayer();
-                        player.playAdventure(userChoiceAdventure.value);
+                        player.playAdventure(userChoiceAdventure);
                         return [2 /*return*/];
                 }
             });

@@ -51,7 +51,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
             var start;
             return __generator(this, function (_a) {
                 console.log('\n' + chalk_1.default.bgBlue(_adventure.title) + '\n');
-                start = this.getStartField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
+                start = this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
                 console.log('Du startest deine Reise hier: ' + start.place);
                 this.goOverMap(start.xPosition, start.yPosition, _adventure);
                 return [2 /*return*/];
@@ -60,7 +60,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
     };
     ConcretePlayerTextadventure.prototype.goOverMap = function (_x, _y, _adventure) {
         return __awaiter(this, void 0, void 0, function () {
-            var userChoiceMove;
+            var userChoiceMove, field;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, prompts_1.default([
@@ -69,11 +69,11 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                                 name: 'value',
                                 message: 'Gehe nach: ',
                                 choices: [
-                                    { title: 'Norden', value: '0' },
-                                    { title: 'Osten', value: '1', },
-                                    { title: 'Süden', value: '2' },
-                                    { title: 'Westen', value: '3' },
-                                    { title: 'Spiel beenden', value: '-1' }
+                                    { title: 'Norden', value: 0 },
+                                    { title: 'Osten', value: 1 },
+                                    { title: 'Süden', value: 2 },
+                                    { title: 'Westen', value: 3 },
+                                    { title: 'Spiel beenden', value: -1 }
                                 ],
                                 initial: 0
                             }
@@ -81,12 +81,17 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                     case 1:
                         userChoiceMove = _a.sent();
                         if (this.checkIfEnd(_adventure, _x, _y, userChoiceMove.value)) {
-                            console.log('Du kannst nicht nach ' + userChoiceMove + ' gehen');
+                            // todo: nicht value sondern richtige Richtung
+                            console.log('Du kannst nicht nach ' + userChoiceMove.value + ' gehen. Wähle einen anderen Weg.');
+                            this.goOverMap(_x, _y, _adventure);
                         }
                         else if (userChoiceMove.value !== -1) {
-                            //todo: change x or y
+                            _x = this.changeX(_x, userChoiceMove.value);
+                            _y = this.changeY(_y, userChoiceMove.value);
                             this.amountTurns = +1;
-                            //todo: Ort ausgeben
+                            field = this.getcurrentField(_x, _y, _adventure.field);
+                            //todo: Went North...
+                            console.log('Du bist nacht ____ gegangen und jetzt hier: ' + field.place);
                             this.goOverMap(_x, _y, _adventure);
                         }
                         return [2 /*return*/];
@@ -94,11 +99,34 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
             });
         });
     };
+    // only change if W or O
+    ConcretePlayerTextadventure.prototype.changeX = function (_x, _nextMoveOrientation) {
+        switch (_nextMoveOrientation) {
+            case 1: {
+                return _x + 1;
+            }
+            case 3: {
+                return _x - 1;
+            }
+        }
+        return _x;
+    };
+    ConcretePlayerTextadventure.prototype.changeY = function (_y, _nextMoveOrientation) {
+        switch (_nextMoveOrientation) {
+            case 0: {
+                return _y - 1;
+            }
+            case 2: {
+                return _y + 1;
+            }
+        }
+        return _y;
+    };
     ConcretePlayerTextadventure.prototype.checkIfEnd = function (_adventure, _x, _y, _nextMoveOrientation) {
         var isNotOnTheMap = false;
         switch (_nextMoveOrientation) {
             case 0: {
-                if (0 > _y - 1) {
+                if (0 >= _y - 1) {
                     isNotOnTheMap = true;
                 }
                 break;
@@ -116,7 +144,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                 break;
             }
             case 3: {
-                if (0 < _x - 1) {
+                if (0 <= _x - 1) {
                     isNotOnTheMap = true;
                 }
                 break;
@@ -124,7 +152,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
         }
         return isNotOnTheMap;
     };
-    ConcretePlayerTextadventure.prototype.getStartField = function (_x, _y, _allFields) {
+    ConcretePlayerTextadventure.prototype.getcurrentField = function (_x, _y, _allFields) {
         var currentField = _allFields.filter(function (field) { return field.xPosition === _x && field.yPosition === _y; })[0];
         return currentField;
     };
