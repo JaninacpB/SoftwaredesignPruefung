@@ -57,6 +57,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegisteredUser = void 0;
 var Adventure_1 = require("./Adventure");
 var User_1 = require("./User");
+var uuid_1 = require("uuid");
 var fs_1 = __importDefault(require("fs"));
 var promises_1 = __importDefault(require("fs/promises"));
 var chalk_1 = __importDefault(require("chalk"));
@@ -266,7 +267,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         _adventure.startpointX = startConfig.startpointX;
                         _adventure.startpointY = startConfig.startpointY;
                         field = [];
-                        // todo: prüfen ob let allField = nicht benötigt wird
+                        console.log('"Jetzt lass uns die Felder füllen. Wir fangen an Punkt 1/1 welcher links oben auf der Karte liegt und arbeiten uns zum Punkt rechts Unten durch."');
                         this.giveFieldInput(_adventure, 1, 1, field);
                         return [2 /*return*/];
                 }
@@ -322,12 +323,11 @@ var RegisteredUser = /** @class */ (function (_super) {
                     case 1:
                         confirm = _a.sent();
                         if (confirm.value) {
-                            adventure = new Adventure_1.Adventure('0', _adventure.title, _adventure.author, _adventure.startpointX, _adventure.startpointY, _adventure.amountPlayers, _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
+                            adventure = new Adventure_1.Adventure(this.generateId(), _adventure.title, _adventure.author, _adventure.startpointX, _adventure.startpointY, _adventure.amountPlayers, _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
                             adventure.saveToJSON();
                         }
                         else {
                             console.log(chalk_1.default.red('Textadventure wurde verworfen'));
-                            // todo: stattdessen von vorne anfangen? 
                         }
                         this.navigateMenu();
                         return [2 /*return*/];
@@ -352,6 +352,9 @@ var RegisteredUser = /** @class */ (function (_super) {
                 }
             });
         });
+    };
+    RegisteredUser.prototype.generateId = function () {
+        return uuid_1.v4();
     };
     return RegisteredUser;
 }(User_1.User));

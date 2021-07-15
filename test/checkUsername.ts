@@ -22,4 +22,9 @@ describe('Test "CheckUsername"', () => {
         const res = unregisteredUser.checkUsername('1234');
         expect(res).to.be.true;
     });
+    // only works if json Data has CalebWidowcast as User
+    it('Return false for "CalebWidowcast" --> User already exist in Database', () => {
+        const res = unregisteredUser.checkUsername('CalebWidowcast');
+        expect(res).to.be.false;
+    });
 });

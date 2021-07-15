@@ -176,7 +176,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                 }
                 break;
             case Direction_1.Direction.West:
-                if (0 <= _x - 1) {
+                if (0 >= _x - 1) {
                     isNotOnTheMap = true;
                 }
                 break;

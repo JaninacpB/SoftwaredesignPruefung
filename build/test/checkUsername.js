@@ -21,4 +21,9 @@ mocha_1.describe('Test "CheckUsername"', function () {
         var res = unregisteredUser.checkUsername('1234');
         chai_1.expect(res).to.be.true;
     });
+    // only works if json Data has CalebWidowcast as User
+    it('Return false for "CalebWidowcast" --> User already exist in Database', function () {
+        var res = unregisteredUser.checkUsername('CalebWidowcast');
+        chai_1.expect(res).to.be.false;
+    });
 });

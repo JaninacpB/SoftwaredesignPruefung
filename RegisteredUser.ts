@@ -2,6 +2,7 @@ import { Adventure } from "./Adventure";
 import { Field } from "./Field";
 import { User } from "./User";
 import { PromptChoice } from "./PromptChoice";
+import {v4 as uuidv4 }from "uuid";
 import fs from "fs";
 import fsBack from "fs/promises";
 import chalk from "chalk";
@@ -185,7 +186,7 @@ export class RegisteredUser extends User {
         _adventure.startpointX = startConfig.startpointX;
         _adventure.startpointY = startConfig.startpointY;
         let field: Field[] = [];
-        // todo: prüfen ob let allField = nicht benötigt wird
+        console.log('"Jetzt lass uns die Felder füllen. Wir fangen an Punkt 1/1 welcher links oben auf der Karte liegt und arbeiten uns zum Punkt rechts Unten durch."')
         this.giveFieldInput(_adventure, 1, 1, field);
     }
 
@@ -224,13 +225,12 @@ export class RegisteredUser extends User {
             inactive: 'Nein'
         });
         if (confirm.value) {
-            let adventure = new Adventure('0', _adventure.title, _adventure.author,
+            let adventure = new Adventure(this.generateId(), _adventure.title, _adventure.author,
                 _adventure.startpointX, _adventure.startpointY, _adventure.amountPlayers,
                 _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
             adventure.saveToJSON();
         } else {
             console.log(chalk.red('Textadventure wurde verworfen'));
-            // todo: stattdessen von vorne anfangen? 
         }
         this.navigateMenu();
     }
@@ -245,5 +245,9 @@ export class RegisteredUser extends User {
         // save to JSON file
         let jsonData = JSON.stringify(users);
         await fsBack.writeFile('users.json', jsonData);
+    }
+
+    private generateId(): string {
+        return uuidv4();
     }
 }

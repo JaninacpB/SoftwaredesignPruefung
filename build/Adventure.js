@@ -62,7 +62,6 @@ var Adventure = /** @class */ (function () {
                     case 0:
                         rawdata = this.fs.readFileSync('adventure.json');
                         adventures = JSON.parse(rawdata);
-                        this.adventureId = adventures[adventures.length - 1].adventureId + 1;
                         adventures.push(this);
                         jsonData = JSON.stringify(adventures);
                         return [4 /*yield*/, this.fsBack.writeFile('adventure.json', jsonData)];

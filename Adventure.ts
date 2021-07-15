@@ -36,7 +36,6 @@ export class Adventure{
         let rawdata = this.fs.readFileSync('adventure.json');
         let adventures: Adventure[] = JSON.parse(rawdata);
 
-        this.adventureId = adventures[adventures.length - 1].adventureId + 1;
         adventures.push(this);
 
         // save to JSON

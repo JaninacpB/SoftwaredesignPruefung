@@ -66,20 +66,20 @@ export class User {
             }
         ]);
         i = i + 1;
-        if (userChoiceAdventurePrompt.value === -1 && _allAdventures.length >= i * 5 - 5) {
+        if (userChoiceAdventurePrompt.value === '-1' && _allAdventures.length >= i * 5 - 5) {
             this.navigateThroughList(_allAdventures, i);
-        } else if (userChoiceAdventurePrompt.value === -1) {
+        } else if (userChoiceAdventurePrompt.value === '-1') {
             console.log(chalk.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
             this.navigateThroughList(_allAdventures, 1);
-        }
-
-       // get Adventures not prompt Interface & use Factory 
+        } else {
+            // get Adventures not prompt Interface & use Factory 
        let adventures = this.getAdventures();
        let userChoiceAdventure: Adventure | undefined = adventures.find(adventure => adventure.adventureId === userChoiceAdventurePrompt.value);
        let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
        let player = playerFactroy.createPlayer();
        player.playAdventure(userChoiceAdventure);
        //todo: irgendwie zurück
+        }
     }
 
     private parseForPrompt(_allAdventures: Adventure[]): PromptChoice[] {
