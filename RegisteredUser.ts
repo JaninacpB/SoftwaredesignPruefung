@@ -52,7 +52,7 @@ export class RegisteredUser extends User {
             ]);
             switch (startScreen.value) {
                 case 0:
-                    this.firstFiveAdventures();
+                    this.firstFiveAdventures(this.id);
                     break;
                 case 1:
                     this.searchAdventure(this.id);
@@ -92,9 +92,10 @@ export class RegisteredUser extends User {
             // Get Choice from User in 
             console.log('"Nun gut schauen wir einmal, was ich so über die Geschichte "' + adventureCurrent.title + '" weiß..."');
             console.log('"Interessant, diese Geschichte wurde schon von: ' + chalk.green(adventureCurrent.amountPlayers + ' Spieleren gespielt.') + '"');
+            let avgTurns = adventureCurrent.amountTurns / adventureCurrent.amountPlayers;
             if (adventureCurrent.amountPlayers !== 0) {
                 console.log('"Und auch gut zu wissen, insgesamt verbrachen Spieler'
-                    + chalk.green(' durschnittlich ' + (adventureCurrent.amountTurns / adventureCurrent.amountPlayers) + ' Züge ') + 'auf deiner Karte."');
+                    + chalk.green(' durschnittlich ' + avgTurns.toFixed(2) + ' Züge ') + 'auf deiner Karte."');
             } else {
                 console.log('"Mehr kann ich dir im Moment leider nicht sagen."');
             }
@@ -102,7 +103,6 @@ export class RegisteredUser extends User {
         })();
     }
 
-    // todo: Broke?
     private checkUserAdventures(): Adventure[] {
         // Get Adventure from JSON
         let rawdata: any = fs.readFileSync('adventure.json');
@@ -132,7 +132,8 @@ export class RegisteredUser extends User {
                 {
                     type: 'text',
                     name: 'title',
-                    message: 'Nun was ist dein Titel..." (Adventuretitle angeben)"',
+                    message: 'Nun was ist dein Titel..." (Abenteuertitle angeben)"',
+                    validate: title => title == '' ? chalk.red('Du musst einen Title angeben um fortzufahren') : true
                 },
                 {
                     type: 'number',

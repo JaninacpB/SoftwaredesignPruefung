@@ -45,6 +45,7 @@ var prompts_1 = __importDefault(require("prompts"));
 var Direction_1 = require("./Direction");
 var fs_1 = __importDefault(require("fs"));
 var promises_1 = __importDefault(require("fs/promises"));
+var RegisteredUser_1 = require("./RegisteredUser");
 var UnregisteredUser_1 = require("./UnregisteredUser");
 var ConcretePlayerTextadventure = /** @class */ (function () {
     function ConcretePlayerTextadventure() {
@@ -65,7 +66,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
     };
     ConcretePlayerTextadventure.prototype.goOverMap = function (_x, _y, _adventure) {
         return __awaiter(this, void 0, void 0, function () {
-            var userChoiceMove, field, unregisteredUser;
+            var userChoiceMove, field, user, unregisteredUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, prompts_1.default([
@@ -100,8 +101,8 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                         else {
                             this.saveToAdventureStatistikJSON(_adventure.adventureId);
                             if (this.id !== '') {
-                                // todo: get password and username
-                                //  let registeredUser: RegisteredUser = new RegisteredUser();
+                                user = this.getUserFromId();
+                                user.navigateMenu();
                             }
                             else {
                                 unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
@@ -112,6 +113,20 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                 }
             });
         });
+    };
+    // registered and unregsitered User can play with this class, but after playing need way to go back to menu
+    ConcretePlayerTextadventure.prototype.getUserFromId = function () {
+        var rawdata = fs_1.default.readFileSync('users.json');
+        var users = JSON.parse(rawdata);
+        var currentUser = RegisteredUser_1.RegisteredUser.getInstance('', '', '');
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id === this.id) {
+                currentUser.id = users[i].id;
+                currentUser.password = users[i].password;
+                currentUser.username = users[i].username;
+            }
+        }
+        return currentUser;
     };
     ConcretePlayerTextadventure.prototype.saveToAdventureStatistikJSON = function (_id) {
         return __awaiter(this, void 0, void 0, function () {

@@ -35,13 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Adventure = void 0;
+var fs_1 = __importDefault(require("fs"));
+var promises_1 = __importDefault(require("fs/promises"));
 var Adventure = /** @class */ (function () {
     function Adventure(_id, _title, _author, _startpointX, _startpointY, _amountPlayers, _amountTurns, _mapSizeX, _mapSizeY, _field) {
-        // todo: File mir verweisen machen? statt doppelt
-        this.fs = require('fs');
-        this.fsBack = require('fs').promises;
         this.adventureId = _id;
         this.title = _title;
         this.author = _author;
@@ -60,11 +62,11 @@ var Adventure = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        rawdata = this.fs.readFileSync('adventure.json');
+                        rawdata = fs_1.default.readFileSync('adventure.json');
                         adventures = JSON.parse(rawdata);
                         adventures.push(this);
                         jsonData = JSON.stringify(adventures);
-                        return [4 /*yield*/, this.fsBack.writeFile('adventure.json', jsonData)];
+                        return [4 /*yield*/, promises_1.default.writeFile('adventure.json', jsonData)];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];

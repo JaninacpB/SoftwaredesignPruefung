@@ -106,7 +106,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         startScreen = _a.sent();
                         switch (startScreen.value) {
                             case 0:
-                                this.firstFiveAdventures();
+                                this.firstFiveAdventures(this.id);
                                 break;
                             case 1:
                                 this.searchAdventure(this.id);
@@ -137,7 +137,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                     promptAdventureTitles.push(choice);
                 }
                 (function () { return __awaiter(_this, void 0, void 0, function () {
-                    var userAdventuresChoice, adventureCurrentIndex, adventureCurrent;
+                    var userAdventuresChoice, adventureCurrentIndex, adventureCurrent, avgTurns;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4 /*yield*/, prompts_1.default([
@@ -156,9 +156,10 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 // Get Choice from User in 
                                 console.log('"Nun gut schauen wir einmal, was ich so über die Geschichte "' + adventureCurrent.title + '" weiß..."');
                                 console.log('"Interessant, diese Geschichte wurde schon von: ' + chalk_1.default.green(adventureCurrent.amountPlayers + ' Spieleren gespielt.') + '"');
+                                avgTurns = adventureCurrent.amountTurns / adventureCurrent.amountPlayers;
                                 if (adventureCurrent.amountPlayers !== 0) {
                                     console.log('"Und auch gut zu wissen, insgesamt verbrachen Spieler'
-                                        + chalk_1.default.green(' durschnittlich ' + (adventureCurrent.amountTurns / adventureCurrent.amountPlayers) + ' Züge ') + 'auf deiner Karte."');
+                                        + chalk_1.default.green(' durschnittlich ' + avgTurns.toFixed(2) + ' Züge ') + 'auf deiner Karte."');
                                 }
                                 else {
                                     console.log('"Mehr kann ich dir im Moment leider nicht sagen."');
@@ -172,7 +173,6 @@ var RegisteredUser = /** @class */ (function (_super) {
             });
         });
     };
-    // todo: Broke?
     RegisteredUser.prototype.checkUserAdventures = function () {
         // Get Adventure from JSON
         var rawdata = fs_1.default.readFileSync('adventure.json');
@@ -202,7 +202,8 @@ var RegisteredUser = /** @class */ (function (_super) {
                             {
                                 type: 'text',
                                 name: 'title',
-                                message: 'Nun was ist dein Titel..." (Adventuretitle angeben)"',
+                                message: 'Nun was ist dein Titel..." (Abenteuertitle angeben)"',
+                                validate: function (title) { return title == '' ? chalk_1.default.red('Du musst einen Title angeben um fortzufahren') : true; }
                             },
                             {
                                 type: 'number',

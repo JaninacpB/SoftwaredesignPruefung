@@ -97,7 +97,7 @@ var UnregisteredUser = /** @class */ (function (_super) {
                                 this.getUserData();
                                 break;
                             case 2:
-                                this.firstFiveAdventures();
+                                this.firstFiveAdventures('');
                                 break;
                             case 3:
                                 this.searchAdventure('');
@@ -120,68 +120,76 @@ var UnregisteredUser = /** @class */ (function (_super) {
                             {
                                 type: 'text',
                                 name: 'username',
-                                message: '"Unter welchen Namen kennt man deine Gestalt?"',
+                                message: '"Unter welchen Namen kennt man deine Gestalt? ' + chalk_1.default.grey('(keine Doppeltenusernames erlaubt, nur Alphanumerische Werte)"'),
                                 // note: no \n in error message or bug
-                                validate: function (value) { return _this.checkUsername(value) ? true :
-                                    "Oh verzeih mir, aber ich kann leider nur Alphanumerische Werte mit dieser Feder schreiben, bitte versuch es noch einmal (Korrigiere Eingabe so, dass nur a-z und Zahlen im Nutzernmane stehen, keine doppelten Usernames erlaubt)"; }
+                                validate: function (value) { return _this.checkUsername(value) ? true : '"Verzeihung, aber ich kann nur Alphanumerische Werte schreiben, bitte versuch es noch einmal ' + chalk_1.default.grey('Korrigiere Eingabe so, dass nur a-z und Zahlen im Nutzernmane stehen, keine doppelten Usernames erlaubt)"'); }
                             },
                             {
                                 type: 'password',
                                 name: 'password',
-                                message: '"Schön dich kennenzulernen. Doch sei vorsichtig, Gestaltwandler treiben ihr unwesen. \n Lass uns ein Codewort vereinbaren, nur um sicher zu sein (Password eingeben)"'
+                                message: '"Schön dich kennenzulernen. Doch sei vorsichtig, Gestaltwandler treiben ihr unwesen. \n Lass uns ein Codewort vereinbaren, nur um sicher zu sein ' + chalk_1.default.grey('(Password eingeben)"')
                             }
                         ])];
                     case 1:
                         signUp = _a.sent();
-                        registeredUser = RegisteredUser_1.RegisteredUser.getInstance(signUp.username, signUp.password, this.generateId());
-                        registeredUser.saveUserToJSON();
-                        registeredUser.navigateMenu();
+                        // if press esc otherwise sign up as undefinded if know esc return to menu
+                        if (signUp.username === undefined || signUp.password === undefined) {
+                            this.menu();
+                        }
+                        else {
+                            registeredUser = RegisteredUser_1.RegisteredUser.getInstance(signUp.username, signUp.password, this.generateId());
+                            registeredUser.saveUserToJSON();
+                            registeredUser.navigateMenu();
+                        }
                         return [2 /*return*/];
                 }
             });
         }); })();
     };
     UnregisteredUser.prototype.login = function () {
-        var _this = this;
-        console.log(chalk_1.default.bgBlue('\nTürschwelle (Login)\n'));
-        // todo: Implementieren oder weg machen weil komplex? bzw. gleiches Problem wie beim Abendteuer
-        console.log(chalk_1.default.red('**Drücke crt+c um zum Menü zurückzukehren**'));
-        (function () { return __awaiter(_this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var loginData, user, registeredUser;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, prompts_1.default([
-                            {
-                                type: 'text',
-                                name: 'username',
-                                message: '"Und wie lautet dein Name noch einmal... (Username eingeben)"'
-                            },
-                            {
-                                type: 'password',
-                                name: 'password',
-                                message: '"Um sicher zu sein, kennst du noch unser geheimes Codewort... \n  (Password eingeben)"'
-                            }
-                        ])];
+                    case 0:
+                        console.log(chalk_1.default.bgBlue('\nTürschwelle (Login)\n'));
+                        console.log(chalk_1.default.red('+++ Drück ecs um zurück zum Menü zukommen +++'));
+                        return [4 /*yield*/, prompts_1.default([
+                                {
+                                    type: 'text',
+                                    name: 'username',
+                                    message: '"Und wie lautet dein Name noch einmal... ' + chalk_1.default.grey('(Username eingeben)"'),
+                                    validate: function (value) { return value === '' ? 'Gib einen Namen an!' : true; }
+                                },
+                                {
+                                    type: 'password',
+                                    name: 'password',
+                                    message: '"Um sicher zu sein, kennst du noch unser geheimes Codewort... \n' + chalk_1.default.grey('(Password eingeben)"'),
+                                    validate: function (value) { return value === '' ? 'Gib ein Passwort an!' : true; }
+                                }
+                            ])];
                     case 1:
                         loginData = _a.sent();
                         user = this.getUserIfExist(loginData);
-                        if (user !== null) {
-                            registeredUser = RegisteredUser_1.RegisteredUser.getInstance(user.username, user.password, user.id);
-                            registeredUser.navigateMenu();
+                        // return to Menu then esc press
+                        if (loginData.username === undefined || loginData.password === undefined) {
+                            this.menu();
                         }
                         else {
-                            console.log(chalk_1.default.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch...(Username oder Password falsch)"'));
-                            this.login();
+                            if (user !== null) {
+                                registeredUser = RegisteredUser_1.RegisteredUser.getInstance(user.username, user.password, user.id);
+                                registeredUser.navigateMenu();
+                            }
+                            else {
+                                console.log(chalk_1.default.red('"Diese Kombination steht nicht in meinem Buch. Nun gut eine Chance gebe ich dir noch... ') + chalk_1.default.grey('(Username oder Password falsch)"'));
+                                this.login();
+                            }
                         }
                         return [2 /*return*/];
                 }
             });
-        }); })();
+        });
     };
-    // const onCancel = prompt => {
-    //     console.log('Test');
-    //     return true; };
-    // const response = await prompt(this.prompts, {onCancel});
     // for unittest public 
     UnregisteredUser.prototype.checkUsername = function (_username) {
         var valid = false;

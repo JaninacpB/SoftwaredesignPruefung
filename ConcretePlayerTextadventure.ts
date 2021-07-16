@@ -8,6 +8,7 @@ import fs from "fs";
 import fsBack from "fs/promises";
 import { RegisteredUser } from "./RegisteredUser";
 import { UnregisteredUser } from "./UnregisteredUser";
+import { User } from "./User";
 
 export class ConcretePlayerTextadventure implements GeneralPlayer {
 
@@ -53,15 +54,32 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
             this.goOverMap(_x, _y, _adventure);
         } else {
             this.saveToAdventureStatistikJSON(_adventure.adventureId);
+
             if(this.id !== '') {
-                // todo: get password and username
-              //  let registeredUser: RegisteredUser = new RegisteredUser();
+            let user: RegisteredUser = this.getUserFromId();
+            user.navigateMenu();
             } else {
                 let unregisteredUser = new UnregisteredUser(); 
                 unregisteredUser.menu();
             }
         }
     }
+
+    // registered and unregsitered User can play with this class, but after playing need way to go back to menu
+    private getUserFromId(): RegisteredUser {
+        let rawdata: any = fs.readFileSync('users.json');
+        let users: RegisteredUser[] = JSON.parse(rawdata);
+        let currentUser: RegisteredUser = RegisteredUser.getInstance('', '', '');
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].id === this.id) {
+                currentUser.id = users[i].id
+                currentUser.password = users[i].password;
+                currentUser.username = users[i].username;
+            }
+        }
+        return currentUser;
+    }
+
 
     private async saveToAdventureStatistikJSON(_id: string) {
         // Get Advenutre

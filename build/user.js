@@ -81,19 +81,19 @@ var User = /** @class */ (function () {
             });
         });
     };
-    User.prototype.firstFiveAdventures = function () {
+    User.prototype.firstFiveAdventures = function (_id) {
         return __awaiter(this, void 0, void 0, function () {
             var allAdventures;
             return __generator(this, function (_a) {
                 console.log(chalk_1.default.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
                 allAdventures = this.parseForPrompt(this.getAdventures());
-                this.navigateThroughList(allAdventures, 1);
+                this.navigateThroughList(allAdventures, 1, _id);
                 return [2 /*return*/];
             });
         });
     };
     // i counts the loop/rekussion 
-    User.prototype.navigateThroughList = function (_allAdventures, i) {
+    User.prototype.navigateThroughList = function (_allAdventures, i, _id) {
         return __awaiter(this, void 0, void 0, function () {
             var currentAdventure, showMore, userChoiceAdventurePrompt, adventures, userChoiceAdventure, playerFactroy, player;
             return __generator(this, function (_a) {
@@ -107,7 +107,10 @@ var User = /** @class */ (function () {
                             currentAdventure = _allAdventures.slice(5 * i - 5, 5 * i);
                         }
                         showMore = { value: '-1', title: '"Zeig mir mehr!"' };
-                        currentAdventure.push(showMore);
+                        // Only show moreOptions if more than 5 exists
+                        if (_allAdventures.length > 5) {
+                            currentAdventure.push(showMore);
+                        }
                         return [4 /*yield*/, prompts_1.default([
                                 {
                                     type: 'select',
@@ -121,11 +124,13 @@ var User = /** @class */ (function () {
                         userChoiceAdventurePrompt = _a.sent();
                         i = i + 1;
                         if (userChoiceAdventurePrompt.value === '-1' && _allAdventures.length >= i * 5 - 5) {
-                            this.navigateThroughList(_allAdventures, i);
+                            console.log('Es gibt mehr Adventure als gerade sichtbar');
+                            console.log('Länge Anzahl Abentuer: ' + _allAdventures.length);
+                            this.navigateThroughList(_allAdventures, i, _id);
                         }
                         else if (userChoiceAdventurePrompt.value === '-1') {
                             console.log(chalk_1.default.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
-                            this.navigateThroughList(_allAdventures, 1);
+                            this.navigateThroughList(_allAdventures, 1, _id);
                         }
                         else {
                             adventures = this.getAdventures();
@@ -133,7 +138,7 @@ var User = /** @class */ (function () {
                             playerFactroy = new PlayerTextadventure_1.PlayerTextadventure();
                             player = playerFactroy.createPlayer();
                             player.playAdventure(userChoiceAdventure);
-                            //todo: irgendwie zurück
+                            player.id = _id;
                         }
                         return [2 /*return*/];
                 }

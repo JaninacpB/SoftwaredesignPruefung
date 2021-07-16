@@ -35,17 +35,16 @@ export class User {
         let player = playerFactroy.createPlayer();
         player.id = _id;
         player.playAdventure(userChoiceAdventure);
-        // todo: Jetzt? irgendwie zurück
     }
 
-    public async firstFiveAdventures() {
+    public async firstFiveAdventures(_id: string) {
         console.log(chalk.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
         let allAdventures: PromptChoice[] = this.parseForPrompt(this.getAdventures());
-        this.navigateThroughList(allAdventures, 1);
+        this.navigateThroughList(allAdventures, 1, _id);
     }
 
     // i counts the loop/rekussion 
-    private async navigateThroughList(_allAdventures: PromptChoice[], i: number) {
+    private async navigateThroughList(_allAdventures: PromptChoice[], i: number, _id: string) {
         let currentAdventure = _allAdventures;
         if (i === 1) {
             currentAdventure = currentAdventure.slice(0, 5);
@@ -54,8 +53,11 @@ export class User {
         }
 
         let showMore: PromptChoice = { value: '-1', title: '"Zeig mir mehr!"' };
-        currentAdventure.push(showMore);
-
+        // Only show moreOptions if more than 5 exists
+        if(_allAdventures.length > 5) {
+            currentAdventure.push(showMore);
+        }
+        
         const userChoiceAdventurePrompt = await prompts([
             {
                 type: 'select',
@@ -67,10 +69,14 @@ export class User {
         ]);
         i = i + 1;
         if (userChoiceAdventurePrompt.value === '-1' && _allAdventures.length >= i * 5 - 5) {
-            this.navigateThroughList(_allAdventures, i);
-        } else if (userChoiceAdventurePrompt.value === '-1') {
+            console.log('Es gibt mehr Adventure als gerade sichtbar');
+            console.log('Länge Anzahl Abentuer: ' + _allAdventures.length);
+            
+            this.navigateThroughList(_allAdventures, i, _id);
+        } 
+        else if (userChoiceAdventurePrompt.value === '-1') {
             console.log(chalk.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
-            this.navigateThroughList(_allAdventures, 1);
+            this.navigateThroughList(_allAdventures, 1, _id);
         } else {
             // get Adventures not prompt Interface & use Factory 
             let adventures = this.getAdventures();
@@ -78,7 +84,7 @@ export class User {
             let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
             let player = playerFactroy.createPlayer();
             player.playAdventure(userChoiceAdventure);
-            //todo: irgendwie zurück
+            player.id = _id; 
         }
     }
 

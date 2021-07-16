@@ -1,9 +1,8 @@
 import { Field } from "./Field";
+import fs from "fs";
+import fsBack from "fs/promises";
 
-export class Adventure{
-    // todo: File mir verweisen machen? statt doppelt
-    private fs = require('fs');
-    private fsBack = require('fs').promises;
+export class Adventure {
 
     public adventureId: string;
     public title: string;
@@ -16,9 +15,9 @@ export class Adventure{
     public mapSizeY: number;
     public field: Field[];
 
-    constructor(_id:string, _title: string, _author: string, _startpointX: number, _startpointY: number,
-         _amountPlayers: number, _amountTurns: number, _mapSizeX: number, _mapSizeY: number,
-          _field: Field[]) {
+    constructor(_id: string, _title: string, _author: string, _startpointX: number, _startpointY: number,
+        _amountPlayers: number, _amountTurns: number, _mapSizeX: number, _mapSizeY: number,
+        _field: Field[]) {
         this.adventureId = _id;
         this.title = _title;
         this.author = _author;
@@ -33,13 +32,13 @@ export class Adventure{
 
     // todo: prüfen ob noch läuft (einmal verändert jetzt aber eigentlich wieder normal)
     public async saveToJSON() {
-        let rawdata = this.fs.readFileSync('adventure.json');
+        let rawdata: any = fs.readFileSync('adventure.json');
         let adventures: Adventure[] = JSON.parse(rawdata);
 
         adventures.push(this);
 
         // save to JSON
         let jsonData = JSON.stringify(adventures);
-        await this.fsBack.writeFile('adventure.json', jsonData);
+        await fsBack.writeFile('adventure.json', jsonData);
     }
 }
