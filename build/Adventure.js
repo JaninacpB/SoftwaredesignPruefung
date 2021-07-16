@@ -43,19 +43,18 @@ exports.Adventure = void 0;
 var fs_1 = __importDefault(require("fs"));
 var promises_1 = __importDefault(require("fs/promises"));
 var Adventure = /** @class */ (function () {
-    function Adventure(_id, _title, _author, _startpointX, _startpointY, _amountPlayers, _amountTurns, _mapSizeX, _mapSizeY, _field) {
-        this.adventureId = _id;
-        this.title = _title;
-        this.author = _author;
-        this.startpointX = _startpointX;
-        this.startpointY = _startpointY;
-        this.amountPlayers = _amountPlayers;
-        this.amountTurns = _amountTurns;
-        this.mapSizeX = _mapSizeX;
-        this.mapSizeY = _mapSizeY;
-        this.field = _field;
+    function Adventure(_adventure) {
+        this.adventureId = _adventure.adventureId;
+        this.title = _adventure.title;
+        this.author = _adventure.author;
+        this.startpointX = _adventure.startpointX;
+        this.startpointY = _adventure.startpointY;
+        this.amountPlayers = _adventure.amountPlayers;
+        this.amountTurns = _adventure.amountTurns;
+        this.mapSizeX = _adventure.mapSizeX;
+        this.mapSizeY = _adventure.mapSizeY;
+        this.field = _adventure.field;
     }
-    // todo: prüfen ob noch läuft (einmal verändert jetzt aber eigentlich wieder normal)
     Adventure.prototype.saveToJSON = function () {
         return __awaiter(this, void 0, void 0, function () {
             var rawdata, adventures, jsonData;

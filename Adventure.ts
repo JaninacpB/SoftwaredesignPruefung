@@ -1,6 +1,7 @@
 import { Field } from "./Field";
 import fs from "fs";
 import fsBack from "fs/promises";
+import { AdventureModel } from "./Model/Interface/AdventureModel";
 
 export class Adventure {
 
@@ -15,22 +16,19 @@ export class Adventure {
     public mapSizeY: number;
     public field: Field[];
 
-    constructor(_id: string, _title: string, _author: string, _startpointX: number, _startpointY: number,
-        _amountPlayers: number, _amountTurns: number, _mapSizeX: number, _mapSizeY: number,
-        _field: Field[]) {
-        this.adventureId = _id;
-        this.title = _title;
-        this.author = _author;
-        this.startpointX = _startpointX;
-        this.startpointY = _startpointY;
-        this.amountPlayers = _amountPlayers;
-        this.amountTurns = _amountTurns;
-        this.mapSizeX = _mapSizeX;
-        this.mapSizeY = _mapSizeY;
-        this.field = _field;
+    constructor(_adventure: AdventureModel) {
+        this.adventureId = _adventure.adventureId;
+        this.title = _adventure.title;
+        this.author = _adventure.author;
+        this.startpointX = _adventure.startpointX;
+        this.startpointY = _adventure.startpointY;
+        this.amountPlayers = _adventure.amountPlayers;
+        this.amountTurns = _adventure.amountTurns;
+        this.mapSizeX = _adventure.mapSizeX;
+        this.mapSizeY = _adventure.mapSizeY;
+        this.field = _adventure.field;
     }
 
-    // todo: prüfen ob noch läuft (einmal verändert jetzt aber eigentlich wieder normal)
     public async saveToJSON() {
         let rawdata: any = fs.readFileSync('adventure.json');
         let adventures: Adventure[] = JSON.parse(rawdata);

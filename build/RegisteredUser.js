@@ -64,14 +64,12 @@ var chalk_1 = __importDefault(require("chalk"));
 var prompts_1 = __importDefault(require("prompts"));
 var RegisteredUser = /** @class */ (function (_super) {
     __extends(RegisteredUser, _super);
-    // private userAdventure: Adventure[];
     function RegisteredUser(username, password, id) {
         var _this = _super.call(this) || this;
         _this.id = id;
         _this.username = username;
         _this.password = password;
         return _this;
-        // this.userAdventure = this.checkUserAdventures();
     }
     // Singleton Method Code from: https://refactoring.guru/design-patterns/singleton/typescript/example
     RegisteredUser.getInstance = function (_username, _password, _id) {
@@ -80,10 +78,8 @@ var RegisteredUser = /** @class */ (function (_super) {
         }
         return RegisteredUser.instance;
     };
-    // move to unregistered User?
     RegisteredUser.prototype.navigateMenu = function () {
-        var _this = this;
-        (function () { return __awaiter(_this, void 0, void 0, function () {
+        return __awaiter(this, void 0, void 0, function () {
             var startScreen;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -121,55 +117,54 @@ var RegisteredUser = /** @class */ (function (_super) {
                         return [2 /*return*/];
                 }
             });
-        }); })();
+        });
     };
     RegisteredUser.prototype.showStatistic = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var promptAdventureTitles, userAdventures, i, choice;
-            var _this = this;
+            var promptAdventureTitles, userAdventures, i, choice, userAdventuresChoice_1, adventureCurrentIndex, adventureCurrent, avgTurns;
             return __generator(this, function (_a) {
-                console.log(chalk_1.default.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abendteuer an)\n'));
-                promptAdventureTitles = [];
-                userAdventures = this.checkUserAdventures();
-                // Für prompt vorbereiten
-                for (i = 0; i < userAdventures.length; i++) {
-                    choice = { value: userAdventures[i].adventureId, title: userAdventures[i].title };
-                    promptAdventureTitles.push(choice);
-                }
-                (function () { return __awaiter(_this, void 0, void 0, function () {
-                    var userAdventuresChoice, adventureCurrentIndex, adventureCurrent, avgTurns;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, prompts_1.default([
-                                    {
-                                        type: 'select',
-                                        name: 'value',
-                                        message: '"Welche Geschichte möchtest du dir genauer ansehen?"',
-                                        choices: promptAdventureTitles,
-                                        initial: 0
-                                    },
-                                ])];
-                            case 1:
-                                userAdventuresChoice = _a.sent();
-                                adventureCurrentIndex = userAdventures.findIndex(function (i) { return i.adventureId === userAdventuresChoice.value; });
-                                adventureCurrent = userAdventures[adventureCurrentIndex];
-                                // Get Choice from User in 
-                                console.log('"Nun gut schauen wir einmal, was ich so über die Geschichte "' + adventureCurrent.title + '" weiß..."');
-                                console.log('"Interessant, diese Geschichte wurde schon von: ' + chalk_1.default.green(adventureCurrent.amountPlayers + ' Spieleren gespielt.') + '"');
-                                avgTurns = adventureCurrent.amountTurns / adventureCurrent.amountPlayers;
-                                if (adventureCurrent.amountPlayers !== 0) {
-                                    console.log('"Und auch gut zu wissen, insgesamt verbrachen Spieler'
-                                        + chalk_1.default.green(' durschnittlich ' + avgTurns.toFixed(2) + ' Züge ') + 'auf deiner Karte."');
-                                }
-                                else {
-                                    console.log('"Mehr kann ich dir im Moment leider nicht sagen."');
-                                }
-                                this.navigateMenu();
-                                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        console.log(chalk_1.default.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abendteuer an)\n'));
+                        promptAdventureTitles = [];
+                        userAdventures = this.checkUserAdventures();
+                        if (!(userAdventures.length === 0)) return [3 /*break*/, 1];
+                        console.log(chalk_1.default.red('"Noch hast du keine Geschichten geschrieben. Kehre zurück sobald du es getan hast."'));
+                        this.navigateMenu();
+                        return [3 /*break*/, 3];
+                    case 1:
+                        // format for Prompt
+                        for (i = 0; i < userAdventures.length; i++) {
+                            choice = { value: userAdventures[i].adventureId, title: userAdventures[i].title };
+                            promptAdventureTitles.push(choice);
                         }
-                    });
-                }); })();
-                return [2 /*return*/];
+                        return [4 /*yield*/, prompts_1.default([
+                                {
+                                    type: 'select',
+                                    name: 'value',
+                                    message: '"Welche Geschichte möchtest du dir genauer ansehen?"',
+                                    choices: promptAdventureTitles,
+                                    initial: 0
+                                },
+                            ])];
+                    case 2:
+                        userAdventuresChoice_1 = _a.sent();
+                        adventureCurrentIndex = userAdventures.findIndex(function (i) { return i.adventureId === userAdventuresChoice_1.value; });
+                        adventureCurrent = userAdventures[adventureCurrentIndex];
+                        console.log('"Nun gut schauen wir einmal, was ich so über die Geschichte "' + chalk_1.default.green(adventureCurrent.title) + '" weiß..."');
+                        console.log('"Interessant, diese Geschichte wurde schon von: ' + chalk_1.default.green(adventureCurrent.amountPlayers + ' Spieleren gespielt.') + '"');
+                        avgTurns = adventureCurrent.amountTurns / adventureCurrent.amountPlayers;
+                        if (adventureCurrent.amountPlayers !== 0) {
+                            console.log('"Und auch gut zu wissen, insgesamt verbrachen Spieler'
+                                + chalk_1.default.green(' durschnittlich ' + avgTurns.toFixed(2) + ' Züge ') + 'auf deiner Karte."');
+                        }
+                        else {
+                            console.log('"Mehr kann ich dir im Moment leider nicht sagen."');
+                        }
+                        this.navigateMenu();
+                        _a.label = 3;
+                    case 3: return [2 /*return*/];
+                }
             });
         });
     };
@@ -186,42 +181,41 @@ var RegisteredUser = /** @class */ (function (_super) {
         return userAdventures;
     };
     RegisteredUser.prototype.createMap = function () {
-        var _this = this;
-        // fill empty object during creation prozess
-        var adventure = {};
-        adventure.amountPlayers = 0;
-        adventure.amountTurns = 0;
-        adventure.author = this.id;
-        console.log(chalk_1.default.bgBlue('\nArbeitszimmer (Erstelle ein Textadventure)\n'));
-        console.log('"So, nichts ist wichter als ein guter Titel. Etwas fabulöses, etwas magisches mit einem Hauch von Abendteuer. Etwas wie: \n Maximus Reise ins Zauberland.\n Maximus 2: Tag der Abrechnung \n Maximus: Der Tollkühneheld \n Maximus: Casino Royal \n Also ich denke du hast ja jetzt schon ein paar gute Ideen"');
-        (function () { return __awaiter(_this, void 0, void 0, function () {
-            var mapData, maximusRegrex, mapSize;
+        return __awaiter(this, void 0, void 0, function () {
+            var adventure, mapData, maximusRegrex, mapSize;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, prompts_1.default([
-                            {
-                                type: 'text',
-                                name: 'title',
-                                message: 'Nun was ist dein Titel..." (Abenteuertitle angeben)"',
-                                validate: function (title) { return title == '' ? chalk_1.default.red('Du musst einen Title angeben um fortzufahren') : true; }
-                            },
-                            {
-                                type: 'number',
-                                name: 'mapSizeX',
-                                min: 1,
-                                max: 10,
-                                message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in X Richtung →)"',
-                                initial: 1
-                            },
-                            {
-                                type: 'number',
-                                name: 'mapSizeY',
-                                min: 1,
-                                max: 10,
-                                message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in Y Richtung ↓)"',
-                                initial: 1
-                            }
-                        ])];
+                    case 0:
+                        adventure = {};
+                        adventure.amountPlayers = 0;
+                        adventure.amountTurns = 0;
+                        adventure.author = this.id;
+                        console.log(chalk_1.default.bgBlue('\nArbeitszimmer (Erstelle ein Textadventure)\n'));
+                        console.log('"So, nichts ist wichter als ein guter Titel. Etwas fabulöses, etwas magisches mit einem Hauch von Abendteuer. Etwas wie: \n Maximus Reise ins Zauberland.\n Maximus 2: Tag der Abrechnung \n Maximus: Der Tollkühneheld \n Maximus: Casino Royal \n Also ich denke du hast ja jetzt schon ein paar gute Ideen"');
+                        return [4 /*yield*/, prompts_1.default([
+                                {
+                                    type: 'text',
+                                    name: 'title',
+                                    message: 'Nun was ist dein Titel..." (Abenteuertitle angeben)"',
+                                    validate: function (title) { return title == '' ? chalk_1.default.red('Du musst einen Title angeben um fortzufahren') : true; }
+                                },
+                                {
+                                    type: 'number',
+                                    name: 'mapSizeX',
+                                    min: 1,
+                                    max: 10,
+                                    message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in X Richtung →)"',
+                                    initial: 1
+                                },
+                                {
+                                    type: 'number',
+                                    name: 'mapSizeY',
+                                    min: 1,
+                                    max: 10,
+                                    message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in Y Richtung ↓)"',
+                                    initial: 1
+                                }
+                            ])];
                     case 1:
                         mapData = _a.sent();
                         maximusRegrex = /Maximus/gi;
@@ -240,7 +234,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         return [2 /*return*/];
                 }
             });
-        }); })();
+        });
     };
     RegisteredUser.prototype.giveStartpoint = function (_adventure) {
         return __awaiter(this, void 0, void 0, function () {
@@ -271,13 +265,13 @@ var RegisteredUser = /** @class */ (function (_super) {
                         _adventure.startpointY = startConfig.startpointY;
                         field = [];
                         console.log('"Jetzt lass uns die Felder füllen. Wir fangen an Punkt 1/1 welcher links oben auf der Karte liegt und arbeiten uns zum Punkt rechts Unten durch."');
-                        this.giveFieldInput(_adventure, 1, 1, field);
+                        this.giveFieldPlaceName(_adventure, 1, 1, field);
                         return [2 /*return*/];
                 }
             });
         });
     };
-    RegisteredUser.prototype.giveFieldInput = function (_adventure, _currentX, _currentY, _fieldValues) {
+    RegisteredUser.prototype.giveFieldPlaceName = function (_adventure, _currentX, _currentY, _fieldValues) {
         return __awaiter(this, void 0, void 0, function () {
             var fieldName, currentField;
             return __generator(this, function (_a) {
@@ -296,23 +290,23 @@ var RegisteredUser = /** @class */ (function (_super) {
                         _fieldValues.push(currentField);
                         // Loop untill all fields have a description. Go Vertical over x Fields untill end of row, than add +1 to y and start over.
                         if (_currentX === _adventure.mapSizeX && _currentY !== _adventure.mapSizeY) {
-                            this.giveFieldInput(_adventure, 1, _currentY + 1, _fieldValues);
+                            this.giveFieldPlaceName(_adventure, 1, _currentY + 1, _fieldValues);
                             return [2 /*return*/, _fieldValues];
                         }
                         else if (_currentX < _adventure.mapSizeX) {
-                            this.giveFieldInput(_adventure, _currentX + 1, _currentY, _fieldValues);
+                            this.giveFieldPlaceName(_adventure, _currentX + 1, _currentY, _fieldValues);
                             return [2 /*return*/, _fieldValues];
                         }
                         _adventure.field = _fieldValues;
                         this.confirmAction(_adventure);
-                        return [2 /*return*/, _fieldValues];
+                        return [2 /*return*/];
                 }
             });
         });
     };
     RegisteredUser.prototype.confirmAction = function (_adventure) {
         return __awaiter(this, void 0, void 0, function () {
-            var confirm, adventure;
+            var confirm, newAdventure, adventure;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, prompts_1.default({
@@ -326,7 +320,12 @@ var RegisteredUser = /** @class */ (function (_super) {
                     case 1:
                         confirm = _a.sent();
                         if (confirm.value) {
-                            adventure = new Adventure_1.Adventure(this.generateId(), _adventure.title, _adventure.author, _adventure.startpointX, _adventure.startpointY, _adventure.amountPlayers, _adventure.mapSizeX, _adventure.mapSizeX, _adventure.mapSizeY, _adventure.field);
+                            newAdventure = {
+                                adventureId: this.generateId(), title: _adventure.title, author: _adventure.author, startpointX: _adventure.startpointX,
+                                startpointY: _adventure.startpointY, amountTurns: _adventure.amountTurns, amountPlayers: _adventure.amountPlayers,
+                                mapSizeX: _adventure.mapSizeX, mapSizeY: _adventure.mapSizeY, field: _adventure.field
+                            };
+                            adventure = new Adventure_1.Adventure(newAdventure);
                             adventure.saveToJSON();
                         }
                         else {
