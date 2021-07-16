@@ -2,13 +2,13 @@ import { GeneralPlayer } from "./GeneralPlayer";
 import { Adventure } from "./Adventure";
 import chalk from "chalk";
 import prompts from "prompts";
-import { Field } from "./Field";
-import { Direction } from "./Direction";
+import { Field } from "./Model/Interface/Field";
+import { Direction } from "./Model/Interface/Direction";
 import fs from "fs";
 import fsBack from "fs/promises";
 import { RegisteredUser } from "./RegisteredUser";
 import { UnregisteredUser } from "./UnregisteredUser";
-import { User } from "./User";
+import { AdventureModel } from "./Model/Interface/AdventureModel";
 
 export class ConcretePlayerTextadventure implements GeneralPlayer {
 
@@ -17,7 +17,7 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
 
     public async playAdventure(_adventure: Adventure) {
         console.log('\n' + chalk.bgBlue(_adventure.title) + '\n');
-        // Erstes Feld 
+        // first Field
         let start: Field = this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
         console.log('Du startest deine Reise hier: ' + chalk.green(start.place));
         this.goOverMap(start.xPosition, start.yPosition, _adventure);
@@ -55,17 +55,17 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
         } else {
             this.saveToAdventureStatistikJSON(_adventure.adventureId);
 
-            if(this.id !== '') {
-            let user: RegisteredUser = this.getUserFromId();
-            user.navigateMenu();
+            if (this.id !== '') {
+                let user: RegisteredUser = this.getUserFromId();
+                user.menu();
             } else {
-                let unregisteredUser = new UnregisteredUser(); 
+                let unregisteredUser = new UnregisteredUser();
                 unregisteredUser.menu();
             }
         }
     }
 
-    // registered and unregsitered User can play with this class, but after playing need way to go back to menu
+    // registered and unregsitered User can play with this methode, but after playing need way to go back to own menu
     private getUserFromId(): RegisteredUser {
         let rawdata: any = fs.readFileSync('users.json');
         let users: RegisteredUser[] = JSON.parse(rawdata);
@@ -80,18 +80,16 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
         return currentUser;
     }
 
-
     private async saveToAdventureStatistikJSON(_id: string) {
-        // Get Advenutre
         let rawdata: any = fs.readFileSync('adventure.json');
-        let adventures: Adventure[] = JSON.parse(rawdata);
+        let adventures: AdventureModel[] = JSON.parse(rawdata);
 
         for (let i = 0; i < adventures.length; i++) {
-            if(adventures[i].adventureId === _id) {
+            if (adventures[i].adventureId === _id) {
                 adventures[i].amountPlayers += 1;
                 adventures[i].amountTurns += this.amountTurns;
             }
-        } 
+        }
         let jsonData = JSON.stringify(adventures);
         await fsBack.writeFile('adventure.json', jsonData);
     }
@@ -108,12 +106,12 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
         return 'Westen';
     }
 
-    // only change if W or O Oritention 
+    // only change if W or O Orientation 
     private changeX(_x: number, _nextMoveOrientation: Direction): number {
         switch (_nextMoveOrientation) {
             case Direction.East:
                 return _x + 1;
-            case Direction.West: 
+            case Direction.West:
                 return _x - 1;
         }
         return _x;
@@ -129,10 +127,10 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
         return _y;
     }
 
-    private checkIfEnd(_adventure: Adventure, _x: number, _y: number, _nextMoveOrientation: Direction): boolean {
+    private checkIfEnd(_adventure: AdventureModel, _x: number, _y: number, _nextMoveOrientation: Direction): boolean {
         let isNotOnTheMap = false;
         switch (_nextMoveOrientation) {
-            case Direction.North: 
+            case Direction.North:
                 if (0 >= _y - 1) {
                     isNotOnTheMap = true;
                 }
@@ -142,12 +140,12 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
                     isNotOnTheMap = true;
                 }
                 break;
-            case Direction.South: 
+            case Direction.South:
                 if (_adventure.mapSizeY < _y + 1) {
                     isNotOnTheMap = true;
                 }
                 break;
-            case Direction.West: 
+            case Direction.West:
                 if (0 >= _x - 1) {
                     isNotOnTheMap = true;
                 }

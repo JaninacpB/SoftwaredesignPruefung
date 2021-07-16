@@ -1,13 +1,14 @@
 import { Adventure } from "./Adventure";
-import { Field } from "./Field";
+import { Field } from "./Model/Interface/Field";
 import { User } from "./User";
-import { PromptChoice } from "./PromptChoice";
+import { PromptChoice } from "./Model/Interface/PromptChoice";
+import { AdventureModel } from "./Model/Interface/AdventureModel";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import fsBack from "fs/promises";
 import chalk from "chalk";
 import prompts from "prompts";
-import { AdventureModel } from "./Model/Interface/AdventureModel";
+
 
 export class RegisteredUser extends User {
     private static instance: RegisteredUser;
@@ -31,17 +32,17 @@ export class RegisteredUser extends User {
         return RegisteredUser.instance;
     }
 
-    public async navigateMenu() {
+    public async menu() {
         const startScreen = await prompts([
             {
                 type: 'select',
                 name: 'value',
                 message: '"Wie kann ich dir helfen "' + this.username + '"?"',
                 choices: [
-                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht aller Abendteuer anzeigen)"', value: 0 },
-                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: 1 },
-                    { title: '"Ich möchte eine eigene Geschichte erschaffen... (Erstelle ein Textadventure)"', value: 2 },
-                    { title: '"Hast du anderen bereits meine Geschichten gegeben? Was sagten sie... (Statistik ansehen)"', value: 3 },
+                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk.grey('Übersicht aller Abendteuer anzeigen)"'), value: 0 },
+                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk.grey('Nach Abendteuer suchen)"'), value: 1 },
+                    { title: '"Ich möchte eine eigene Geschichte erschaffen... ' + chalk.grey('(Erstelle ein Textadventure)"'), value: 2 },
+                    { title: '"Hast du anderen bereits meine Geschichten gegeben? ' + chalk.grey('Was sagten sie... (Statistik ansehen)"'), value: 3 },
                     { title: chalk.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
                 ],
                 initial: 0
@@ -70,7 +71,7 @@ export class RegisteredUser extends User {
 
         if (userAdventures.length === 0) {
             console.log(chalk.red('"Noch hast du keine Geschichten geschrieben. Kehre zurück sobald du es getan hast."'));
-            this.navigateMenu();
+            this.menu();
         } else {
             // format for Prompt
             for (let i = 0; i < userAdventures.length; i++) {
@@ -99,7 +100,7 @@ export class RegisteredUser extends User {
             } else {
                 console.log('"Mehr kann ich dir im Moment leider nicht sagen."');
             }
-            this.navigateMenu();
+            this.menu();
         }
     }
 
@@ -131,7 +132,7 @@ export class RegisteredUser extends User {
             {
                 type: 'text',
                 name: 'title',
-                message: 'Nun was ist dein Titel..." (Abenteuertitle angeben)"',
+                message: 'Nun was ist dein Titel..." ' + chalk.grey('(Abenteuertitle angeben)"'),
                 validate: title => title == '' ? chalk.red('Du musst einen Title angeben um fortzufahren') : true
             },
             {
@@ -139,7 +140,7 @@ export class RegisteredUser extends User {
                 name: 'mapSizeX',
                 min: 1,
                 max: 10,
-                message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in X Richtung →)"',
+                message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... ' + chalk.grey('(Kartengöße in X Richtung →)"'),
                 initial: 1
             },
             {
@@ -147,7 +148,7 @@ export class RegisteredUser extends User {
                 name: 'mapSizeY',
                 min: 1,
                 max: 10,
-                message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in Y Richtung ↓)"',
+                message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... ' + chalk.grey('(Kartengöße in Y Richtung ↓)"'),
                 initial: 1
             }
         ]);
@@ -173,7 +174,7 @@ export class RegisteredUser extends User {
                 min: 1,
                 max: _adventure.mapSizeX,
                 initial: 1,
-                message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... (X Startpunkt auf der Karteangeben)"',
+                message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... ' + chalk.grey('(X Startpunkt auf der Karteangeben)"'),
             },
             {
                 type: 'number',
@@ -181,7 +182,7 @@ export class RegisteredUser extends User {
                 min: 1,
                 max: _adventure.mapSizeY,
                 initial: 1,
-                message: 'Und wo ist der Y Startpunkt... (Y Startpunkt auf der Karteangeben)"',
+                message: 'Und wo ist der Y Startpunkt... ' + chalk.grey('(Y Startpunkt auf der Karteangeben)"'),
             },
         ]);
         _adventure.startpointX = startConfig.startpointX;
@@ -191,12 +192,12 @@ export class RegisteredUser extends User {
         this.giveFieldPlaceName(_adventure, 1, 1, field);
     }
 
-    private async giveFieldPlaceName(_adventure: AdventureModel, _currentX: number, _currentY: number, _fieldValues: Field[]){
+    private async giveFieldPlaceName(_adventure: AdventureModel, _currentX: number, _currentY: number, _fieldValues: Field[]) {
         const fieldName = await prompts([
             {
                 type: 'text',
                 name: 'place',
-                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... (Ort eingeben)"',
+                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... ' + chalk.grey('(Ort eingeben)"'),
                 validate: (value: string) => value === '' ? 'Bitte trage einen Ort ein' : true
             }
         ]);
@@ -227,9 +228,11 @@ export class RegisteredUser extends User {
         if (confirm.value) {
             let newAdventure: AdventureModel =
             {
-                adventureId: this.generateId(), title: _adventure.title, author: _adventure.author, startpointX: _adventure.startpointX,
-                startpointY: _adventure.startpointY, amountTurns: _adventure.amountTurns, amountPlayers: _adventure.amountPlayers,
-                mapSizeX: _adventure.mapSizeX, mapSizeY: _adventure.mapSizeY, field: _adventure.field
+                adventureId: this.generateId(), title: _adventure.title,
+                author: _adventure.author, startpointX: _adventure.startpointX,
+                startpointY: _adventure.startpointY, amountTurns: _adventure.amountTurns,
+                amountPlayers: _adventure.amountPlayers, mapSizeX: _adventure.mapSizeX,
+                mapSizeY: _adventure.mapSizeY, field: _adventure.field
             };
 
             let adventure = new Adventure(newAdventure);
@@ -237,7 +240,7 @@ export class RegisteredUser extends User {
         } else {
             console.log(chalk.red('Textadventure wurde verworfen'));
         }
-        this.navigateMenu();
+        this.menu();
     }
 
     public async saveUserToJSON() {

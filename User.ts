@@ -1,20 +1,21 @@
 import { Adventure } from "./Adventure";
 import { PlayerTextadventure } from "./PlayerTextadventure";
-import { PromptChoice } from "./PromptChoice";
+import { PromptChoice } from "./Model/Interface/PromptChoice";
 import prompts from "prompts";
 import fs from "fs";
 import chalk from "chalk";
+import { AdventureModel } from "./Model/Interface/AdventureModel";
 
 export class User {
 
-    // id to identify in ConcretePlayerTextadventure later if registered or not
-    public async searchAdventure(_id: string){
+    // _id for identify in ConcretePlayerTextadventure later if registered or not -> used to navigate back to right menu
+    public async searchAdventure(_id: string) {
         console.log(chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
-        // für Prompt vorbereiten
+
         let allAdventures: Adventure[] = this.getAdventures();
         let allAdventuresPrompt: PromptChoice[] = this.parseForPrompt(allAdventures);
 
-        // Fallback doesnt workt without require here
+        // "Fallback" doesnt workt in prompt without require here
         const prompts = require('prompts');
 
         const userChoiceId = await prompts([
@@ -40,24 +41,26 @@ export class User {
     public async firstFiveAdventures(_id: string) {
         console.log(chalk.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
         let allAdventures: PromptChoice[] = this.parseForPrompt(this.getAdventures());
-        this.navigateThroughList(allAdventures, 1, _id);
+        this.navigateThroughListOfFive(allAdventures, 1, _id);
     }
 
     // i counts the loop/rekussion 
-    private async navigateThroughList(_allAdventures: PromptChoice[], i: number, _id: string) {
+    private async navigateThroughListOfFive(_allAdventures: PromptChoice[], i: number, _id: string) {
         let currentAdventure = _allAdventures;
+        // if wanted later changed -> also rename Name Methode then
+        let amountEntriesShow = 5;
         if (i === 1) {
-            currentAdventure = currentAdventure.slice(0, 5);
+            currentAdventure = currentAdventure.slice(0, amountEntriesShow);
         } else {
-            currentAdventure = _allAdventures.slice(5 * i - 5, 5 * i)
+            currentAdventure = _allAdventures.slice(amountEntriesShow * i - amountEntriesShow, amountEntriesShow * i)
         }
 
         let showMore: PromptChoice = { value: '-1', title: '"Zeig mir mehr!"' };
-        // Only show moreOptions if more than 5 exists
-        if(_allAdventures.length > 5) {
+
+        if (_allAdventures.length > amountEntriesShow) {
             currentAdventure.push(showMore);
         }
-        
+
         const userChoiceAdventurePrompt = await prompts([
             {
                 type: 'select',
@@ -68,23 +71,23 @@ export class User {
             }
         ]);
         i = i + 1;
-        if (userChoiceAdventurePrompt.value === '-1' && _allAdventures.length >= i * 5 - 5) {
+        if (userChoiceAdventurePrompt.value === '-1' && _allAdventures.length >= i * amountEntriesShow - amountEntriesShow) {
             console.log('Es gibt mehr Adventure als gerade sichtbar');
             console.log('Länge Anzahl Abentuer: ' + _allAdventures.length);
-            
-            this.navigateThroughList(_allAdventures, i, _id);
-        } 
+
+            this.navigateThroughListOfFive(_allAdventures, i, _id);
+        }
         else if (userChoiceAdventurePrompt.value === '-1') {
             console.log(chalk.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
-            this.navigateThroughList(_allAdventures, 1, _id);
+            this.navigateThroughListOfFive(_allAdventures, 1, _id);
         } else {
             // get Adventures not prompt Interface & use Factory 
             let adventures = this.getAdventures();
-            let userChoiceAdventure: Adventure | undefined = adventures.find(adventure => adventure.adventureId === userChoiceAdventurePrompt.value);
+            let userChoiceAdventure: AdventureModel | undefined = adventures.find(adventure => adventure.adventureId === userChoiceAdventurePrompt.value);
             let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
             let player = playerFactroy.createPlayer();
+            player.id = _id;
             player.playAdventure(userChoiceAdventure);
-            player.id = _id; 
         }
     }
 

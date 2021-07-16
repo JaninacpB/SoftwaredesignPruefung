@@ -47,12 +47,6 @@ var Main = /** @class */ (function () {
         this.unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
         this.startTitle();
     }
-    Main.menu = function () {
-        throw new Error("Method not implemented.");
-    };
-    Main.startMenu = function () {
-        throw new Error("Method not implemented.");
-    };
     Main.prototype.startTitle = function () {
         return __awaiter(this, void 0, void 0, function () {
             var adventuriaArt, maximusArt, timeToWait, unregisteredUser;
@@ -101,39 +95,6 @@ var Main = /** @class */ (function () {
             });
         });
     };
-    // public menu() {
-    //   const prompts = require('prompts');
-    //   (async () => {
-    //     const startScreen = await prompts([
-    //       {
-    //         type: 'select',
-    //         name: 'value',
-    //         message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
-    //         choices: [
-    //           { title: '"Ja, unsere Wege trafen sich bereits..." (Log In)', value: '0' },
-    //           { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen..." (Sign Up)', value: '1' },
-    //           { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht von Abendteuern anzeigen)"', value: '2' },
-    //           { title: '"Gut ein anderes Gesicht zu sehen. Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: '3' }
-    //         ],
-    //         initial: 0
-    //       }
-    //     ]);
-    //     switch (startScreen.value) {
-    //       case '0':
-    //         this.unregisteredUser.login();
-    //         break;
-    //       case '1':
-    //         this.unregisteredUser.getUserData();
-    //         break;
-    //       case '2':
-    //         this.unregisteredUser.firstFiveAdventures();
-    //         break
-    //       case '3':
-    //         this.unregisteredUser.searchAdventure('');
-    //         break
-    //     }
-    //   })();
-    // }
     Main.prototype.loadAsciiArt = function (timeToWaitInMs, asciiArt) {
         return __awaiter(this, void 0, void 0, function () {
             var i;

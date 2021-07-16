@@ -47,7 +47,7 @@ var chalk_1 = __importDefault(require("chalk"));
 var User = /** @class */ (function () {
     function User() {
     }
-    // id to identify in ConcretePlayerTextadventure later if registered or not
+    // _id for identify in ConcretePlayerTextadventure later if registered or not -> used to navigate back to right menu
     User.prototype.searchAdventure = function (_id) {
         return __awaiter(this, void 0, void 0, function () {
             var allAdventures, allAdventuresPrompt, prompts, userChoiceId, userChoiceAdventure, playerFactroy, player;
@@ -87,28 +87,28 @@ var User = /** @class */ (function () {
             return __generator(this, function (_a) {
                 console.log(chalk_1.default.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
                 allAdventures = this.parseForPrompt(this.getAdventures());
-                this.navigateThroughList(allAdventures, 1, _id);
+                this.navigateThroughListOfFive(allAdventures, 1, _id);
                 return [2 /*return*/];
             });
         });
     };
     // i counts the loop/rekussion 
-    User.prototype.navigateThroughList = function (_allAdventures, i, _id) {
+    User.prototype.navigateThroughListOfFive = function (_allAdventures, i, _id) {
         return __awaiter(this, void 0, void 0, function () {
-            var currentAdventure, showMore, userChoiceAdventurePrompt, adventures, userChoiceAdventure, playerFactroy, player;
+            var currentAdventure, amountEntriesShow, showMore, userChoiceAdventurePrompt, adventures, userChoiceAdventure, playerFactroy, player;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         currentAdventure = _allAdventures;
+                        amountEntriesShow = 5;
                         if (i === 1) {
-                            currentAdventure = currentAdventure.slice(0, 5);
+                            currentAdventure = currentAdventure.slice(0, amountEntriesShow);
                         }
                         else {
-                            currentAdventure = _allAdventures.slice(5 * i - 5, 5 * i);
+                            currentAdventure = _allAdventures.slice(amountEntriesShow * i - amountEntriesShow, amountEntriesShow * i);
                         }
                         showMore = { value: '-1', title: '"Zeig mir mehr!"' };
-                        // Only show moreOptions if more than 5 exists
-                        if (_allAdventures.length > 5) {
+                        if (_allAdventures.length > amountEntriesShow) {
                             currentAdventure.push(showMore);
                         }
                         return [4 /*yield*/, prompts_1.default([
@@ -123,22 +123,22 @@ var User = /** @class */ (function () {
                     case 1:
                         userChoiceAdventurePrompt = _a.sent();
                         i = i + 1;
-                        if (userChoiceAdventurePrompt.value === '-1' && _allAdventures.length >= i * 5 - 5) {
+                        if (userChoiceAdventurePrompt.value === '-1' && _allAdventures.length >= i * amountEntriesShow - amountEntriesShow) {
                             console.log('Es gibt mehr Adventure als gerade sichtbar');
                             console.log('Länge Anzahl Abentuer: ' + _allAdventures.length);
-                            this.navigateThroughList(_allAdventures, i, _id);
+                            this.navigateThroughListOfFive(_allAdventures, i, _id);
                         }
                         else if (userChoiceAdventurePrompt.value === '-1') {
                             console.log(chalk_1.default.red('"Tut mir Leid, mehr gibt es hier nicht zu sehen, suche bitte eines aus der Liste aus..."'));
-                            this.navigateThroughList(_allAdventures, 1, _id);
+                            this.navigateThroughListOfFive(_allAdventures, 1, _id);
                         }
                         else {
                             adventures = this.getAdventures();
                             userChoiceAdventure = adventures.find(function (adventure) { return adventure.adventureId === userChoiceAdventurePrompt.value; });
                             playerFactroy = new PlayerTextadventure_1.PlayerTextadventure();
                             player = playerFactroy.createPlayer();
-                            player.playAdventure(userChoiceAdventure);
                             player.id = _id;
+                            player.playAdventure(userChoiceAdventure);
                         }
                         return [2 /*return*/];
                 }

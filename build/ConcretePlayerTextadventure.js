@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConcretePlayerTextadventure = void 0;
 var chalk_1 = __importDefault(require("chalk"));
 var prompts_1 = __importDefault(require("prompts"));
-var Direction_1 = require("./Direction");
+var Direction_1 = require("./Model/Interface/Direction");
 var fs_1 = __importDefault(require("fs"));
 var promises_1 = __importDefault(require("fs/promises"));
 var RegisteredUser_1 = require("./RegisteredUser");
@@ -102,7 +102,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                             this.saveToAdventureStatistikJSON(_adventure.adventureId);
                             if (this.id !== '') {
                                 user = this.getUserFromId();
-                                user.navigateMenu();
+                                user.menu();
                             }
                             else {
                                 unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
@@ -114,7 +114,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
             });
         });
     };
-    // registered and unregsitered User can play with this class, but after playing need way to go back to menu
+    // registered and unregsitered User can play with this methode, but after playing need way to go back to own menu
     ConcretePlayerTextadventure.prototype.getUserFromId = function () {
         var rawdata = fs_1.default.readFileSync('users.json');
         var users = JSON.parse(rawdata);
@@ -162,7 +162,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
         }
         return 'Westen';
     };
-    // only change if W or O Oritention 
+    // only change if W or O Orientation 
     ConcretePlayerTextadventure.prototype.changeX = function (_x, _nextMoveOrientation) {
         switch (_nextMoveOrientation) {
             case Direction_1.Direction.East:

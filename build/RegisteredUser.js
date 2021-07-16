@@ -78,7 +78,7 @@ var RegisteredUser = /** @class */ (function (_super) {
         }
         return RegisteredUser.instance;
     };
-    RegisteredUser.prototype.navigateMenu = function () {
+    RegisteredUser.prototype.menu = function () {
         return __awaiter(this, void 0, void 0, function () {
             var startScreen;
             return __generator(this, function (_a) {
@@ -89,10 +89,10 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 name: 'value',
                                 message: '"Wie kann ich dir helfen "' + this.username + '"?"',
                                 choices: [
-                                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... (Übersicht aller Abendteuer anzeigen)"', value: 0 },
-                                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... (Nach Abendteuer suchen)"', value: 1 },
-                                    { title: '"Ich möchte eine eigene Geschichte erschaffen... (Erstelle ein Textadventure)"', value: 2 },
-                                    { title: '"Hast du anderen bereits meine Geschichten gegeben? Was sagten sie... (Statistik ansehen)"', value: 3 },
+                                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk_1.default.grey('Übersicht aller Abendteuer anzeigen)"'), value: 0 },
+                                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk_1.default.grey('Nach Abendteuer suchen)"'), value: 1 },
+                                    { title: '"Ich möchte eine eigene Geschichte erschaffen... ' + chalk_1.default.grey('(Erstelle ein Textadventure)"'), value: 2 },
+                                    { title: '"Hast du anderen bereits meine Geschichten gegeben? ' + chalk_1.default.grey('Was sagten sie... (Statistik ansehen)"'), value: 3 },
                                     { title: chalk_1.default.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
                                 ],
                                 initial: 0
@@ -130,7 +130,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         userAdventures = this.checkUserAdventures();
                         if (!(userAdventures.length === 0)) return [3 /*break*/, 1];
                         console.log(chalk_1.default.red('"Noch hast du keine Geschichten geschrieben. Kehre zurück sobald du es getan hast."'));
-                        this.navigateMenu();
+                        this.menu();
                         return [3 /*break*/, 3];
                     case 1:
                         // format for Prompt
@@ -161,7 +161,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         else {
                             console.log('"Mehr kann ich dir im Moment leider nicht sagen."');
                         }
-                        this.navigateMenu();
+                        this.menu();
                         _a.label = 3;
                     case 3: return [2 /*return*/];
                 }
@@ -196,7 +196,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 {
                                     type: 'text',
                                     name: 'title',
-                                    message: 'Nun was ist dein Titel..." (Abenteuertitle angeben)"',
+                                    message: 'Nun was ist dein Titel..." ' + chalk_1.default.grey('(Abenteuertitle angeben)"'),
                                     validate: function (title) { return title == '' ? chalk_1.default.red('Du musst einen Title angeben um fortzufahren') : true; }
                                 },
                                 {
@@ -204,7 +204,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                                     name: 'mapSizeX',
                                     min: 1,
                                     max: 10,
-                                    message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... (Kartengöße in X Richtung →)"',
+                                    message: '"Also, wie groß darf es denn sein? Fangen wir mit der Anzahl der Felder zwischen West und Ost an... ' + chalk_1.default.grey('(Kartengöße in X Richtung →)"'),
                                     initial: 1
                                 },
                                 {
@@ -212,7 +212,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                                     name: 'mapSizeY',
                                     min: 1,
                                     max: 10,
-                                    message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... (Kartengöße in Y Richtung ↓)"',
+                                    message: '"Jetzt die Anzahl der Felder zwischen Nord und Süd an... ' + chalk_1.default.grey('(Kartengöße in Y Richtung ↓)"'),
                                     initial: 1
                                 }
                             ])];
@@ -248,7 +248,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 min: 1,
                                 max: _adventure.mapSizeX,
                                 initial: 1,
-                                message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... (X Startpunkt auf der Karteangeben)"',
+                                message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... ' + chalk_1.default.grey('(X Startpunkt auf der Karteangeben)"'),
                             },
                             {
                                 type: 'number',
@@ -256,7 +256,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 min: 1,
                                 max: _adventure.mapSizeY,
                                 initial: 1,
-                                message: 'Und wo ist der Y Startpunkt... (Y Startpunkt auf der Karteangeben)"',
+                                message: 'Und wo ist der Y Startpunkt... ' + chalk_1.default.grey('(Y Startpunkt auf der Karteangeben)"'),
                             },
                         ])];
                     case 1:
@@ -280,7 +280,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                             {
                                 type: 'text',
                                 name: 'place',
-                                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... (Ort eingeben)"',
+                                message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... ' + chalk_1.default.grey('(Ort eingeben)"'),
                                 validate: function (value) { return value === '' ? 'Bitte trage einen Ort ein' : true; }
                             }
                         ])];
@@ -321,9 +321,11 @@ var RegisteredUser = /** @class */ (function (_super) {
                         confirm = _a.sent();
                         if (confirm.value) {
                             newAdventure = {
-                                adventureId: this.generateId(), title: _adventure.title, author: _adventure.author, startpointX: _adventure.startpointX,
-                                startpointY: _adventure.startpointY, amountTurns: _adventure.amountTurns, amountPlayers: _adventure.amountPlayers,
-                                mapSizeX: _adventure.mapSizeX, mapSizeY: _adventure.mapSizeY, field: _adventure.field
+                                adventureId: this.generateId(), title: _adventure.title,
+                                author: _adventure.author, startpointX: _adventure.startpointX,
+                                startpointY: _adventure.startpointY, amountTurns: _adventure.amountTurns,
+                                amountPlayers: _adventure.amountPlayers, mapSizeX: _adventure.mapSizeX,
+                                mapSizeY: _adventure.mapSizeY, field: _adventure.field
                             };
                             adventure = new Adventure_1.Adventure(newAdventure);
                             adventure.saveToJSON();
@@ -331,7 +333,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         else {
                             console.log(chalk_1.default.red('Textadventure wurde verworfen'));
                         }
-                        this.navigateMenu();
+                        this.menu();
                         return [2 /*return*/];
                 }
             });

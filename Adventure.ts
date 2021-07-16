@@ -1,4 +1,4 @@
-import { Field } from "./Field";
+import { Field } from "./Model/Interface/Field";
 import fs from "fs";
 import fsBack from "fs/promises";
 import { AdventureModel } from "./Model/Interface/AdventureModel";
