@@ -43,21 +43,24 @@ export class Main {
 
     await wait(timeToWait * (maximusArt.length + 1));
     let unregisteredUser = new UnregisteredUser();
+
+    console.log('Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?');
+
     unregisteredUser.menu();
   }
 
-  async loadAsciiArt(timeToWaitInMs: number, asciiArt: string[]) {
-    for (let i = 0; i < asciiArt.length; i++) {
-      console.log(asciiArt[i]);
-      await wait(timeToWaitInMs);
+  private async loadAsciiArt(_timeToWaitInMs: number, _asciiArt: string[]) {
+    for (let i = 0; i < _asciiArt.length; i++) {
+      console.log(_asciiArt[i]);
+      await wait(_timeToWaitInMs);
     }
   }
 
-  async loadAsciiArtRed(timeToWaitInMs: number, asciiArt: string[]) {
+  private async loadAsciiArtRed(_timeToWaitInMs: number, _asciiArt: string[]) {
     const chalk = require('chalk');
-    for (let i = 0; i < asciiArt.length; i++) {
-      console.log(chalk.bgRed(asciiArt[i]));
-      await wait(timeToWaitInMs);
+    for (let i = 0; i < _asciiArt.length; i++) {
+      console.log(chalk.bgRed(_asciiArt[i]));
+      await wait(_timeToWaitInMs);
     }
   }
 }

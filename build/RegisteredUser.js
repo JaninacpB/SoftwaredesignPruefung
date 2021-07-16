@@ -89,10 +89,10 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 name: 'value',
                                 message: '"Wie kann ich dir helfen "' + this.username + '"?"',
                                 choices: [
-                                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk_1.default.grey('Übersicht aller Abendteuer anzeigen)"'), value: 0 },
-                                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk_1.default.grey('Nach Abendteuer suchen)"'), value: 1 },
-                                    { title: '"Ich möchte eine eigene Geschichte erschaffen... ' + chalk_1.default.grey('(Erstelle ein Textadventure)"'), value: 2 },
-                                    { title: '"Hast du anderen bereits meine Geschichten gegeben? ' + chalk_1.default.grey('Was sagten sie... (Statistik ansehen)"'), value: 3 },
+                                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk_1.default.grey('(Übersicht aller Abenteuer anzeigen)"'), value: 0 },
+                                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk_1.default.grey('(Nach Abenteuer suchen)"'), value: 1 },
+                                    { title: '"Ich möchte eine eigene Geschichte erschaffen... ' + chalk_1.default.grey('(Erstelle ein Abenteuer)"'), value: 2 },
+                                    { title: '"Hast du anderen bereits meine Geschichten gegeben? ' + chalk_1.default.grey('(Was sagten sie... (Statistik ansehen)"'), value: 3 },
                                     { title: chalk_1.default.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
                                 ],
                                 initial: 0
@@ -125,7 +125,7 @@ var RegisteredUser = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(chalk_1.default.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abendteuer an)\n'));
+                        console.log(chalk_1.default.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abenteuer an)\n'));
                         promptAdventureTitles = [];
                         userAdventures = this.checkUserAdventures();
                         if (!(userAdventures.length === 0)) return [3 /*break*/, 1];
@@ -190,7 +190,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         adventure.amountPlayers = 0;
                         adventure.amountTurns = 0;
                         adventure.author = this.id;
-                        console.log(chalk_1.default.bgBlue('\nArbeitszimmer (Erstelle ein Textadventure)\n'));
+                        console.log(chalk_1.default.bgBlue('\nArbeitszimmer (Erstelle ein Abenteuer)\n'));
                         console.log('"So, nichts ist wichter als ein guter Titel. Etwas fabulöses, etwas magisches mit einem Hauch von Abendteuer. Etwas wie: \n Maximus Reise ins Zauberland.\n Maximus 2: Tag der Abrechnung \n Maximus: Der Tollkühneheld \n Maximus: Casino Royal \n Also ich denke du hast ja jetzt schon ein paar gute Ideen"');
                         return [4 /*yield*/, prompts_1.default([
                                 {

@@ -1,10 +1,10 @@
 import { Adventure } from "./Adventure";
 import { PlayerTextadventure } from "./PlayerTextadventure";
-import { PromptChoice } from "./Model/Interface/PromptChoice";
+import { PromptChoiceModel } from "./Model/Interface/PromptChoiceModel";
+import { AdventureModel } from "./Model/Interface/AdventureModel";
 import prompts from "prompts";
 import fs from "fs";
 import chalk from "chalk";
-import { AdventureModel } from "./Model/Interface/AdventureModel";
 
 export class User {
 
@@ -13,7 +13,7 @@ export class User {
         console.log(chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
 
         let allAdventures: Adventure[] = this.getAdventures();
-        let allAdventuresPrompt: PromptChoice[] = this.parseForPrompt(allAdventures);
+        let allAdventuresPrompt: PromptChoiceModel[] = this.parseForPrompt(allAdventures);
 
         // "Fallback" doesnt workt in prompt without require here
         const prompts = require('prompts');
@@ -40,12 +40,12 @@ export class User {
 
     public async firstFiveAdventures(_id: string) {
         console.log(chalk.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
-        let allAdventures: PromptChoice[] = this.parseForPrompt(this.getAdventures());
+        let allAdventures: PromptChoiceModel[] = this.parseForPrompt(this.getAdventures());
         this.navigateThroughListOfFive(allAdventures, 1, _id);
     }
 
     // i counts the loop/rekussion 
-    private async navigateThroughListOfFive(_allAdventures: PromptChoice[], i: number, _id: string) {
+    private async navigateThroughListOfFive(_allAdventures: PromptChoiceModel[], i: number, _id: string) {
         let currentAdventure = _allAdventures;
         // if wanted later changed -> also rename Name Methode then
         let amountEntriesShow = 5;
@@ -55,7 +55,7 @@ export class User {
             currentAdventure = _allAdventures.slice(amountEntriesShow * i - amountEntriesShow, amountEntriesShow * i)
         }
 
-        let showMore: PromptChoice = { value: '-1', title: '"Zeig mir mehr!"' };
+        let showMore: PromptChoiceModel = { value: '-1', title: '"Zeig mir mehr!"' };
 
         if (_allAdventures.length > amountEntriesShow) {
             currentAdventure.push(showMore);
@@ -91,13 +91,13 @@ export class User {
         }
     }
 
-    private parseForPrompt(_allAdventures: Adventure[]): PromptChoice[] {
-        let promptAdventureTitles: PromptChoice[] = [];
+    private parseForPrompt(_allAdventures: Adventure[]): PromptChoiceModel[] {
+        let promptAdventureTitles: PromptChoiceModel[] = [];
 
         for (let i = 0; i < _allAdventures.length; i++) {
             // with Size of Map
             let adventureTitle: string = _allAdventures[i].title + '(' + (_allAdventures[i].mapSizeX * _allAdventures[i].mapSizeY) + ' Felder groß)';
-            let choice: PromptChoice = { value: _allAdventures[i].adventureId, title: adventureTitle };
+            let choice: PromptChoiceModel = { value: _allAdventures[i].adventureId, title: adventureTitle };
             promptAdventureTitles.push(choice);
         }
         return promptAdventureTitles;

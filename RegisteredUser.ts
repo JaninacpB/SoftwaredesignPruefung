@@ -1,7 +1,7 @@
 import { Adventure } from "./Adventure";
-import { Field } from "./Model/Interface/Field";
+import { FieldModel } from "./Model/Interface/FieldModel";
 import { User } from "./User";
-import { PromptChoice } from "./Model/Interface/PromptChoice";
+import { PromptChoiceModel } from "./Model/Interface/PromptChoiceModel";
 import { AdventureModel } from "./Model/Interface/AdventureModel";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
@@ -39,10 +39,10 @@ export class RegisteredUser extends User {
                 name: 'value',
                 message: '"Wie kann ich dir helfen "' + this.username + '"?"',
                 choices: [
-                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk.grey('Übersicht aller Abendteuer anzeigen)"'), value: 0 },
-                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk.grey('Nach Abendteuer suchen)"'), value: 1 },
-                    { title: '"Ich möchte eine eigene Geschichte erschaffen... ' + chalk.grey('(Erstelle ein Textadventure)"'), value: 2 },
-                    { title: '"Hast du anderen bereits meine Geschichten gegeben? ' + chalk.grey('Was sagten sie... (Statistik ansehen)"'), value: 3 },
+                    { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk.grey('(Übersicht aller Abenteuer anzeigen)"'), value: 0 },
+                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk.grey('(Nach Abenteuer suchen)"'), value: 1 },
+                    { title: '"Ich möchte eine eigene Geschichte erschaffen... ' + chalk.grey('(Erstelle ein Abenteuer)"'), value: 2 },
+                    { title: '"Hast du anderen bereits meine Geschichten gegeben? ' + chalk.grey('(Was sagten sie... (Statistik ansehen)"'), value: 3 },
                     { title: chalk.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
                 ],
                 initial: 0
@@ -65,8 +65,8 @@ export class RegisteredUser extends User {
     }
 
     private async showStatistic() {
-        console.log(chalk.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abendteuer an)\n'));
-        let promptAdventureTitles: PromptChoice[] = [];
+        console.log(chalk.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abenteuer an)\n'));
+        let promptAdventureTitles: PromptChoiceModel[] = [];
         let userAdventures: Adventure[] = this.checkUserAdventures();
 
         if (userAdventures.length === 0) {
@@ -75,7 +75,7 @@ export class RegisteredUser extends User {
         } else {
             // format for Prompt
             for (let i = 0; i < userAdventures.length; i++) {
-                let choice: PromptChoice = { value: userAdventures[i].adventureId, title: userAdventures[i].title };
+                let choice: PromptChoiceModel = { value: userAdventures[i].adventureId, title: userAdventures[i].title };
                 promptAdventureTitles.push(choice);
             }
             const userAdventuresChoice = await prompts([
@@ -125,7 +125,7 @@ export class RegisteredUser extends User {
         adventure.amountTurns = 0;
         adventure.author = this.id;
 
-        console.log(chalk.bgBlue('\nArbeitszimmer (Erstelle ein Textadventure)\n'));
+        console.log(chalk.bgBlue('\nArbeitszimmer (Erstelle ein Abenteuer)\n'));
         console.log('"So, nichts ist wichter als ein guter Titel. Etwas fabulöses, etwas magisches mit einem Hauch von Abendteuer. Etwas wie: \n Maximus Reise ins Zauberland.\n Maximus 2: Tag der Abrechnung \n Maximus: Der Tollkühneheld \n Maximus: Casino Royal \n Also ich denke du hast ja jetzt schon ein paar gute Ideen"');
 
         const mapData = await prompts([
@@ -187,12 +187,12 @@ export class RegisteredUser extends User {
         ]);
         _adventure.startpointX = startConfig.startpointX;
         _adventure.startpointY = startConfig.startpointY;
-        let field: Field[] = [];
+        let field: FieldModel[] = [];
         console.log('"Jetzt lass uns die Felder füllen. Wir fangen an Punkt 1/1 welcher links oben auf der Karte liegt und arbeiten uns zum Punkt rechts Unten durch."')
         this.giveFieldPlaceName(_adventure, 1, 1, field);
     }
 
-    private async giveFieldPlaceName(_adventure: AdventureModel, _currentX: number, _currentY: number, _fieldValues: Field[]) {
+    private async giveFieldPlaceName(_adventure: AdventureModel, _currentX: number, _currentY: number, _fieldValues: FieldModel[]) {
         const fieldName = await prompts([
             {
                 type: 'text',
@@ -201,7 +201,7 @@ export class RegisteredUser extends User {
                 validate: (value: string) => value === '' ? 'Bitte trage einen Ort ein' : true
             }
         ]);
-        let currentField: Field = { xPosition: _currentX, yPosition: _currentY, place: fieldName.place };
+        let currentField: FieldModel = { xPosition: _currentX, yPosition: _currentY, place: fieldName.place };
         _fieldValues.push(currentField);
 
         // Loop untill all fields have a description. Go Vertical over x Fields untill end of row, than add +1 to y and start over.

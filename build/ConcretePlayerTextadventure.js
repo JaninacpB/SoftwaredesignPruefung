@@ -40,13 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConcretePlayerTextadventure = void 0;
-var chalk_1 = __importDefault(require("chalk"));
-var prompts_1 = __importDefault(require("prompts"));
-var Direction_1 = require("./Model/Interface/Direction");
-var fs_1 = __importDefault(require("fs"));
-var promises_1 = __importDefault(require("fs/promises"));
 var RegisteredUser_1 = require("./RegisteredUser");
 var UnregisteredUser_1 = require("./UnregisteredUser");
+var Direction_1 = require("./Model/Interface/Direction");
+var chalk_1 = __importDefault(require("chalk"));
+var prompts_1 = __importDefault(require("prompts"));
+var fs_1 = __importDefault(require("fs"));
+var promises_1 = __importDefault(require("fs/promises"));
+var figlet_1 = __importDefault(require("figlet"));
 var ConcretePlayerTextadventure = /** @class */ (function () {
     function ConcretePlayerTextadventure() {
         this.amountTurns = 0;
@@ -54,12 +55,20 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
     }
     ConcretePlayerTextadventure.prototype.playAdventure = function (_adventure) {
         return __awaiter(this, void 0, void 0, function () {
-            var start;
+            var _this = this;
             return __generator(this, function (_a) {
                 console.log('\n' + chalk_1.default.bgBlue(_adventure.title) + '\n');
-                start = this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
-                console.log('Du startest deine Reise hier: ' + chalk_1.default.green(start.place));
-                this.goOverMap(start.xPosition, start.yPosition, _adventure);
+                //todo dadurch error?
+                figlet_1.default(_adventure.title, function (err, data) {
+                    if (err) {
+                        console.log(chalk_1.default.bgBlue(_adventure.title));
+                    }
+                    console.log(chalk_1.default.bgCyan(data));
+                    // first Field
+                    var start = _this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
+                    console.log('Du startest deine Reise hier: ' + chalk_1.default.green(start.place));
+                    _this.goOverMap(start.xPosition, start.yPosition, _adventure);
+                });
                 return [2 /*return*/];
             });
         });

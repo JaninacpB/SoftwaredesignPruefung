@@ -75,12 +75,12 @@ var UnregisteredUser = /** @class */ (function (_super) {
                             {
                                 type: 'select',
                                 name: 'value',
-                                message: '"Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?"',
+                                message: '"Wie kann ich dir weiterhelfen?"',
                                 choices: [
-                                    { title: '"Ja, unsere Wege trafen sich bereits... ' + chalk_1.default.grey('(Log In)"'), value: 0 },
-                                    { title: '"Nein, du musst mich verwechseln, aber lass mich kurz vorstellen... ' + chalk_1.default.grey('(Sign Up)"'), value: 1 },
+                                    { title: '"Unsere Wege trafen sich bereits... ' + chalk_1.default.grey('(Log In)"'), value: 0 },
+                                    { title: '"Lass mich kurz vorstellen... ' + chalk_1.default.grey('(Sign Up)"'), value: 1 },
                                     { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk_1.default.grey('(Übersicht von Abenteuern anzeigen)"'), value: 2 },
-                                    { title: '"Gut ein anderes Gesicht zu sehen. Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk_1.default.grey('(Nach Abenteuer suchen)"'), value: 3 },
+                                    { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk_1.default.grey('(Nach Abenteuer suchen)"'), value: 3 },
                                     { title: chalk_1.default.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
                                 ],
                                 initial: 0
@@ -121,7 +121,7 @@ var UnregisteredUser = /** @class */ (function (_super) {
                                     name: 'username',
                                     message: '"Unter welchen Namen kennt man deine Gestalt? ' + chalk_1.default.grey('(keine Doppeltenusernames erlaubt, nur Alphanumerische Werte)"'),
                                     // note: no \n in error message or bug
-                                    validate: function (value) { return _this.checkUsername(value) ? true : '"Verzeihung, aber ich kann nur Alphanumerische Werte schreiben, bitte versuch es noch einmal ' + chalk_1.default.grey('Korrigiere Eingabe so, dass nur a-z und Zahlen im Nutzernmane stehen, keine doppelten Usernames erlaubt)"'); }
+                                    validate: function (value) { return _this.checkUsername(value) ? true : '"Verzeihung, aber ich kann nur Alphanumerische Werte schreiben, bitte versuch es noch einmal ' + chalk_1.default.grey('(Korrigiere Eingabe so, dass nur a-z und Zahlen im Nutzernmane stehen, keine doppelten Usernames erlaubt)"'); }
                                 },
                                 {
                                     type: 'password',

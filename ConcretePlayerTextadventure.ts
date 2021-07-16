@@ -1,26 +1,40 @@
-import { GeneralPlayer } from "./GeneralPlayer";
+import { GeneralPlayerModel } from "./Model/Interface/GeneralPlayerModel";
 import { Adventure } from "./Adventure";
-import chalk from "chalk";
-import prompts from "prompts";
-import { Field } from "./Model/Interface/Field";
-import { Direction } from "./Model/Interface/Direction";
-import fs from "fs";
-import fsBack from "fs/promises";
 import { RegisteredUser } from "./RegisteredUser";
 import { UnregisteredUser } from "./UnregisteredUser";
 import { AdventureModel } from "./Model/Interface/AdventureModel";
+import { FieldModel } from "./Model/Interface/FieldModel";
+import { Direction } from "./Model/Interface/Direction";
+import chalk from "chalk";
+import prompts from "prompts";
+import fs from "fs";
+import fsBack from "fs/promises";
+import figlet from "figlet";
 
-export class ConcretePlayerTextadventure implements GeneralPlayer {
+export class ConcretePlayerTextadventure implements GeneralPlayerModel {
 
     public amountTurns = 0;
     public id = '';
 
     public async playAdventure(_adventure: Adventure) {
         console.log('\n' + chalk.bgBlue(_adventure.title) + '\n');
+
+        //todo dadurch error?
+        figlet(_adventure.title,  (err, data) => {
+            if (err) {
+                console.log(chalk.bgBlue(_adventure.title));
+            }
+            console.log(chalk.bgCyan(data));
+            // first Field
+            let start: FieldModel = this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
+            console.log('Du startest deine Reise hier: ' + chalk.green(start.place));
+            this.goOverMap(start.xPosition, start.yPosition, _adventure);
+        });
+
         // first Field
-        let start: Field = this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
-        console.log('Du startest deine Reise hier: ' + chalk.green(start.place));
-        this.goOverMap(start.xPosition, start.yPosition, _adventure);
+        // let start: Field = this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
+        // console.log('Du startest deine Reise hier: ' + chalk.green(start.place));
+        // this.goOverMap(start.xPosition, start.yPosition, _adventure);
     }
 
     private async goOverMap(_x: number, _y: number, _adventure: Adventure) {
@@ -154,8 +168,8 @@ export class ConcretePlayerTextadventure implements GeneralPlayer {
         return isNotOnTheMap;
     }
 
-    private getcurrentField(_x: number, _y: number, _allFields: Field[]): Field {
-        let currentField: Field = _allFields.filter(field => field.xPosition === _x && field.yPosition === _y)[0];
+    private getcurrentField(_x: number, _y: number, _allFields: FieldModel[]): FieldModel {
+        let currentField: FieldModel = _allFields.filter(field => field.xPosition === _x && field.yPosition === _y)[0];
         return currentField;
     }
 }

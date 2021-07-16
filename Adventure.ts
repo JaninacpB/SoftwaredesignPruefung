@@ -1,4 +1,4 @@
-import { Field } from "./Model/Interface/Field";
+import { FieldModel } from "./Model/Interface/FieldModel";
 import fs from "fs";
 import fsBack from "fs/promises";
 import { AdventureModel } from "./Model/Interface/AdventureModel";
@@ -14,7 +14,7 @@ export class Adventure {
     public amountTurns: number;
     public mapSizeX: number;
     public mapSizeY: number;
-    public field: Field[];
+    public field: FieldModel[];
 
     constructor(_adventure: AdventureModel) {
         this.adventureId = _adventure.adventureId;

@@ -1,4 +1,4 @@
-export interface GeneralPlayer {
+export interface GeneralPlayerModel {
 
     amountTurns: number;
     id: string;

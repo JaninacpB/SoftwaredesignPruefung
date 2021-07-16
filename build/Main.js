@@ -89,13 +89,14 @@ var Main = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
+                        console.log('Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?');
                         unregisteredUser.menu();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    Main.prototype.loadAsciiArt = function (timeToWaitInMs, asciiArt) {
+    Main.prototype.loadAsciiArt = function (_timeToWaitInMs, _asciiArt) {
         return __awaiter(this, void 0, void 0, function () {
             var i;
             return __generator(this, function (_a) {
@@ -104,9 +105,9 @@ var Main = /** @class */ (function () {
                         i = 0;
                         _a.label = 1;
                     case 1:
-                        if (!(i < asciiArt.length)) return [3 /*break*/, 4];
-                        console.log(asciiArt[i]);
-                        return [4 /*yield*/, wait_1.default(timeToWaitInMs)];
+                        if (!(i < _asciiArt.length)) return [3 /*break*/, 4];
+                        console.log(_asciiArt[i]);
+                        return [4 /*yield*/, wait_1.default(_timeToWaitInMs)];
                     case 2:
                         _a.sent();
                         _a.label = 3;
@@ -118,7 +119,7 @@ var Main = /** @class */ (function () {
             });
         });
     };
-    Main.prototype.loadAsciiArtRed = function (timeToWaitInMs, asciiArt) {
+    Main.prototype.loadAsciiArtRed = function (_timeToWaitInMs, _asciiArt) {
         return __awaiter(this, void 0, void 0, function () {
             var chalk, i;
             return __generator(this, function (_a) {
@@ -128,9 +129,9 @@ var Main = /** @class */ (function () {
                         i = 0;
                         _a.label = 1;
                     case 1:
-                        if (!(i < asciiArt.length)) return [3 /*break*/, 4];
-                        console.log(chalk.bgRed(asciiArt[i]));
-                        return [4 /*yield*/, wait_1.default(timeToWaitInMs)];
+                        if (!(i < _asciiArt.length)) return [3 /*break*/, 4];
+                        console.log(chalk.bgRed(_asciiArt[i]));
+                        return [4 /*yield*/, wait_1.default(_timeToWaitInMs)];
                     case 2:
                         _a.sent();
                         _a.label = 3;

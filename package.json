@@ -5,7 +5,7 @@
   "main": "build/Main.js",
   "scripts": {
     "start": "tsc && node build/Main.js",
-    "test": "mocha build/test/checkUsername.js"
+    "test": "mocha build/test/CheckUsernameUnittest.js"
   },
   "repository": {
     "type": "git",

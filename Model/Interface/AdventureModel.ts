@@ -1,4 +1,4 @@
-import { Field } from "./Field";
+import { FieldModel } from "./FieldModel";
 
 export interface AdventureModel {
 
@@ -11,6 +11,6 @@ export interface AdventureModel {
     amountTurns: number;
     mapSizeX: number;
     mapSizeY: number;
-    field: Field[];
+    field: FieldModel[];
 
 }
