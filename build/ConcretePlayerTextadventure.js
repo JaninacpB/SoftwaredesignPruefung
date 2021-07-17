@@ -58,7 +58,6 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 console.log('\n' + chalk_1.default.bgBlue(_adventure.title) + '\n');
-                //todo dadurch error?
                 figlet_1.default(_adventure.title, function (err, data) {
                     if (err) {
                         console.log(chalk_1.default.bgBlue(_adventure.title));
@@ -108,7 +107,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                             this.goOverMap(_x, _y, _adventure);
                         }
                         else {
-                            this.saveToAdventureStatistikJSON(_adventure.adventureId);
+                            this.saveToAdventureStatisticJSON(_adventure.adventureId);
                             if (this.id !== '') {
                                 user = this.getUserFromId();
                                 user.menu();
@@ -137,7 +136,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
         }
         return currentUser;
     };
-    ConcretePlayerTextadventure.prototype.saveToAdventureStatistikJSON = function (_id) {
+    ConcretePlayerTextadventure.prototype.saveToAdventureStatisticJSON = function (_id) {
         return __awaiter(this, void 0, void 0, function () {
             var rawdata, adventures, i, jsonData;
             return __generator(this, function (_a) {
@@ -160,8 +159,8 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
             });
         });
     };
-    ConcretePlayerTextadventure.prototype.userDirectionChoice = function (direction) {
-        switch (direction) {
+    ConcretePlayerTextadventure.prototype.userDirectionChoice = function (_direction) {
+        switch (_direction) {
             case Direction_1.Direction.North:
                 return 'Norden';
             case Direction_1.Direction.East:
@@ -172,8 +171,8 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
         return 'Westen';
     };
     // only change if W or O Orientation 
-    ConcretePlayerTextadventure.prototype.changeX = function (_x, _nextMoveOrientation) {
-        switch (_nextMoveOrientation) {
+    ConcretePlayerTextadventure.prototype.changeX = function (_x, _nextMoveDirection) {
+        switch (_nextMoveDirection) {
             case Direction_1.Direction.East:
                 return _x + 1;
             case Direction_1.Direction.West:
@@ -181,8 +180,8 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
         }
         return _x;
     };
-    ConcretePlayerTextadventure.prototype.changeY = function (_y, _nextMoveOrientation) {
-        switch (_nextMoveOrientation) {
+    ConcretePlayerTextadventure.prototype.changeY = function (_y, _nextMoveDirection) {
+        switch (_nextMoveDirection) {
             case Direction_1.Direction.North:
                 return _y - 1;
             case Direction_1.Direction.South:
@@ -190,9 +189,9 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
         }
         return _y;
     };
-    ConcretePlayerTextadventure.prototype.checkIfEnd = function (_adventure, _x, _y, _nextMoveOrientation) {
+    ConcretePlayerTextadventure.prototype.checkIfEnd = function (_adventure, _x, _y, _nextMoveDirection) {
         var isNotOnTheMap = false;
-        switch (_nextMoveOrientation) {
+        switch (_nextMoveDirection) {
             case Direction_1.Direction.North:
                 if (0 >= _y - 1) {
                     isNotOnTheMap = true;

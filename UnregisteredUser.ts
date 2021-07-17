@@ -35,7 +35,7 @@ export class UnregisteredUser extends User {
                 this.signUp();
                 break;
             case 2:
-                this.firstFiveAdventures('');
+                this.showFiveAdventures('');
                 break
             case 3:
                 this.searchAdventure('');
@@ -59,7 +59,7 @@ export class UnregisteredUser extends User {
                 message: '"Schön dich kennenzulernen. Doch sei vorsichtig, Gestaltwandler treiben ihr unwesen. \n Lass uns ein Codewort vereinbaren, nur um sicher zu sein ' + chalk.grey('(Password eingeben)"')
             }
         ]);
-        // if press esc otherwise sign up as undefinded if know esc return to menu
+        // check if esc was pressed
         if (signUp.username === undefined || signUp.password === undefined) {
             this.menu();
         } else {

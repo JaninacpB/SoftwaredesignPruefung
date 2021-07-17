@@ -16,11 +16,10 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
     public amountTurns = 0;
     public id = '';
 
-    public async playAdventure(_adventure: Adventure) {
+    public async playAdventure(_adventure: AdventureModel) {
         console.log('\n' + chalk.bgBlue(_adventure.title) + '\n');
 
-        //todo dadurch error?
-        figlet(_adventure.title,  (err, data) => {
+        figlet(_adventure.title, (err, data) => {
             if (err) {
                 console.log(chalk.bgBlue(_adventure.title));
             }
@@ -32,7 +31,7 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
         });
     }
 
-    private async goOverMap(_x: number, _y: number, _adventure: Adventure) {
+    private async goOverMap(_x: number, _y: number, _adventure: AdventureModel) {
         const userChoiceMove = await prompts([
             {
                 type: 'select',
@@ -62,7 +61,7 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
             console.log('Du bist nach ' + chalk.green(this.userDirectionChoice(userChoiceMove.value)) + ' gegangen und bist jetzt hier: ' + chalk.green(field.place));
             this.goOverMap(_x, _y, _adventure);
         } else {
-            this.saveToAdventureStatistikJSON(_adventure.adventureId);
+            this.saveToAdventureStatisticJSON(_adventure.adventureId);
 
             if (this.id !== '') {
                 let user: RegisteredUser = this.getUserFromId();
@@ -89,7 +88,7 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
         return currentUser;
     }
 
-    private async saveToAdventureStatistikJSON(_id: string) {
+    private async saveToAdventureStatisticJSON(_id: string) {
         let rawdata: any = fs.readFileSync('adventure.json');
         let adventures: AdventureModel[] = JSON.parse(rawdata);
 
@@ -103,8 +102,8 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
         await fsBack.writeFile('adventure.json', jsonData);
     }
 
-    private userDirectionChoice(direction: Direction): string {
-        switch (direction) {
+    private userDirectionChoice(_direction: Direction): string {
+        switch (_direction) {
             case Direction.North:
                 return 'Norden';
             case Direction.East:
@@ -116,8 +115,8 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
     }
 
     // only change if W or O Orientation 
-    private changeX(_x: number, _nextMoveOrientation: Direction): number {
-        switch (_nextMoveOrientation) {
+    private changeX(_x: number, _nextMoveDirection: Direction): number {
+        switch (_nextMoveDirection) {
             case Direction.East:
                 return _x + 1;
             case Direction.West:
@@ -126,8 +125,8 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
         return _x;
     }
 
-    private changeY(_y: number, _nextMoveOrientation: Direction): number {
-        switch (_nextMoveOrientation) {
+    private changeY(_y: number, _nextMoveDirection: Direction): number {
+        switch (_nextMoveDirection) {
             case Direction.North:
                 return _y - 1;
             case Direction.South:
@@ -136,9 +135,9 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
         return _y;
     }
 
-    private checkIfEnd(_adventure: AdventureModel, _x: number, _y: number, _nextMoveOrientation: Direction): boolean {
+    private checkIfEnd(_adventure: AdventureModel, _x: number, _y: number, _nextMoveDirection: Direction): boolean {
         let isNotOnTheMap = false;
-        switch (_nextMoveOrientation) {
+        switch (_nextMoveDirection) {
             case Direction.North:
                 if (0 >= _y - 1) {
                     isNotOnTheMap = true;

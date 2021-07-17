@@ -31,7 +31,7 @@ export class Adventure {
 
     public async saveToJSON() {
         let rawdata: any = fs.readFileSync('adventure.json');
-        let adventures: Adventure[] = JSON.parse(rawdata);
+        let adventures: AdventureModel[] = JSON.parse(rawdata);
 
         adventures.push(this);
 

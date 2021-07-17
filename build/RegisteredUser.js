@@ -102,7 +102,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         startScreen = _a.sent();
                         switch (startScreen.value) {
                             case 0:
-                                this.firstFiveAdventures(this.id);
+                                this.showFiveAdventures(this.id);
                                 break;
                             case 1:
                                 this.searchAdventure(this.id);

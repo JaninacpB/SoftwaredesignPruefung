@@ -38,7 +38,7 @@ export class User {
         player.playAdventure(userChoiceAdventure);
     }
 
-    public async firstFiveAdventures(_id: string) {
+    public async showFiveAdventures(_id: string) {
         console.log(chalk.bgBlue('\nBalkon mit überschaubarer Aussicht (Übersicht)\n'));
         let allAdventures: PromptChoiceModel[] = this.parseForPrompt(this.getAdventures());
         this.navigateThroughListOfFive(allAdventures, 1, _id);

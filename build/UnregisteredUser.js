@@ -96,7 +96,7 @@ var UnregisteredUser = /** @class */ (function (_super) {
                                 this.signUp();
                                 break;
                             case 2:
-                                this.firstFiveAdventures('');
+                                this.showFiveAdventures('');
                                 break;
                             case 3:
                                 this.searchAdventure('');
@@ -131,7 +131,7 @@ var UnregisteredUser = /** @class */ (function (_super) {
                             ])];
                     case 1:
                         signUp = _a.sent();
-                        // if press esc otherwise sign up as undefinded if know esc return to menu
+                        // check if esc was pressed
                         if (signUp.username === undefined || signUp.password === undefined) {
                             this.menu();
                         }

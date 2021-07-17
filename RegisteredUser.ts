@@ -50,7 +50,7 @@ export class RegisteredUser extends User {
         ]);
         switch (startScreen.value) {
             case 0:
-                this.firstFiveAdventures(this.id);
+                this.showFiveAdventures(this.id);
                 break;
             case 1:
                 this.searchAdventure(this.id);
@@ -67,7 +67,7 @@ export class RegisteredUser extends User {
     private async showStatistic() {
         console.log(chalk.bgBlue('\nArchiv (Siehe dir die Statistik deiner Abenteuer an)\n'));
         let promptAdventureTitles: PromptChoiceModel[] = [];
-        let userAdventures: Adventure[] = this.checkUserAdventures();
+        let userAdventures: AdventureModel[] = this.checkUserAdventures();
 
         if (userAdventures.length === 0) {
             console.log(chalk.red('"Noch hast du keine Geschichten geschrieben. Kehre zurück sobald du es getan hast."'));
@@ -104,12 +104,12 @@ export class RegisteredUser extends User {
         }
     }
 
-    private checkUserAdventures(): Adventure[] {
+    private checkUserAdventures(): AdventureModel[] {
         // Get Adventure from JSON
         let rawdata: any = fs.readFileSync('adventure.json');
-        let adventures: Adventure[] = JSON.parse(rawdata);
+        let adventures: AdventureModel[] = JSON.parse(rawdata);
 
-        let userAdventures: Adventure[] = [];
+        let userAdventures: AdventureModel[] = [];
         for (let i = 0; i < adventures.length; i++) {
             if (adventures[i].author === this.id) {
                 userAdventures.push(adventures[i]);

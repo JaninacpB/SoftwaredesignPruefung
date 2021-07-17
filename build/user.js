@@ -81,7 +81,7 @@ var User = /** @class */ (function () {
             });
         });
     };
-    User.prototype.firstFiveAdventures = function (_id) {
+    User.prototype.showFiveAdventures = function (_id) {
         return __awaiter(this, void 0, void 0, function () {
             var allAdventures;
             return __generator(this, function (_a) {
