@@ -63,7 +63,7 @@ var ConcretePlayerTextadventure = /** @class */ (function () {
                     if (err) {
                         console.log(chalk_1.default.bgBlue(_adventure.title));
                     }
-                    console.log(chalk_1.default.bgCyan(data));
+                    console.log(chalk_1.default.cyan(data));
                     // first Field
                     var start = _this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
                     console.log('Du startest deine Reise hier: ' + chalk_1.default.green(start.place));

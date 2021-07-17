@@ -132,8 +132,8 @@ export class RegisteredUser extends User {
             {
                 type: 'text',
                 name: 'title',
-                message: 'Nun was ist dein Titel..." ' + chalk.grey('(Abenteuertitle angeben)"'),
-                validate: title => title == '' ? chalk.red('Du musst einen Title angeben um fortzufahren') : true
+                message: 'Nun was ist dein Titel..." ' + chalk.grey('(Abenteuertitel angeben)"'),
+                validate: title => title == '' ? chalk.red('Du musst einen Titel angeben um fortzufahren') : true
             },
             {
                 type: 'number',
@@ -154,7 +154,7 @@ export class RegisteredUser extends User {
         ]);
         let maximusRegrex = /Maximus/gi;
         if (maximusRegrex.test(mapData.title)) {
-            console.log('"Welch wunderbarer Title!');
+            console.log('"Welch wunderbarer Titel!');
         } else {
             console.log('"Am Titel könnte man Arbeiten, aber sonst in Ordnung...')
         }

@@ -24,17 +24,12 @@ export class ConcretePlayerTextadventure implements GeneralPlayerModel {
             if (err) {
                 console.log(chalk.bgBlue(_adventure.title));
             }
-            console.log(chalk.bgCyan(data));
+            console.log(chalk.cyan(data));
             // first Field
             let start: FieldModel = this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
             console.log('Du startest deine Reise hier: ' + chalk.green(start.place));
             this.goOverMap(start.xPosition, start.yPosition, _adventure);
         });
-
-        // first Field
-        // let start: Field = this.getcurrentField(_adventure.startpointX, _adventure.startpointY, _adventure.field);
-        // console.log('Du startest deine Reise hier: ' + chalk.green(start.place));
-        // this.goOverMap(start.xPosition, start.yPosition, _adventure);
     }
 
     private async goOverMap(_x: number, _y: number, _adventure: Adventure) {
