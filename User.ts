@@ -12,7 +12,7 @@ export class User {
     public async searchAdventure(_id: string) {
         console.log(chalk.bgBlue('\nTurmzimmer mit großer Aussicht (Suche)\n'));
 
-        let allAdventures: Adventure[] = this.getAdventures();
+        let allAdventures: AdventureModel[] = this.getAdventures();
         let allAdventuresPrompt: PromptChoiceModel[] = this.parseForPrompt(allAdventures);
 
         // "Fallback" doesnt workt in prompt without require here
@@ -31,7 +31,7 @@ export class User {
         ]);
 
         // get Adventure Type
-        let userChoiceAdventure: Adventure | undefined = allAdventures.find(adventure => adventure.adventureId === userChoiceId.value);
+        let userChoiceAdventure: AdventureModel | undefined = allAdventures.find(adventure => adventure.adventureId === userChoiceId.value);
         let playerFactroy: PlayerTextadventure = new PlayerTextadventure();
         let player = playerFactroy.createPlayer();
         player.id = _id;
@@ -91,7 +91,7 @@ export class User {
         }
     }
 
-    private parseForPrompt(_allAdventures: Adventure[]): PromptChoiceModel[] {
+    private parseForPrompt(_allAdventures: AdventureModel[]): PromptChoiceModel[] {
         let promptAdventureTitles: PromptChoiceModel[] = [];
 
         for (let i = 0; i < _allAdventures.length; i++) {
@@ -103,9 +103,9 @@ export class User {
         return promptAdventureTitles;
     }
 
-    private getAdventures(): Adventure[] {
+    private getAdventures(): AdventureModel[] {
         let rawdata: any = fs.readFileSync('adventure.json');
-        let adventures: Adventure[] = JSON.parse(rawdata);
+        let adventures: AdventureModel[] = JSON.parse(rawdata);
         return adventures;
     }
 }

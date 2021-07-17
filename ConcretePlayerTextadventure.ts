@@ -1,5 +1,4 @@
 import { GeneralPlayerModel } from "./Model/Interface/GeneralPlayerModel";
-import { Adventure } from "./Adventure";
 import { RegisteredUser } from "./RegisteredUser";
 import { UnregisteredUser } from "./UnregisteredUser";
 import { AdventureModel } from "./Model/Interface/AdventureModel";
