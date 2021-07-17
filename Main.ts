@@ -44,7 +44,7 @@ export class Main {
     await wait(timeToWait * (maximusArt.length + 1));
     let unregisteredUser = new UnregisteredUser();
 
-    console.log('Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?');
+    console.log('Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, Bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?');
 
     unregisteredUser.menu();
   }

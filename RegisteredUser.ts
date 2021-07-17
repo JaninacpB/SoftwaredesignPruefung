@@ -133,7 +133,7 @@ export class RegisteredUser extends User {
                 type: 'text',
                 name: 'title',
                 message: 'Nun was ist dein Titel..." ' + chalk.grey('(Abenteuertitel angeben)"'),
-                validate: title => title == '' ? chalk.red('Du musst einen Titel angeben um fortzufahren') : true
+                validate: title => title === '' || title.length > 25 ? chalk.red('Du musst einen Titel angeben um fortzufahren, er darf nicht größer als 25 Zeichen sein') : true
             },
             {
                 type: 'number',
@@ -174,7 +174,7 @@ export class RegisteredUser extends User {
                 min: 1,
                 max: _adventure.mapSizeX,
                 initial: 1,
-                message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... ' + chalk.grey('(X Startpunkt auf der Karteangeben)"'),
+                message: 'Nun, wo genau soll die Reise denn starten? Gib den X Startpunkt an... ' + chalk.grey('(X Startpunkt auf der Karteangeben)"'),
             },
             {
                 type: 'number',
@@ -188,7 +188,7 @@ export class RegisteredUser extends User {
         _adventure.startpointX = startConfig.startpointX;
         _adventure.startpointY = startConfig.startpointY;
         let field: FieldModel[] = [];
-        console.log('"Jetzt lass uns die Felder füllen. Wir fangen an Punkt 1/1 welcher links oben auf der Karte liegt und arbeiten uns zum Punkt rechts Unten durch."')
+        console.log('"Jetzt lass uns die Felder füllen. Wir fangen an Punkt 1/1 welcher links oben auf der Karte liegt und arbeiten uns zum Punkt rechts unten durch."')
         this.giveFieldPlaceName(_adventure, 1, 1, field);
     }
 
@@ -198,7 +198,7 @@ export class RegisteredUser extends User {
                 type: 'text',
                 name: 'place',
                 message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... ' + chalk.grey('(Ort eingeben)"'),
-                validate: (value: string) => value === '' ? 'Bitte trage einen Ort ein' : true
+                validate: (value: string) => value === '' || value.length > 120 ? 'Bitte trage einen Ort ein. Er darf nicht über 120 Zeichen haben' : true
             }
         ]);
         let currentField: FieldModel = { xPosition: _currentX, yPosition: _currentY, place: fieldName.place };

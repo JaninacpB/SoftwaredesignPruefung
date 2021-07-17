@@ -89,7 +89,7 @@ var Main = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         unregisteredUser = new UnregisteredUser_1.UnregisteredUser();
-                        console.log('Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?');
+                        console.log('Willkommen Reisender, ich bin Maximus, der großartige Illusionist und Magier. \n Der Retter der sieben Drachen, Bezwinger der grausamen Könige und- Sag mal, du kommst mir bekannt vor oder etwa nicht?');
                         unregisteredUser.menu();
                         return [2 /*return*/];
                 }

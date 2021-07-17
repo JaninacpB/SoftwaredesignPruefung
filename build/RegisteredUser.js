@@ -196,8 +196,8 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 {
                                     type: 'text',
                                     name: 'title',
-                                    message: 'Nun was ist dein Titel..." ' + chalk_1.default.grey('(Abenteuertitle angeben)"'),
-                                    validate: function (title) { return title == '' ? chalk_1.default.red('Du musst einen Title angeben um fortzufahren') : true; }
+                                    message: 'Nun was ist dein Titel..." ' + chalk_1.default.grey('(Abenteuertitel angeben)"'),
+                                    validate: function (title) { return title === '' || title.length > 25 ? chalk_1.default.red('Du musst einen Titel angeben um fortzufahren, er darf nicht größer als 25 Zeichen sein') : true; }
                                 },
                                 {
                                     type: 'number',
@@ -220,7 +220,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         mapData = _a.sent();
                         maximusRegrex = /Maximus/gi;
                         if (maximusRegrex.test(mapData.title)) {
-                            console.log('"Welch wunderbarer Title!');
+                            console.log('"Welch wunderbarer Titel!');
                         }
                         else {
                             console.log('"Am Titel könnte man Arbeiten, aber sonst in Ordnung...');
@@ -248,7 +248,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 min: 1,
                                 max: _adventure.mapSizeX,
                                 initial: 1,
-                                message: 'Nun, wo genau soll die Reise den starten? Gib den X Startpunkt an... ' + chalk_1.default.grey('(X Startpunkt auf der Karteangeben)"'),
+                                message: 'Nun, wo genau soll die Reise denn starten? Gib den X Startpunkt an... ' + chalk_1.default.grey('(X Startpunkt auf der Karteangeben)"'),
                             },
                             {
                                 type: 'number',
@@ -264,7 +264,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                         _adventure.startpointX = startConfig.startpointX;
                         _adventure.startpointY = startConfig.startpointY;
                         field = [];
-                        console.log('"Jetzt lass uns die Felder füllen. Wir fangen an Punkt 1/1 welcher links oben auf der Karte liegt und arbeiten uns zum Punkt rechts Unten durch."');
+                        console.log('"Jetzt lass uns die Felder füllen. Wir fangen an Punkt 1/1 welcher links oben auf der Karte liegt und arbeiten uns zum Punkt rechts unten durch."');
                         this.giveFieldPlaceName(_adventure, 1, 1, field);
                         return [2 /*return*/];
                 }
@@ -281,7 +281,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                                 type: 'text',
                                 name: 'place',
                                 message: '"Und was ist am Punkt ' + _currentX + '/' + _currentY + ' ... ' + chalk_1.default.grey('(Ort eingeben)"'),
-                                validate: function (value) { return value === '' ? 'Bitte trage einen Ort ein' : true; }
+                                validate: function (value) { return value === '' || value.length > 120 ? 'Bitte trage einen Ort ein. Er darf nicht über 120 Zeichen haben' : true; }
                             }
                         ])];
                     case 1:

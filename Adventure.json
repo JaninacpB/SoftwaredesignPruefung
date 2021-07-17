@@ -1,1 +1,480 @@
-[{"adventureId":"a90ccc15-9d33-42f2-b64c-e287ed0c88c9","title":"Das Auenland wartet","author":"c8a95a73-1722-40f8-b052-3a47f879bc0d","startpointX":2,"startpointY":2,"amountPlayers":35,"amountTurns":81,"mapSizeX":3,"mapSizeY":3,"field":[{"xPosition":1,"yPosition":1,"place":"Dunkler Wald"},{"xPosition":2,"yPosition":1,"place":"fließender Strom"},{"xPosition":3,"yPosition":1,"place":"Hügelkette"},{"xPosition":1,"yPosition":2,"place":"Taverne zum tänzelnden Pony"},{"xPosition":2,"yPosition":2,"place":"Hobbington"},{"xPosition":3,"yPosition":2,"place":"Trolle"},{"xPosition":1,"yPosition":3,"place":"Steinkreis"},{"xPosition":2,"yPosition":3,"place":"Blumenfeld"},{"xPosition":3,"yPosition":3,"place":"Wasserfall"}]},{"fs":{"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"constants":{"UV_FS_SYMLINK_DIR":1,"UV_FS_SYMLINK_JUNCTION":2,"O_RDONLY":0,"O_WRONLY":1,"O_RDWR":2,"UV_DIRENT_UNKNOWN":0,"UV_DIRENT_FILE":1,"UV_DIRENT_DIR":2,"UV_DIRENT_LINK":3,"UV_DIRENT_FIFO":4,"UV_DIRENT_SOCKET":5,"UV_DIRENT_CHAR":6,"UV_DIRENT_BLOCK":7,"S_IFMT":61440,"S_IFREG":32768,"S_IFDIR":16384,"S_IFCHR":8192,"S_IFLNK":40960,"O_CREAT":256,"O_EXCL":1024,"UV_FS_O_FILEMAP":536870912,"O_TRUNC":512,"O_APPEND":8,"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"UV_FS_COPYFILE_EXCL":1,"COPYFILE_EXCL":1,"UV_FS_COPYFILE_FICLONE":2,"COPYFILE_FICLONE":2,"UV_FS_COPYFILE_FICLONE_FORCE":4,"COPYFILE_FICLONE_FORCE":4},"promises":{}},"fsBack":{},"adventureId":"8d8c8aff-730b-4e7e-a1e6-005ddbebe7e5","title":"Maximus der große Held","author":"df2f58b1-38ba-41a8-ac45-0849dc6a8eb5","startpointX":1,"startpointY":1,"amountPlayers":19,"amountTurns":17,"mapSizeX":2,"mapSizeY":2,"field":[{"xPosition":1,"yPosition":1,"place":"Turm mit schöner Aussicht"},{"xPosition":2,"yPosition":1,"place":"Balkon mit schöner Aussicht"},{"xPosition":1,"yPosition":2,"place":"Wohnzimmer mit warmen Kamin"},{"xPosition":2,"yPosition":2,"place":"Saalon für gute Gespräche"}]},{"fs":{"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"constants":{"UV_FS_SYMLINK_DIR":1,"UV_FS_SYMLINK_JUNCTION":2,"O_RDONLY":0,"O_WRONLY":1,"O_RDWR":2,"UV_DIRENT_UNKNOWN":0,"UV_DIRENT_FILE":1,"UV_DIRENT_DIR":2,"UV_DIRENT_LINK":3,"UV_DIRENT_FIFO":4,"UV_DIRENT_SOCKET":5,"UV_DIRENT_CHAR":6,"UV_DIRENT_BLOCK":7,"S_IFMT":61440,"S_IFREG":32768,"S_IFDIR":16384,"S_IFCHR":8192,"S_IFLNK":40960,"O_CREAT":256,"O_EXCL":1024,"UV_FS_O_FILEMAP":536870912,"O_TRUNC":512,"O_APPEND":8,"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"UV_FS_COPYFILE_EXCL":1,"COPYFILE_EXCL":1,"UV_FS_COPYFILE_FICLONE":2,"COPYFILE_FICLONE":2,"UV_FS_COPYFILE_FICLONE_FORCE":4,"COPYFILE_FICLONE_FORCE":4},"promises":{}},"fsBack":{},"adventureId":"32bff38e-0e78-450f-a7ce-9a62fb7402c4","title":"2000 Meilen unter dem Meer","author":"df2f58b1-38ba-41a8-ac45-0849dc6a8eb5","startpointX":2,"startpointY":2,"amountPlayers":10,"amountTurns":35,"mapSizeX":3,"mapSizeY":3,"field":[{"xPosition":1,"yPosition":1,"place":"Hafenstadt"},{"xPosition":2,"yPosition":1,"place":"Offene See"},{"xPosition":3,"yPosition":1,"place":"Inselgruppe"},{"xPosition":1,"yPosition":2,"place":"Unter Wasser mit Aussicht auf einige Fische und Korallen"},{"xPosition":2,"yPosition":2,"place":"Unter dem Wasser mit Aussicht auf eine merkwürdig dunkle Gestalt unter uns"},{"xPosition":3,"yPosition":2,"place":"Unter Wasser nicht viel zu sehen hier"},{"xPosition":1,"yPosition":3,"place":"Tief Unterwasser man kann kaum etwas erkennen"},{"xPosition":2,"yPosition":3,"place":"EINEN KRAKEN! LAUFT!"},{"xPosition":3,"yPosition":3,"place":"Tief Unterwasser eine Schatzetruhe ist hier"}]},{"fs":{"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"constants":{"UV_FS_SYMLINK_DIR":1,"UV_FS_SYMLINK_JUNCTION":2,"O_RDONLY":0,"O_WRONLY":1,"O_RDWR":2,"UV_DIRENT_UNKNOWN":0,"UV_DIRENT_FILE":1,"UV_DIRENT_DIR":2,"UV_DIRENT_LINK":3,"UV_DIRENT_FIFO":4,"UV_DIRENT_SOCKET":5,"UV_DIRENT_CHAR":6,"UV_DIRENT_BLOCK":7,"S_IFMT":61440,"S_IFREG":32768,"S_IFDIR":16384,"S_IFCHR":8192,"S_IFLNK":40960,"O_CREAT":256,"O_EXCL":1024,"UV_FS_O_FILEMAP":536870912,"O_TRUNC":512,"O_APPEND":8,"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"UV_FS_COPYFILE_EXCL":1,"COPYFILE_EXCL":1,"UV_FS_COPYFILE_FICLONE":2,"COPYFILE_FICLONE":2,"UV_FS_COPYFILE_FICLONE_FORCE":4,"COPYFILE_FICLONE_FORCE":4},"promises":{}},"fsBack":{},"adventureId":"01257083-3159-4955-a69b-238ba9468539","title":"Narnia","author":"df2f58b1-38ba-41a8-ac45-0849dc6a8eb5","startpointX":2,"startpointY":2,"amountPlayers":3,"amountTurns":5,"mapSizeX":2,"mapSizeY":2,"field":[{"xPosition":1,"yPosition":1,"place":"Kleiderschrank, Tor in die alte Welt "},{"xPosition":2,"yPosition":1,"place":"Wald mit viel Schnee"},{"xPosition":1,"yPosition":2,"place":"Strandabschnitt"},{"xPosition":2,"yPosition":2,"place":"Ein prächtiges Schloss"}]},{"fs":{"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"constants":{"UV_FS_SYMLINK_DIR":1,"UV_FS_SYMLINK_JUNCTION":2,"O_RDONLY":0,"O_WRONLY":1,"O_RDWR":2,"UV_DIRENT_UNKNOWN":0,"UV_DIRENT_FILE":1,"UV_DIRENT_DIR":2,"UV_DIRENT_LINK":3,"UV_DIRENT_FIFO":4,"UV_DIRENT_SOCKET":5,"UV_DIRENT_CHAR":6,"UV_DIRENT_BLOCK":7,"S_IFMT":61440,"S_IFREG":32768,"S_IFDIR":16384,"S_IFCHR":8192,"S_IFLNK":40960,"O_CREAT":256,"O_EXCL":1024,"UV_FS_O_FILEMAP":536870912,"O_TRUNC":512,"O_APPEND":8,"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"UV_FS_COPYFILE_EXCL":1,"COPYFILE_EXCL":1,"UV_FS_COPYFILE_FICLONE":2,"COPYFILE_FICLONE":2,"UV_FS_COPYFILE_FICLONE_FORCE":4,"COPYFILE_FICLONE_FORCE":4},"promises":{}},"fsBack":{},"adventureId":"7aa90ef7-471e-4334-a8d4-7b29c06b300a","title":"Tag der Abrechnung","author":"68c8cf74-2f2a-4725-b6ef-513b818faea7","startpointX":1,"startpointY":1,"amountPlayers":5,"amountTurns":1,"mapSizeX":1,"mapSizeY":1,"field":[{"xPosition":1,"yPosition":1,"place":"Wartezimmer vom Steuerbüro"}]},{"fs":{"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"constants":{"UV_FS_SYMLINK_DIR":1,"UV_FS_SYMLINK_JUNCTION":2,"O_RDONLY":0,"O_WRONLY":1,"O_RDWR":2,"UV_DIRENT_UNKNOWN":0,"UV_DIRENT_FILE":1,"UV_DIRENT_DIR":2,"UV_DIRENT_LINK":3,"UV_DIRENT_FIFO":4,"UV_DIRENT_SOCKET":5,"UV_DIRENT_CHAR":6,"UV_DIRENT_BLOCK":7,"S_IFMT":61440,"S_IFREG":32768,"S_IFDIR":16384,"S_IFCHR":8192,"S_IFLNK":40960,"O_CREAT":256,"O_EXCL":1024,"UV_FS_O_FILEMAP":536870912,"O_TRUNC":512,"O_APPEND":8,"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"UV_FS_COPYFILE_EXCL":1,"COPYFILE_EXCL":1,"UV_FS_COPYFILE_FICLONE":2,"COPYFILE_FICLONE":2,"UV_FS_COPYFILE_FICLONE_FORCE":4,"COPYFILE_FICLONE_FORCE":4},"promises":{}},"fsBack":{},"adventureId":"335ea954-15e3-4b25-84b0-64ffdab53c3d","title":"Matrix","author":"df2f58b1-38ba-41a8-ac45-0849dc6a8eb5","startpointX":1,"startpointY":1,"amountPlayers":2,"amountTurns":1,"mapSizeX":1,"mapSizeY":1,"field":[{"xPosition":1,"yPosition":1,"place":"Rechenzentrum"}]},{"adventureId":"0ca443d7-b6fd-41c5-bc7a-468d38fa6661","title":"HFU","author":"df2f58b1-38ba-41a8-ac45-0849dc6a8eb5","startpointX":1,"startpointY":1,"amountPlayers":1,"amountTurns":2,"mapSizeX":2,"mapSizeY":2,"field":[{"xPosition":1,"yPosition":1,"place":"A-Bau"},{"xPosition":2,"yPosition":1,"place":"B-Bau"},{"xPosition":1,"yPosition":2,"place":"Mensa"},{"xPosition":2,"yPosition":2,"place":"Kirche"}]},{"adventureId":"fc545ce5-600c-4b51-b9a1-8a73fa2dde02","title":"Tortels all the way down","author":"df2f58b1-38ba-41a8-ac45-0849dc6a8eb5","startpointX":1,"startpointY":1,"amountPlayers":3,"amountTurns":0,"mapSizeX":1,"mapSizeY":1,"field":[{"xPosition":1,"yPosition":1,"place":"Schildkröten bis in die Unendlichkeit"}]},{"adventureId":"19194c58-0d91-4838-b5f1-7c7bcb110f10","title":"Maximus Reisen","author":"966d9c9a-a514-469b-b676-f71badac9d30","startpointX":1,"startpointY":1,"amountPlayers":2,"amountTurns":7,"mapSizeX":3,"mapSizeY":4,"field":[{"xPosition":1,"yPosition":1,"place":"Labor des großen Zauberers"},{"xPosition":2,"yPosition":1,"place":"weites Blumenfeld"},{"xPosition":3,"yPosition":1,"place":"großer Zauberwald"},{"xPosition":1,"yPosition":2,"place":"weites Blumenfeld"},{"xPosition":2,"yPosition":2,"place":"Kreuzung "},{"xPosition":3,"yPosition":2,"place":"Hütte des Zaubererkollegen (bisschen verrückt, aber ein netter Geselle)"},{"xPosition":1,"yPosition":3,"place":"Burg des allseits beliebten Königs"},{"xPosition":2,"yPosition":3,"place":"Gasthaus"},{"xPosition":3,"yPosition":3,"place":"Zauberwald"},{"xPosition":1,"yPosition":4,"place":"Dorf am Fuße der Burg"},{"xPosition":2,"yPosition":4,"place":"Feld"},{"xPosition":3,"yPosition":4,"place":"Burg des bösen Zauberers (gar kein netter Typ)"}]}]
+[
+    {
+        "adventureId": "a90ccc15-9d33-42f2-b64c-e287ed0c88c9",
+        "title": "Das Auenland wartet",
+        "author": "c8a95a73-1722-40f8-b052-3a47f879bc0d",
+        "startpointX": 2,
+        "startpointY": 2,
+        "amountPlayers": 35,
+        "amountTurns": 81,
+        "mapSizeX": 3,
+        "mapSizeY": 3,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Dunkler Wald"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "fließender Strom"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 1,
+                "place": "Hügelkette"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "Taverne zum tänzelnden Pony"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Hobbington"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 2,
+                "place": "Trolle"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 3,
+                "place": "Steinkreis"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 3,
+                "place": "Blumenfeld"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 3,
+                "place": "Wasserfall"
+            }
+        ]
+    },
+    {
+        "fs": {
+            "F_OK": 0,
+            "R_OK": 4,
+            "W_OK": 2,
+            "X_OK": 1,
+            "constants": {
+                "UV_FS_SYMLINK_DIR": 1,
+                "UV_FS_SYMLINK_JUNCTION": 2,
+                "O_RDONLY": 0,
+                "O_WRONLY": 1,
+                "O_RDWR": 2,
+                "UV_DIRENT_UNKNOWN": 0,
+                "UV_DIRENT_FILE": 1,
+                "UV_DIRENT_DIR": 2,
+                "UV_DIRENT_LINK": 3,
+                "UV_DIRENT_FIFO": 4,
+                "UV_DIRENT_SOCKET": 5,
+                "UV_DIRENT_CHAR": 6,
+                "UV_DIRENT_BLOCK": 7,
+                "S_IFMT": 61440,
+                "S_IFREG": 32768,
+                "S_IFDIR": 16384,
+                "S_IFCHR": 8192,
+                "S_IFLNK": 40960,
+                "O_CREAT": 256,
+                "O_EXCL": 1024,
+                "UV_FS_O_FILEMAP": 536870912,
+                "O_TRUNC": 512,
+                "O_APPEND": 8,
+                "F_OK": 0,
+                "R_OK": 4,
+                "W_OK": 2,
+                "X_OK": 1,
+                "UV_FS_COPYFILE_EXCL": 1,
+                "COPYFILE_EXCL": 1,
+                "UV_FS_COPYFILE_FICLONE": 2,
+                "COPYFILE_FICLONE": 2,
+                "UV_FS_COPYFILE_FICLONE_FORCE": 4,
+                "COPYFILE_FICLONE_FORCE": 4
+            },
+            "promises": {}
+        },
+        "fsBack": {},
+        "adventureId": "8d8c8aff-730b-4e7e-a1e6-005ddbebe7e5",
+        "title": "Maximus der große Held",
+        "author": "df2f58b1-38ba-41a8-ac45-0849dc6a8eb5",
+        "startpointX": 1,
+        "startpointY": 1,
+        "amountPlayers": 19,
+        "amountTurns": 17,
+        "mapSizeX": 2,
+        "mapSizeY": 2,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Turm mit schöner Aussicht"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "Balkon mit schöner Aussicht"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "Wohnzimmer mit warmen Kamin"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Saalon für gute Gespräche"
+            }
+        ]
+    },
+    {
+        "fs": {
+            "F_OK": 0,
+            "R_OK": 4,
+            "W_OK": 2,
+            "X_OK": 1,
+            "constants": {
+                "UV_FS_SYMLINK_DIR": 1,
+                "UV_FS_SYMLINK_JUNCTION": 2,
+                "O_RDONLY": 0,
+                "O_WRONLY": 1,
+                "O_RDWR": 2,
+                "UV_DIRENT_UNKNOWN": 0,
+                "UV_DIRENT_FILE": 1,
+                "UV_DIRENT_DIR": 2,
+                "UV_DIRENT_LINK": 3,
+                "UV_DIRENT_FIFO": 4,
+                "UV_DIRENT_SOCKET": 5,
+                "UV_DIRENT_CHAR": 6,
+                "UV_DIRENT_BLOCK": 7,
+                "S_IFMT": 61440,
+                "S_IFREG": 32768,
+                "S_IFDIR": 16384,
+                "S_IFCHR": 8192,
+                "S_IFLNK": 40960,
+                "O_CREAT": 256,
+                "O_EXCL": 1024,
+                "UV_FS_O_FILEMAP": 536870912,
+                "O_TRUNC": 512,
+                "O_APPEND": 8,
+                "F_OK": 0,
+                "R_OK": 4,
+                "W_OK": 2,
+                "X_OK": 1,
+                "UV_FS_COPYFILE_EXCL": 1,
+                "COPYFILE_EXCL": 1,
+                "UV_FS_COPYFILE_FICLONE": 2,
+                "COPYFILE_FICLONE": 2,
+                "UV_FS_COPYFILE_FICLONE_FORCE": 4,
+                "COPYFILE_FICLONE_FORCE": 4
+            },
+            "promises": {}
+        },
+        "fsBack": {},
+        "adventureId": "32bff38e-0e78-450f-a7ce-9a62fb7402c4",
+        "title": "2000 Meilen unter dem Meer",
+        "author": "df2f58b1-38ba-41a8-ac45-0849dc6a8eb5",
+        "startpointX": 2,
+        "startpointY": 2,
+        "amountPlayers": 11,
+        "amountTurns": 43,
+        "mapSizeX": 3,
+        "mapSizeY": 3,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Hafenstadt"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "Offene See"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 1,
+                "place": "Inselgruppe"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "Unter Wasser mit Aussicht auf einige Fische und Korallen"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Unter dem Wasser mit Aussicht auf eine merkwürdig dunkle Gestalt unter uns"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 2,
+                "place": "Unter Wasser nicht viel zu sehen hier"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 3,
+                "place": "Tief Unterwasser man kann kaum etwas erkennen"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 3,
+                "place": "EINEN KRAKEN! LAUFT!"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 3,
+                "place": "Tief Unterwasser eine Schatzetruhe ist hier"
+            }
+        ]
+    },
+    {
+        "fs": {
+            "F_OK": 0,
+            "R_OK": 4,
+            "W_OK": 2,
+            "X_OK": 1,
+            "constants": {
+                "UV_FS_SYMLINK_DIR": 1,
+                "UV_FS_SYMLINK_JUNCTION": 2,
+                "O_RDONLY": 0,
+                "O_WRONLY": 1,
+                "O_RDWR": 2,
+                "UV_DIRENT_UNKNOWN": 0,
+                "UV_DIRENT_FILE": 1,
+                "UV_DIRENT_DIR": 2,
+                "UV_DIRENT_LINK": 3,
+                "UV_DIRENT_FIFO": 4,
+                "UV_DIRENT_SOCKET": 5,
+                "UV_DIRENT_CHAR": 6,
+                "UV_DIRENT_BLOCK": 7,
+                "S_IFMT": 61440,
+                "S_IFREG": 32768,
+                "S_IFDIR": 16384,
+                "S_IFCHR": 8192,
+                "S_IFLNK": 40960,
+                "O_CREAT": 256,
+                "O_EXCL": 1024,
+                "UV_FS_O_FILEMAP": 536870912,
+                "O_TRUNC": 512,
+                "O_APPEND": 8,
+                "F_OK": 0,
+                "R_OK": 4,
+                "W_OK": 2,
+                "X_OK": 1,
+                "UV_FS_COPYFILE_EXCL": 1,
+                "COPYFILE_EXCL": 1,
+                "UV_FS_COPYFILE_FICLONE": 2,
+                "COPYFILE_FICLONE": 2,
+                "UV_FS_COPYFILE_FICLONE_FORCE": 4,
+                "COPYFILE_FICLONE_FORCE": 4
+            },
+            "promises": {}
+        },
+        "fsBack": {},
+        "adventureId": "01257083-3159-4955-a69b-238ba9468539",
+        "title": "Narnia",
+        "author": "df2f58b1-38ba-41a8-ac45-0849dc6a8eb5",
+        "startpointX": 2,
+        "startpointY": 2,
+        "amountPlayers": 3,
+        "amountTurns": 5,
+        "mapSizeX": 2,
+        "mapSizeY": 2,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Kleiderschrank, Tor in die alte Welt "
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "Wald mit viel Schnee"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "Strandabschnitt"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Ein prächtiges Schloss"
+            }
+        ]
+    },
+    {
+        "fs": {
+            "F_OK": 0,
+            "R_OK": 4,
+            "W_OK": 2,
+            "X_OK": 1,
+            "constants": {
+                "UV_FS_SYMLINK_DIR": 1,
+                "UV_FS_SYMLINK_JUNCTION": 2,
+                "O_RDONLY": 0,
+                "O_WRONLY": 1,
+                "O_RDWR": 2,
+                "UV_DIRENT_UNKNOWN": 0,
+                "UV_DIRENT_FILE": 1,
+                "UV_DIRENT_DIR": 2,
+                "UV_DIRENT_LINK": 3,
+                "UV_DIRENT_FIFO": 4,
+                "UV_DIRENT_SOCKET": 5,
+                "UV_DIRENT_CHAR": 6,
+                "UV_DIRENT_BLOCK": 7,
+                "S_IFMT": 61440,
+                "S_IFREG": 32768,
+                "S_IFDIR": 16384,
+                "S_IFCHR": 8192,
+                "S_IFLNK": 40960,
+                "O_CREAT": 256,
+                "O_EXCL": 1024,
+                "UV_FS_O_FILEMAP": 536870912,
+                "O_TRUNC": 512,
+                "O_APPEND": 8,
+                "F_OK": 0,
+                "R_OK": 4,
+                "W_OK": 2,
+                "X_OK": 1,
+                "UV_FS_COPYFILE_EXCL": 1,
+                "COPYFILE_EXCL": 1,
+                "UV_FS_COPYFILE_FICLONE": 2,
+                "COPYFILE_FICLONE": 2,
+                "UV_FS_COPYFILE_FICLONE_FORCE": 4,
+                "COPYFILE_FICLONE_FORCE": 4
+            },
+            "promises": {}
+        },
+        "fsBack": {},
+        "adventureId": "7aa90ef7-471e-4334-a8d4-7b29c06b300a",
+        "title": "Tag der Abrechnung",
+        "author": "68c8cf74-2f2a-4725-b6ef-513b818faea7",
+        "startpointX": 1,
+        "startpointY": 1,
+        "amountPlayers": 6,
+        "amountTurns": 1,
+        "mapSizeX": 1,
+        "mapSizeY": 1,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Wartezimmer vom Steuerbüro"
+            }
+        ]
+    },
+    {
+        "adventureId": "0ca443d7-b6fd-41c5-bc7a-468d38fa6661",
+        "title": "HFU",
+        "author": "df2f58b1-38ba-41a8-ac45-0849dc6a8eb5",
+        "startpointX": 1,
+        "startpointY": 1,
+        "amountPlayers": 1,
+        "amountTurns": 2,
+        "mapSizeX": 2,
+        "mapSizeY": 2,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "A-Bau"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "B-Bau"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "Mensa"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Kirche"
+            }
+        ]
+    },
+    {
+        "adventureId": "19194c58-0d91-4838-b5f1-7c7bcb110f10",
+        "title": "Maximus Reisen",
+        "author": "966d9c9a-a514-469b-b676-f71badac9d30",
+        "startpointX": 1,
+        "startpointY": 1,
+        "amountPlayers": 3,
+        "amountTurns": 25,
+        "mapSizeX": 3,
+        "mapSizeY": 4,
+        "field": [
+            {
+                "xPosition": 1,
+                "yPosition": 1,
+                "place": "Labor des großen Zauberers"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 1,
+                "place": "weites Blumenfeld"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 1,
+                "place": "großer Zauberwald"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 2,
+                "place": "weites Blumenfeld"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 2,
+                "place": "Kreuzung "
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 2,
+                "place": "Hütte des Zaubererkollegen (bisschen verrückt, aber ein netter Geselle)"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 3,
+                "place": "Burg des allseits beliebten Königs"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 3,
+                "place": "Gasthaus"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 3,
+                "place": "Zauberwald"
+            },
+            {
+                "xPosition": 1,
+                "yPosition": 4,
+                "place": "Dorf am Fuße der Burg"
+            },
+            {
+                "xPosition": 2,
+                "yPosition": 4,
+                "place": "Feld"
+            },
+            {
+                "xPosition": 3,
+                "yPosition": 4,
+                "place": "Burg des bösen Zauberers (gar kein netter Typ)"
+            }
+        ]
+    }
+]
