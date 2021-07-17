@@ -1,4 +1,3 @@
-import { Adventure } from "./Adventure";
 import { PlayerTextadventure } from "./PlayerTextadventure";
 import { PromptChoiceModel } from "./Model/Interface/PromptChoiceModel";
 import { AdventureModel } from "./Model/Interface/AdventureModel";
