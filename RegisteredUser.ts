@@ -42,7 +42,7 @@ export class RegisteredUser extends User {
                     { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk.grey('(Übersicht aller Abenteuer anzeigen)"'), value: 0 },
                     { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk.grey('(Nach Abenteuer suchen)"'), value: 1 },
                     { title: '"Ich möchte eine eigene Geschichte erschaffen... ' + chalk.grey('(Erstelle ein Abenteuer)"'), value: 2 },
-                    { title: '"Hast du anderen bereits meine Geschichten gegeben? ' + chalk.grey('(Was sagten sie... (Statistik ansehen)"'), value: 3 },
+                    { title: '"Hast du anderen bereits meine Geschichten gegeben? Was sagten sie... ' + chalk.grey('(Statistik ansehen)"'), value: 3 },
                     { title: chalk.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
                 ],
                 initial: 0

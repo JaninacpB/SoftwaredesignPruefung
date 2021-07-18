@@ -92,7 +92,7 @@ var RegisteredUser = /** @class */ (function (_super) {
                                     { title: '"Diese Bücher, die du bei dir trägst, welche Geschichten enthalten sie... ' + chalk_1.default.grey('(Übersicht aller Abenteuer anzeigen)"'), value: 0 },
                                     { title: '"Ich bin auf der Suche nach einer ganz bestimmten Geschichte... ' + chalk_1.default.grey('(Nach Abenteuer suchen)"'), value: 1 },
                                     { title: '"Ich möchte eine eigene Geschichte erschaffen... ' + chalk_1.default.grey('(Erstelle ein Abenteuer)"'), value: 2 },
-                                    { title: '"Hast du anderen bereits meine Geschichten gegeben? ' + chalk_1.default.grey('(Was sagten sie... (Statistik ansehen)"'), value: 3 },
+                                    { title: '"Hast du anderen bereits meine Geschichten gegeben? Was sagten sie... ' + chalk_1.default.grey('(Statistik ansehen)"'), value: 3 },
                                     { title: chalk_1.default.red('"Es wird Zeit, dass unsere Wege sich wieder trenne... (Programm beenden)"'), value: 4 }
                                 ],
                                 initial: 0
